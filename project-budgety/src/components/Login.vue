@@ -53,6 +53,7 @@ body {
 	overflow: hidden;
 	height: 95vh;
 	width: 100vw;
+	background-color: yellow;
 }
 
 .login-details {
@@ -71,15 +72,37 @@ body {
 
 #email,
 #password {
-	border-top-style: hidden;
-	border-right-style: hidden;
-	border-left-style: hidden;
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
 	border-bottom-style: 1px ridge;
 	border-bottom-color: #aba6a6;
 	width: 100%;
 	padding: 10px;
 	box-sizing: border-box;
 }
+
+#email:hover,
+#password:hover {
+	border-top-style: solid;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-color: #aba6a6;
+	box-shadow: 2px 2px #ee82ee;
+	border-radius: 2px;
+	border-width: 2px;
+}
+
+/* input.text:focus,
+input.text:focus {
+	border-top-style: solid;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-color: #aba6a6;
+	border-radius: 2px;
+	border-width: 2px;
+	outline: none;
+} */
 
 #email-div,
 #password-div {

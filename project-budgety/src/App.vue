@@ -15,8 +15,8 @@ export default {
 
 <template>
 	<main>
-		<LoginVue />
-		<!-- <RegistrationVue /> -->
+		<!-- <LoginVue /> -->
+		<RegistrationVue />
 		<BudgetyCoverVue />
 	</main>
 </template>

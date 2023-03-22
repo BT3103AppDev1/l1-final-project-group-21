@@ -22,6 +22,9 @@
 }
 
 img {
-	margin: 20%;
+	margin: auto;
+	height: 60%;
+	width: 60%;
+	object-fit: contain;
 }
 </style>

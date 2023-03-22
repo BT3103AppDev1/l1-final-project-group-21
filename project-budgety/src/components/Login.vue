@@ -21,15 +21,15 @@
 			</div>
 
 			<div style="display: flex; flex-direction: row">
-				<b class="navigate-next">Forgot password?</b>
+				<p class="navigate-next">Forgot password?</p>
 				<!-- HANDLE ON CLICK EVENT -->
 			</div>
 
 			<button id="login-button" type="button">Login</button>
 
 			<div style="display: flex; justify-content: center">
-				<b id="no-account">Don't have an account?</b>
-				<b class="navigate-next"> &nbsp; Sign up.</b>
+				<p id="no-account">Don't have an account?</p>
+				<p class="navigate-next">&nbsp; Sign up.</p>
 			</div>
 		</div>
 	</div>
@@ -40,8 +40,6 @@
 <style scoped>
 html,
 body {
-	width: 97vh;
-	height: 97vh;
 	overflow: hidden;
 	margin: 0;
 }
@@ -50,10 +48,9 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	overflow: hidden;
-	height: 95vh;
+	height: 100vh;
 	width: 100vw;
-	background-color: yellow;
+	overflow: hidden;
 }
 
 .login-details {

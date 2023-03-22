@@ -2,22 +2,14 @@
 	<div class="container">
 		<div class="login-details">
 			<p id="heading">LOGIN</p>
-			<div id="email-div">
+			<div class="input-div">
 				<input type="text" id="email" required="" placeholder="Email Address" />
-				<fa
-					icon="envelope"
-					color="#ABA6A6"
-					style="position: absolute; right: 10px; top: 10px"
-				/>
+				<fa class="icons" icon="envelope" />
 			</div>
 
-			<div id="password-div">
+			<div class="input-div">
 				<input type="text" id="password" required="" placeholder="Password" />
-				<fa
-					icon="lock"
-					color="#ABA6A6"
-					style="position: absolute; right: 10px; top: 10px"
-				/>
+				<fa class="icons" icon="lock" />
 			</div>
 
 			<div style="display: flex; flex-direction: row">
@@ -37,7 +29,7 @@
 
 <script></script>
 
-<style scoped>
+<style>
 html,
 body {
 	overflow: hidden;
@@ -67,8 +59,7 @@ body {
 	justify-content: center;
 }
 
-#email,
-#password {
+input {
 	border-top-style: none;
 	border-right-style: none;
 	border-left-style: none;
@@ -79,8 +70,7 @@ body {
 	box-sizing: border-box;
 }
 
-#email:hover,
-#password:hover {
+input:hover {
 	border-top-style: solid;
 	border-right-style: solid;
 	border-left-style: solid;
@@ -101,8 +91,7 @@ input.text:focus {
 	outline: none;
 } */
 
-#email-div,
-#password-div {
+.input-div {
 	/* display: flex;
 	flex-direction: row;
 	justify-content: center; */
@@ -135,5 +124,12 @@ input.text:focus {
 	font-family: "Inter";
 	font-size: 80%;
 	color: #6c60f3;
+}
+
+.icons {
+	color: #aba6a6;
+	position: absolute;
+	right: 10px;
+	top: 10px;
 }
 </style>

@@ -1,12 +1,14 @@
 <script>
 import LoginVue from "./components/Login.vue";
 import BudgetyCoverVue from "./components/BudgetyCover.vue";
+import RegistrationVue from "./components/Registration.vue";
 
 export default {
 	name: "App",
 	components: {
 		LoginVue,
 		BudgetyCoverVue,
+		RegistrationVue,
 	},
 };
 </script>
@@ -14,7 +16,7 @@ export default {
 <template>
 	<main>
 		<LoginVue />
-		<!-- add budgety cover component -->
+		<!-- <RegistrationVue /> -->
 		<BudgetyCoverVue />
 	</main>
 </template>

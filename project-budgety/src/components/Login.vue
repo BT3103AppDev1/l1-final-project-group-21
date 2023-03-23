@@ -12,16 +12,19 @@
 				<fa class="icons" icon="lock" />
 			</div>
 
-			<div style="display: flex; flex-direction: row">
-				<p class="navigate-next">Forgot password?</p>
-				<!-- HANDLE ON CLICK EVENT -->
+			<div style="display: flex; flex-direction: row" class="nav">
+				<router-link to="/resetpassword">
+					<p class="navigate-next">Forgot password?</p>
+				</router-link>
 			</div>
 
 			<button id="login-button" type="button">Login</button>
 
-			<div style="display: flex; justify-content: center">
-				<p id="no-account">Don't have an account?</p>
-				<p class="navigate-next">&nbsp; Sign up.</p>
+			<div style="display: flex; justify-content: center" class="nav">
+				<p id="no-account">Don't have an account? &nbsp;</p>
+				<router-link to="/registration" id="nav">
+					<p class="navigate-next">Sign up.</p>
+				</router-link>
 			</div>
 		</div>
 	</div>

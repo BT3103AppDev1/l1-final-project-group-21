@@ -30,8 +30,11 @@
 			<button id="register-button" type="button">Register</button>
 
 			<div style="display: flex; justify-content: center">
-				<p id="no-account">Already have an account?</p>
-				<p class="navigate-next">&nbsp; Login.</p>
+				<p id="no-account">Already have an account? &nbsp;</p>
+
+				<router-link to="/">
+					<p class="navigate-next">Login.</p>
+				</router-link>
 			</div>
 		</div>
 	</div>

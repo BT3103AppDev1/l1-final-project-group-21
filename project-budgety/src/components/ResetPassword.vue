@@ -10,8 +10,9 @@
 			<button id="reset-button" type="button">Reset</button>
 
 			<div style="display: flex; justify-content: center">
-				<!-- HANDLE ON CLICK BACK TO LOGIN -->
-				<p class="navigate-next">Back to Login.</p>
+				<router-link to="/">
+					<p class="navigate-next">Back to Login.</p>
+				</router-link>
 			</div>
 		</div>
 	</div>

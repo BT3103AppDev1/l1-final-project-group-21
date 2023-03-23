@@ -1,18 +1,35 @@
-<script>
-import LoginPageVue from "./views/LoginPage.vue";
-import RegistrationPageVue from "./views/RegistrationPage.vue";
-import ResetPasswordPageVue from "./views/ResetPasswordPage.vue";
+<template>
+	<!-- <div id="nav">
+		<router-link to="/">Login</router-link> |
+		<router-link to="/registration">Registration</router-link> |
+		<router-link to="/resetpassword">Reset Password</router-link>
+	</div> -->
+	<router-view />
+</template>
 
+<script>
 export default {
 	name: "App",
-	components: {
-		LoginPageVue,
-		RegistrationPageVue,
-		ResetPasswordPageVue,
-	},
 };
 </script>
 
-<template>
-	<ResetPasswordPageVue />
-</template>
+<style scoped>
+#app {
+	font-family: Avenir, Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-align: center;
+	color: #2c3e50;
+	margin-top: 30px;
+}
+#nav {
+	padding: 30px;
+}
+#nav a {
+	font-weight: bold;
+	color: #2c3e50;
+}
+#nav a.router-link-exact-active {
+	color: #6c60f3;
+}
+</style>

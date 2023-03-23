@@ -1,27 +1,17 @@
 <template>
 	<div class="container">
-		<div class="login-details">
-			<p id="heading">LOGIN</p>
+		<div class="reset-details">
+			<p id="heading">RESET PASSWORD</p>
 			<div class="input-div">
 				<input type="text" id="email" required="" placeholder="Email Address" />
 				<fa class="icons" icon="envelope" />
 			</div>
 
-			<div class="input-div">
-				<input type="text" id="password" required="" placeholder="Password" />
-				<fa class="icons" icon="lock" />
-			</div>
-
-			<div style="display: flex; flex-direction: row">
-				<p class="navigate-next">Forgot password?</p>
-				<!-- HANDLE ON CLICK EVENT -->
-			</div>
-
-			<button id="login-button" type="button">Login</button>
+			<button id="reset-button" type="button">Reset</button>
 
 			<div style="display: flex; justify-content: center">
-				<p id="no-account">Don't have an account?</p>
-				<p class="navigate-next">&nbsp; Sign up.</p>
+				<!-- HANDLE ON CLICK BACK TO LOGIN -->
+				<p class="navigate-next">Back to Login.</p>
 			</div>
 		</div>
 	</div>
@@ -45,7 +35,7 @@ body {
 	overflow: hidden;
 }
 
-.login-details {
+.reset-details {
 	width: 40%;
 }
 
@@ -99,7 +89,7 @@ input.text:focus {
 	position: relative;
 }
 
-#login-button {
+#reset-button {
 	color: white;
 	background-color: #6c60f3;
 	border-radius: 20px;

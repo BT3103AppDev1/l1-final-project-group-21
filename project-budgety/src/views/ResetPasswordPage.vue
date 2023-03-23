@@ -1,18 +1,18 @@
 <template>
 	<main>
-		<LoginVue />
+		<ResetPasswordVue />
 		<BudgetyCoverVue />
 	</main>
 </template>
 
 <script>
-import LoginVue from "../components/Login.vue";
+import ResetPasswordVue from "../components/ResetPassword.vue";
 import BudgetyCoverVue from "../components/BudgetyCover.vue";
 
 export default {
 	name: "App",
 	components: {
-		LoginVue,
+		ResetPasswordVue,
 		BudgetyCoverVue,
 	},
 };

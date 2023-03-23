@@ -1,31 +1,18 @@
 <script>
-import LoginVue from "./components/Login.vue";
-import BudgetyCoverVue from "./components/BudgetyCover.vue";
-import RegistrationVue from "./components/Registration.vue";
-import ResetPasswordVue from "./components/ResetPassword.vue";
+import LoginPageVue from "./views/LoginPage.vue";
+import RegistrationPageVue from "./views/RegistrationPage.vue";
+import ResetPasswordPageVue from "./views/ResetPasswordPage.vue";
 
 export default {
 	name: "App",
 	components: {
-		LoginVue,
-		BudgetyCoverVue,
-		RegistrationVue,
-		ResetPasswordVue,
+		LoginPageVue,
+		RegistrationPageVue,
+		ResetPasswordPageVue,
 	},
 };
 </script>
 
 <template>
-	<main>
-		<!-- <LoginVue /> -->
-		<!-- <RegistrationVue /> -->
-		<ResetPasswordVue />
-		<BudgetyCoverVue />
-	</main>
+	<ResetPasswordPageVue />
 </template>
-
-<style scoped>
-main {
-	display: flex;
-}
-</style>

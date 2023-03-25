@@ -5,10 +5,12 @@
         <div class="expense-boxes">
             <div class="expense-box">
                 <div class="expense-box-header">TOTAL EXPENSES</div>
+                <!-- change to {{ }} thing -->
                 <div class="expense-value">$190.56</div>
             </div>
             <div class="expense-box">
                 <div class="expense-box-header">AVG EXPENSES/DAY</div>
+                <!-- change to {{ }} thing -->
                 <div class="expense-value">$13.62</div>
             </div>
         </div>
@@ -28,6 +30,17 @@
     <div class="section3">
         <div class="top-line">
             <div class="font-18">Expenses History</div>
+            <div class="filter-btn-wrapper">
+              <div class="filter-btn">
+                <fa icon="filter" />
+                Filter
+              </div>
+            </div>
+           
+
+
+         
+            
             <!-- add button -->
         </div>
     </div>
@@ -137,6 +150,31 @@ root {
   height: 366px; */
   background: #ffffff;
   box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
+}
+
+.top-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter-btn { /* possibly for all buttons */
+  align-items: center;
+  background-color: #FFFFFF;
+  border: 0.5px solid #F4F4F4;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  padding: 5px 10px 5px 10px;
+  margin-right: 35px;
+  font-weight: 500;
+  font-size: 12px;
+  color: #ABA6A6;
+  /* font-weight: var(--font-medium); */
+}
+
+.filter-btn:hover {
+  background-color: #F2F2F2;
+  cursor: pointer;
 }
 
 </style>

@@ -8,9 +8,13 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
 /* import all solid icons */
-import { fas} from '@fortawesome/free-solid-svg-icons'
+import { fas } from '@fortawesome/free-solid-svg-icons'
 /* add icons to the library */
 library.add(fas);
+
+// import css from mdb
+import 'mdb-vue-ui-kit/css/mdb.min.css';
+
 
 createApp(App)
 .component('fa', FontAwesomeIcon)

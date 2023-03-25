@@ -32,16 +32,12 @@
             <div class="font-18">Expenses History</div>
             <div class="filter-btn-wrapper">
               <div class="filter-btn">
-                <fa icon="filter" />
-                Filter
+                <fa icon="filter" />Filter
               </div>
             </div>
-           
-
-
-         
-            
-            <!-- add button -->
+        </div>
+        <div class="expenses-table">
+          <ExpensesHistory />
         </div>
     </div>
 </div>
@@ -53,11 +49,15 @@
 
 <script>
 import LineChart from '../components/LineChart.vue'
+import ExpensesHistory from '../components/ExpensesHistory.vue'
 
 export default {
       name:'Analytics',
       // local registration using components
-      components: { LineChart },
+      components: { 
+        LineChart, 
+        ExpensesHistory 
+      },
       mounted() {
         console.log("Component Mounted")
 
@@ -68,10 +68,10 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap'); */
 root {
   /* apply to everything */
-  font-family: 'Inter';
+  /* font-family: 'Inter'; */
 }
 
 .body {

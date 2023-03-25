@@ -1,16 +1,25 @@
 <template>
   <div id="nav">
-    <router-link to="/dashboard">Dashboard</router-link> |
+    <Sidebar/>
+    <!-- <router-link to="/dashboard">Dashboard</router-link> |
     <router-link to="/analytics">Analytics</router-link> |
     <router-link to="/budget">Budget</router-link> |
-    <router-link to="/profile">Profile</router-link> |
+    <router-link to="/profile">Profile</router-link> | -->
+    <router-view/>
   </div>
-  <router-view/>
+
+  
 </template>
 
 <script>
+import Sidebar from '@/components/sidebar/Sidebar.vue'
+// import { sidebarWidth } from '@/components/sidebar/state.js'
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    Sidebar
+  }
 }
 </script>
 
@@ -25,7 +34,9 @@ export default {
 }
 
 #nav {
-  padding: 30px;
+  /* set position where each page content starts from */
+  padding-top: 50px;
+  padding-left: 200px ;
 }
 
 #nav a {
@@ -34,7 +45,8 @@ export default {
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #6C60F3;
+  /* #42b983; */
 }
 
 </style>

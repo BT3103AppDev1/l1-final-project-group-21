@@ -3,8 +3,14 @@
 		<div class="login-details">
 			<p id="heading">LOGIN</p>
 			<div class="input-div">
-				<input type="text" id="email" required="" placeholder="Email Address" />
+				<input
+					type="email"
+					id="email"
+					required=""
+					placeholder="Email Address"
+				/>
 				<fa class="icons" icon="envelope" />
+				<!-- <p>Value: {{ value }}</p> -->
 			</div>
 
 			<div class="input-div">
@@ -18,7 +24,9 @@
 				</router-link>
 			</div>
 
-			<button id="login-button" type="button">Login</button>
+			<button id="login-button" type="button" v-on:click="savedetails">
+				Login
+			</button>
 
 			<div style="display: flex; justify-content: center" class="nav">
 				<p id="no-account">Don't have an account? &nbsp;</p>
@@ -30,7 +38,31 @@
 	</div>
 </template>
 
-<script></script>
+<script>
+import {
+	signInWithEmailAndPassword,
+	signOut,
+	sendPasswordResetEmail,
+} from "firebase/auth";
+import { collection, getDocs, doc, setDoc } from "firebase/firestore/lite";
+import { authentication, db } from "../firebase.js";
+
+export default {
+	data() {
+		return {
+			value: "Hello World",
+		};
+	},
+	// methods: {
+	// 	async savedetails() {
+	// 		console.log("saving details in savedetails() method");
+
+	// 		let userEmail =
+	// 		let userPassword =
+	// 	}
+	// }
+};
+</script>
 
 <style scoped>
 html,

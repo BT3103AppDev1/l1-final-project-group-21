@@ -1,101 +1,41 @@
 <template>
-    <MDBTable class="align-middle mb-0 bg-white">
-      <thead class="bg-light">
-        <tr>
-          <th>Name</th>
-          <th>Title</th>
-          <th>Status</th>
-          <th>Position</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <div class="d-flex align-items-center">
-              <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="" style="width: 45px; height: 45px"
-                class="rounded-circle" />
-              <div class="ms-3">
-                <p class="fw-bold mb-1">John Doe</p>
-                <p class="text-muted mb-0">john.doe@gmail.com</p>
-              </div>
-            </div>
-          </td>
-          <td>
-            <p class="fw-normal mb-1">Software engineer</p>
-            <p class="text-muted mb-0">IT department</p>
-          </td>
-          <td>
-            <MDBBadge badge="success" pill class="d-inline">Active</MDBBadge>
-          </td>
-          <td>Senior</td>
-          <td>
-            <MDBBtn color="link" size="sm" rounded>
-              Edit
-            </MDBBtn>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div class="d-flex align-items-center">
-              <img src="https://mdbootstrap.com/img/new/avatars/6.jpg" class="rounded-circle" alt=""
-                style="width: 45px; height: 45px" />
-              <div class="ms-3">
-                <p class="fw-bold mb-1">Alex Ray</p>
-                <p class="text-muted mb-0">alex.ray@gmail.com</p>
-              </div>
-            </div>
-          </td>
-          <td>
-            <p class="fw-normal mb-1">Consultant</p>
-            <p class="text-muted mb-0">Finance</p>
-          </td>
-          <td>
-            <MDBBadge badge="primary" pill class="d-inline">Onboarding</MDBBadge>
-          </td>
-          <td>Junior</td>
-          <td>
-            <MDBBtn color="link" size="sm" rounded class="fw-bold" :ripple="{ color: 'dark' }">
-              Edit
-            </MDBBtn>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div class="d-flex align-items-center">
-              <img src="https://mdbootstrap.com/img/new/avatars/7.jpg" class="rounded-circle" alt=""
-                style="width: 45px; height: 45px" />
-              <div class="ms-3">
-                <p class="fw-bold mb-1">Kate Hunington</p>
-                <p class="text-muted mb-0">kate.hunington@gmail.com</p>
-              </div>
-            </div>
-          </td>
-          <td>
-            <p class="fw-normal mb-1">Designer</p>
-            <p class="text-muted mb-0">UI/UX</p>
-          </td>
-          <td>
-            <MDBBadge badge="warning" pill class="d-inline">Awaiting</MDBBadge>
-          </td>
-          <td>Senior</td>
-          <td>
-            <MDBBtn color="link" size="sm" rounded class="fw-bold" :ripple="{ color: 'dark' }">
-              Edit
-            </MDBBtn>
-          </td>
-        </tr>
-      </tbody>
-    </MDBTable>
-  </template>
-<script>
-  import {
-    MDBTable,
-    MDBBtn,
-    MDBBadge
-  } from 'mdb-vue-ui-kit';
+    <easy-data-table
+      :headers="headers"
+      :items="items"
+    />
+</template>
 
-  export default {
-    name: 'ExpensesHistory'
+<script>
+import Vue3EasyDataTable from 'vue3-easy-data-table';
+import 'vue3-easy-data-table/dist/style.css';
+
+export default {
+    name: 'ExpensesHistory',
+    components: { 
+        Vue3EasyDataTable: window['vue3-easy-data-table'] ,
+        
+    },
+    data() {
+      return {
+        headers: [
+          { text: "PLAYER", value: "player" },
+          { text: "TEAM", value: "team"},
+          { text: "NUMBER", value: "number"},
+          { text: "POSITION", value: "position"},
+          { text: "HEIGHT", value: "indicator.height"},
+          { text: "WEIGHT (lbs)", value: "indicator.weight", sortable: true},
+          { text: "LAST ATTENDED", value: "lastAttended", width: 200},
+          { text: "COUNTRY", value: "country"},
+        ],
+        items: [
+          { player: "Stephen Curry", team: "GSW", number: 30, position: 'G', indicator: {"height": '6-2', "weight": 185}, lastAttended: "Davidson", country: "USA"},
+          { player: "Lebron James", team: "LAL", number: 6, position: 'F', indicator: {"height": '6-9', "weight": 250}, lastAttended: "St. Vincent-St. Mary HS (OH)", country: "USA"},
+          { player: "Kevin Durant", team: "BKN", number: 7, position: 'F', indicator: {"height": '6-10', "weight": 240}, lastAttended: "Texas-Austin", country: "USA"},
+          { player: "Giannis Antetokounmpo", team: "MIL", number: 34, position: 'F', indicator: {"height": '6-11', "weight": 242}, lastAttended: "Filathlitikos", country: "Greece"},
+        ],
+      }
+    }
   }
+
 </script>
+

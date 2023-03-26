@@ -12,9 +12,6 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 /* add icons to the library */
 library.add(fas);
 
-// import css from mdb
-import 'mdb-vue-ui-kit/css/mdb.min.css';
-
 
 createApp(App)
 .component('fa', FontAwesomeIcon)

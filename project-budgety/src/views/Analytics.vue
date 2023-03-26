@@ -1,16 +1,18 @@
 <template>
+<body>
   <div id="analytics-page">
+
     <div class="section1">
         <div class="analytics-header">Analytics</div>
         <div class="expense-boxes">
             <div class="expense-box">
                 <div class="expense-box-header">TOTAL EXPENSES</div>
-                <!-- change to {{ }} thing -->
+                
                 <div class="expense-value">$190.56</div>
             </div>
             <div class="expense-box">
                 <div class="expense-box-header">AVG EXPENSES/DAY</div>
-                <!-- change to {{ }} thing -->
+                
                 <div class="expense-value">$13.62</div>
             </div>
         </div>
@@ -40,11 +42,9 @@
           <ExpensesHistory />
         </div>
     </div>
-</div>
-
+  </div>
   
-
-
+</body>
 </template>
 
 <script>
@@ -69,23 +69,35 @@ export default {
 
 <style>
 /* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap'); */
-root {
-  /* apply to everything */
-  /* font-family: 'Inter'; */
-}
+/* root {
+  apply to everything
+  font-family: 'Inter';
+} */
 
-.body {
-  background-color: #F2F2F2;
+body {
+  /* remove the centering from main.css */
+  place-items: unset !important;
+  display: flex;
+    /* justify-content: center;
+    align-items: center; */
+    height: 100%;
+    width: 100%;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .analytics-header, .expense-value {
   font-size: 24px;
   font-weight: 500;
 }
-
 .analytics-header {
   text-align: left;
 }
+
+#analytics-page {
+  /* background-color: #8CA3FC !important; */
+}
+
 
 .expense-boxes {
   display: flex;
@@ -132,6 +144,7 @@ root {
 
 .section2 {
   display: flex;
+  justify-content: space-around;
   margin-top: 25px;
 }
 

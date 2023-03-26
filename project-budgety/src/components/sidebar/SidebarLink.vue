@@ -1,7 +1,7 @@
 <script>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { collapsed } from './state'
+
 export default {
   props: {
     to: { type: String, required: true },
@@ -10,7 +10,7 @@ export default {
   setup(props) {
     const route = useRoute()
     const isActive = computed(() => route.path === props.to)
-    return { isActive, collapsed }
+    return { isActive }
   }
 }
 </script>
@@ -18,23 +18,13 @@ export default {
 <template>
   <router-link :to="to" class="link" :class="{ active: isActive }">
     <i class="icon" :class="icon" />
-    <transition name="fade">
-      <span v-if="!collapsed">
+      <span>
         <slot />
       </span>
-    </transition>
   </router-link>
 </template>
 
 <style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.1s;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
 .link {
   display: flex;
   align-items: center;
@@ -53,6 +43,7 @@ export default {
 }
 .link.active {
   background-color: var(--sidebar-item-active);
+  color: var(--sidebar-bg-color);
 }
 .link .icon {
   flex-shrink: 0;

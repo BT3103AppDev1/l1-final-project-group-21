@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import RegistrationVue from "../components/Registration.vue";
-import BudgetyCoverVue from "../components/BudgetyCover.vue";
+import RegistrationVue from "../components/account/Registration.vue";
+import BudgetyCoverVue from "../components/account/BudgetyCover.vue";
 
 export default {
 	name: "App",

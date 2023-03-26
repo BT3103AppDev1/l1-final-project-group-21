@@ -45,7 +45,7 @@ import {
 	sendPasswordResetEmail,
 } from "firebase/auth";
 import { collection, getDocs, doc, setDoc } from "firebase/firestore/lite";
-import { authentication, db } from "../firebase.js";
+import { authentication, db } from "../../firebase.js";
 
 export default {
 	data() {

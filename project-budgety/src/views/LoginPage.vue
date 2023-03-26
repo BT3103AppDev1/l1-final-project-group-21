@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import LoginVue from "../components/Login.vue";
-import BudgetyCoverVue from "../components/BudgetyCover.vue";
+import LoginVue from "../components/account/Login.vue";
+import BudgetyCoverVue from "../components/account/BudgetyCover.vue";
 
 export default {
 	name: "App",

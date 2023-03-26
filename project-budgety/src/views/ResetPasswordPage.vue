@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import ResetPasswordVue from "../components/ResetPassword.vue";
-import BudgetyCoverVue from "../components/BudgetyCover.vue";
+import ResetPasswordVue from "../components/account/ResetPassword.vue";
+import BudgetyCoverVue from "../components/account/BudgetyCover.vue";
 
 export default {
 	name: "App",

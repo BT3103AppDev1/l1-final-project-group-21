@@ -1,6 +1,6 @@
 <template>
 	<div id="grad">
-		<img src="../assets/budgety_logo.png" alt="" />
+		<img src="../../assets/budgety_logo.png" alt="" />
 	</div>
 </template>
 

@@ -63,6 +63,7 @@ export default {
   margin: 10px 0;
   border-radius: 5px;
   height: 55px;
+  text-decoration: none;
 }
 
 </style>

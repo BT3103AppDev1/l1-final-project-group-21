@@ -35,8 +35,10 @@ export default {
 	margin-top: 30px;
 }
 #nav {
-  /* set position where each page content starts from */
+  /* set position where each page content starts from 
+  for login - no need padding top but other pages need it so currently in individual pages*/
   /* padding-top: 50px; */
+  margin-left: 230px;
 
 }
 

@@ -90,11 +90,6 @@ body {
   text-align: left;
 }
 
-#analytics-page {
-  /* background-color: #8CA3FC !important; */
-}
-
-
 .expense-boxes {
   display: flex;
 }
@@ -136,23 +131,26 @@ body {
   font-size: 18px;
   font-weight: 500;
   margin: 30px;
-  padding: 15px 0px;
+  /* padding: 5px 0px; */
 }
 
 .section2 {
   display: flex;
-  justify-content: space-around;
-  margin-top: 25px;
+  /* justify-content: space-between; */
+  gap: 20px;
+  margin: 25px 0px;
 }
 
 .line-graph-box {
-  /* width: 797px;
-  height: 231.25px; */
+  width: 797px;
+  /* height: 231.25px; */
   /* max-width: fit-content; */
   background: #FFFFFF;
   box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   text-align: left;
+  /* add space between line chart and container */
+  padding: 0px 10px 10px 10px;
 }
 
 .section3 {

@@ -25,16 +25,15 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 30px;
+	font-family: Avenir, Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-align: center;
+	color: #2c3e50;
+	margin-top: 30px;
 }
-
 #nav {
   /* set position where each page content starts from */
   padding-top: 50px;
@@ -45,7 +44,6 @@ export default {
   font-weight: bold;
   color: #FFFFFF;
 }
-
 #nav a.router-link-exact-active {
   color: #6C60F3;
 } */

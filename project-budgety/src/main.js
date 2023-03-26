@@ -6,7 +6,7 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 
 import router from "./router/index.js";
 
-// import './assets/main.css'
+import './assets/main.css'
 
 library.add(fas);
 

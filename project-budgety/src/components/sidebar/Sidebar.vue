@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar">
-    <div>
+    <div class="img">
       <img src="../../assets/Budgety Logo.png" alt="Budgety Logo">
     </div>
   <div class="sidebar-contents">
@@ -30,7 +30,9 @@ export default {
   --sidebar-item-active: #F2F2F2;
 
 }
-img {
+.img {
+  display: grid;
+  place-items: center;
   margin: 20px 0px;
 }
 

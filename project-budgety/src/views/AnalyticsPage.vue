@@ -1,14 +1,18 @@
 <template>
+<body>
   <div id="analytics-page">
+
     <div class="section1">
         <div class="analytics-header">Analytics</div>
         <div class="expense-boxes">
             <div class="expense-box">
                 <div class="expense-box-header">TOTAL EXPENSES</div>
+                
                 <div class="expense-value">$190.56</div>
             </div>
             <div class="expense-box">
                 <div class="expense-box-header">AVG EXPENSES/DAY</div>
+                
                 <div class="expense-value">$13.62</div>
             </div>
         </div>
@@ -28,23 +32,32 @@
     <div class="section3">
         <div class="top-line">
             <div class="font-18">Expenses History</div>
-            <!-- add button -->
+            <div class="filter-btn-wrapper">
+              <div class="filter-btn">
+                <fa icon="filter" />Filter
+              </div>
+            </div>
+        </div>
+        <div class="expenses-table">
+          <ExpensesHistory />
         </div>
     </div>
-</div>
-
+  </div>
   
-
-
+</body>
 </template>
 
 <script>
 import LineChart from '../components/LineChart.vue'
+import ExpensesHistory from '../components/ExpensesHistory.vue'
 
 export default {
       name:'Analytics',
       // local registration using components
-      components: { LineChart },
+      components: { 
+        LineChart, 
+        ExpensesHistory 
+      },
       mounted() {
         console.log("Component Mounted")
 
@@ -55,24 +68,36 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-root {
-  /* apply to everything */
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap'); */
+/* root {
+  apply to everything
   font-family: 'Inter';
-}
+} */
 
-.body {
-  background-color: #F2F2F2;
+body {
+  /* remove the centering from main.css */
+  place-items: unset !important;
+  display: flex;
+    /* justify-content: center;
+    align-items: center; */
+    height: 100%;
+    width: 100%;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .analytics-header, .expense-value {
   font-size: 24px;
   font-weight: 500;
 }
-
 .analytics-header {
   text-align: left;
 }
+
+#analytics-page {
+  /* background-color: #8CA3FC !important; */
+}
+
 
 .expense-boxes {
   display: flex;
@@ -119,6 +144,7 @@ root {
 
 .section2 {
   display: flex;
+  justify-content: space-around;
   margin-top: 25px;
 }
 
@@ -137,6 +163,31 @@ root {
   height: 366px; */
   background: #ffffff;
   box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
+}
+
+.top-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter-btn { /* possibly for all buttons */
+  align-items: center;
+  background-color: #FFFFFF;
+  border: 0.5px solid #F4F4F4;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  padding: 5px 10px 5px 10px;
+  margin-right: 35px;
+  font-weight: 500;
+  font-size: 12px;
+  color: #ABA6A6;
+  /* font-weight: var(--font-medium); */
+}
+
+.filter-btn:hover {
+  background-color: #F2F2F2;
+  cursor: pointer;
 }
 
 </style>

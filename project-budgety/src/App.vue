@@ -36,7 +36,7 @@ export default {
 }
 #nav {
   /* set position where each page content starts from */
-  padding-top: 50px;
+  /* padding-top: 50px; */
 
 }
 

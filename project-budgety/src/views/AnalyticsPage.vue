@@ -1,6 +1,6 @@
 <template>
 <body>
-  <div id="analytics-page">
+  <!-- <div id="analytics-page"> -->
 
     <div class="section1">
         <div class="analytics-header">Analytics</div>
@@ -42,7 +42,7 @@
           <ExpensesHistory />
         </div>
     </div>
-  </div>
+  <!-- </div> -->
   
 </body>
 </template>
@@ -78,12 +78,7 @@ body {
   /* remove the centering from main.css */
   place-items: unset !important;
   display: flex;
-    /* justify-content: center;
-    align-items: center; */
-    height: 100%;
-    width: 100%;
-  width: 100% !important;
-  height: 100% !important;
+  flex-direction: column;
 }
 
 .analytics-header, .expense-value {
@@ -91,6 +86,7 @@ body {
   font-weight: 500;
 }
 .analytics-header {
+  padding-top: 50px;
   text-align: left;
 }
 
@@ -123,6 +119,7 @@ body {
 .expense-value {
   font-weight: 600;
   letter-spacing: 2px;
+  text-align: center;
   color: #FFFFFF;
 }
 

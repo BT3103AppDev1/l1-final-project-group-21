@@ -1,40 +1,35 @@
 <template>
-  <div id="nav">
-    <router-link to="/dashboard">Dashboard</router-link> |
-    <router-link to="/analytics">Analytics</router-link> |
-    <router-link to="/budget">Budget</router-link> |
-    <router-link to="/profile">Profile</router-link> |
-  </div>
-  <router-view/>
+	<!-- <div id="nav">
+		<router-link to="/">Login</router-link> |
+		<router-link to="/registration">Registration</router-link> |
+		<router-link to="/resetpassword">Reset Password</router-link>
+	</div> -->
+	<router-view />
 </template>
 
 <script>
 export default {
-  name: 'App'
-}
+	name: "App",
+};
 </script>
 
-<style>
+<style scoped>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 30px;
+	font-family: Avenir, Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-align: center;
+	color: #2c3e50;
+	margin-top: 30px;
 }
-
 #nav {
-  padding: 30px;
+	padding: 30px;
 }
-
 #nav a {
-  font-weight: bold;
-  color: #2c3e50;
+	font-weight: bold;
+	color: #2c3e50;
 }
-
 #nav a.router-link-exact-active {
-  color: #42b983;
+	color: #6c60f3;
 }
-
 </style>

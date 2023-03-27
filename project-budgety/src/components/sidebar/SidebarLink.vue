@@ -5,7 +5,7 @@ import { useRoute } from 'vue-router'
 export default {
   props: {
     to: { type: String, required: true },
-    icon: { type: String, required: true }
+    icon: { type: String, required: false }
   },
   setup(props) {
     const route = useRoute()
@@ -36,6 +36,7 @@ export default {
   /* padding: 5px; */
   border-radius: 5px;
   height: 55px;
+  
   /* text-decoration: none; */
 }
 .link:hover {

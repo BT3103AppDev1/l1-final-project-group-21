@@ -19,6 +19,8 @@ import SidebarLink from './SidebarLink.vue'
 
 export default {
   components: { SidebarLink },
+
+  
 }
 </script>
 

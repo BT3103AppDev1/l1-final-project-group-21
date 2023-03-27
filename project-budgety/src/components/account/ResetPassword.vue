@@ -3,11 +3,19 @@
 		<div class="reset-details">
 			<p id="heading">RESET PASSWORD</p>
 			<div class="input-div">
-				<input type="text" id="email" required="" placeholder="Email Address" />
+				<input
+					type="email"
+					id="email"
+					required=""
+					placeholder="Email Address"
+					v-model="email"
+				/>
 				<fa class="icons" icon="envelope" />
 			</div>
 
-			<button id="reset-button" type="button">Reset</button>
+			<button id="reset-button" type="button" @click="sendresetemail()">
+				Reset
+			</button>
 
 			<div style="display: flex; justify-content: center">
 				<router-link to="/">
@@ -18,7 +26,32 @@
 	</div>
 </template>
 
-<script></script>
+<script>
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+
+export default {
+	name: "ResetPassword",
+	data() {
+		return {
+			email: "",
+		};
+	},
+	methods: {
+		sendresetemail() {
+			const auth = getAuth();
+			sendPasswordResetEmail(auth, email.value)
+				.then(() => {
+					alert("Email to reset your password has been sent!");
+					this.$router.push({ name: "Login" });
+				})
+				.catch((error) => {
+					console.log(error.code);
+					alert(error.message);
+				});
+		},
+	},
+};
+</script>
 
 <style scoped>
 html,

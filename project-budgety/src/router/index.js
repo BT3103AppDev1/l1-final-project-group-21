@@ -10,17 +10,17 @@ import ProfilePage from "@/views/ProfilePage.vue";
 const routes = [
 	{
 		path: "/",
-		name: "LoginPage",
+		name: "Login",
 		component: LoginPage,
 	},
 	{
 		path: "/registration",
-		name: "RegistrationPage",
+		name: "Registration",
 		component: RegistrationPage,
 	},
 	{
 		path: "/resetpassword",
-		name: "ResetPasswordPage",
+		name: "ResetPassword",
 		component: ResetPasswordPage,
 	},
 	{

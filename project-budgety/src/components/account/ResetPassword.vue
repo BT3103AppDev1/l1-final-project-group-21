@@ -39,15 +39,20 @@ export default {
 	methods: {
 		sendresetemail() {
 			const auth = getAuth();
-			sendPasswordResetEmail(auth, email.value)
-				.then(() => {
-					alert("Email to reset your password has been sent!");
-					this.$router.push({ name: "Login" });
-				})
-				.catch((error) => {
-					console.log(error.code);
-					alert(error.message);
-				});
+			console.log(this.email);
+			if (this.email == "") {
+				alert("Please enter your email.");
+			} else {
+				sendPasswordResetEmail(auth, email.value)
+					.then(() => {
+						alert("Email to reset your password has been sent!");
+						this.$router.push({ name: "Login" });
+					})
+					.catch((error) => {
+						console.log(error.code);
+						alert(error.message);
+					});
+			}
 		},
 	},
 };

@@ -85,7 +85,14 @@ export default {
 
 	methods: {
 		register() {
-			if (this.password == this.repeatpassword) {
+			if (
+				this.username == "" ||
+				this.email == "" ||
+				this.password == "" ||
+				this.repeatpassword == ""
+			) {
+				alert("Please fill in all sections.");
+			} else if (this.password == this.repeatpassword) {
 				createUserWithEmailAndPassword(getAuth(), email.value, password.value)
 					.then((data) => {
 						alert("Account successfully registered!");

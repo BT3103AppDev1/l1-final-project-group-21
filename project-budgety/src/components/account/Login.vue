@@ -67,15 +67,19 @@ export default {
 
 	methods: {
 		login() {
-			signInWithEmailAndPassword(getAuth(), email.value, password.value)
-				.then((data) => {
-					alert("Successfully signed in!");
-					this.$router.push({ name: "Dashboard" });
-				})
-				.catch((error) => {
-					console.log(error.code);
-					alert(error.message);
-				});
+			if (this.email == "" || this.password == "") {
+				alert("Please fill in all sections.");
+			} else {
+				signInWithEmailAndPassword(getAuth(), email.value, password.value)
+					.then((data) => {
+						alert("Successfully signed in!");
+						this.$router.push({ name: "Dashboard" });
+					})
+					.catch((error) => {
+						console.log(error.code);
+						alert(error.message);
+					});
+			}
 		},
 	},
 };

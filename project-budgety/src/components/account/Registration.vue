@@ -3,31 +3,52 @@
 		<div class="registration-details">
 			<p id="heading">REGISTER</p>
 			<div class="input-div">
-				<input type="text" id="email" required="" placeholder="Email Address" />
+				<input
+					type="text"
+					id="email"
+					required=""
+					placeholder="Email Address"
+					v-model="email"
+				/>
 				<fa class="icons" icon="envelope" />
-			</div>
-
-			<div class="input-div">
-				<input type="text" id="username" required="" placeholder="Username" />
-				<fa class="icons" icon="user" />
-			</div>
-
-			<div class="input-div">
-				<input type="text" id="password" required="" placeholder="Password" />
-				<fa class="icons" icon="lock" />
 			</div>
 
 			<div class="input-div">
 				<input
 					type="text"
-					id="repeatpassword"
+					id="username"
 					required=""
-					placeholder="Repeat Password"
+					placeholder="Username"
+					v-model="username"
+				/>
+				<fa class="icons" icon="user" />
+			</div>
+
+			<div class="input-div">
+				<input
+					type="password"
+					id="password"
+					required=""
+					placeholder="Password"
+					v-model="password"
 				/>
 				<fa class="icons" icon="lock" />
 			</div>
 
-			<button id="register-button" type="button">Register</button>
+			<div class="input-div">
+				<input
+					type="password"
+					id="repeatpassword"
+					required=""
+					placeholder="Repeat Password"
+					v-model="repeatpassword"
+				/>
+				<fa class="icons" icon="lock" />
+			</div>
+
+			<button id="register-button" type="button" @click="register()">
+				Register
+			</button>
 
 			<div style="display: flex; justify-content: center">
 				<p id="no-account">Already have an account? &nbsp;</p>
@@ -40,7 +61,56 @@
 	</div>
 </template>
 
-<script></script>
+<script>
+import {
+	getAuth,
+	createUserWithEmailAndPassword,
+	updateProfile,
+} from "firebase/auth";
+
+export default {
+	name: "Registration",
+	data() {
+		return {
+			email: "",
+			username: "",
+			password: "",
+			repeatpassword: "",
+		};
+	},
+
+	async mounted() {
+		const auth = getAuth();
+	},
+
+	methods: {
+		register() {
+			if (
+				this.username == "" ||
+				this.email == "" ||
+				this.password == "" ||
+				this.repeatpassword == ""
+			) {
+				alert("Please fill in all sections.");
+			} else if (this.password == this.repeatpassword) {
+				createUserWithEmailAndPassword(getAuth(), email.value, password.value)
+					.then((data) => {
+						alert("Account successfully registered!");
+						const auth = getAuth();
+						updateProfile(auth.currentUser, { displayName: username.value });
+						this.$router.push({ name: "Dashboard" });
+					})
+					.catch((error) => {
+						console.log(error.code);
+						alert(error.message);
+					});
+			} else {
+				alert("Please ensure that both passwords match.");
+			}
+		},
+	},
+};
+</script>
 
 <style scoped>
 html,

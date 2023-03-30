@@ -4,7 +4,7 @@
       <img src="../../assets/Budgety Logo.png" alt="Budgety Logo">
     </div>
   <div class="sidebar-contents">
-      <SidebarLink to="/"><fa icon="home" /> Login</SidebarLink>
+      <!-- <SidebarLink to="/"><fa icon="home" /> Login</SidebarLink> -->
       <SidebarLink to="/dashboard"><fa icon="home" /> Dashboard</SidebarLink>
       <SidebarLink to="/analytics"><fa icon="chart-line" /> Analytics</SidebarLink>
       <SidebarLink to="/budget"><fa icon="calculator" /> Budget</SidebarLink>

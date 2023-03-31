@@ -25,7 +25,19 @@
         </div>
         <div class="breakdown-box">
             <div class="font-18">Breakdown by Category</div>
-            <div class="categories">  </div>
+            <div class="categories">
+              <div class="category-1">
+                <div class="category-1-top">
+                    <img class="category-icon" src="../assets/icons/Fashion.png" />
+                    <span class="category-text">Fashion</span>
+                    <span class="category-text">27.8%</span>
+                    <span class="category-text">$59.91</span>
+              </div>
+              <div class="progress">
+                <!-- <LinearProgressBar /> -->
+              </div>            
+            </div>  
+          </div>
         </div>
     </div>
 
@@ -50,13 +62,15 @@
 <script>
 import LineChart from '../components/LineChart.vue'
 import ExpensesHistory from '../components/ExpensesHistory.vue'
+// import LinearProgressBar from '../components/LinearProgressBar.vue'
 
 export default {
       name:'Analytics',
       // local registration using components
       components: { 
         LineChart, 
-        ExpensesHistory 
+        ExpensesHistory,
+        // LinearProgressBar
       },
       mounted() {
         console.log("Component Mounted")
@@ -125,6 +139,8 @@ body {
   background: #FFFFFF;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
+  padding: 0px 20px;
+  /* min-width: fit-content; */
 }
 
 .font-18 {
@@ -133,6 +149,7 @@ body {
   margin: 30px;
   /* padding: 5px 0px; */
 }
+
 
 .section2 {
   display: flex;
@@ -151,6 +168,25 @@ body {
   text-align: left;
   /* add space between line chart and container */
   padding: 0px 10px 10px 10px;
+}
+
+/* .categories {
+  padding: 10px
+} */
+
+.category-1-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.category-icon {
+  width: 40px;
+}
+
+.category-text {
+  color: #856DC8;
+  font-weight: 700;
 }
 
 .section3 {

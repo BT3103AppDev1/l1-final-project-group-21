@@ -13,6 +13,7 @@ import {
 	Title,
 	Tooltip,
 	Legend,
+	Filler
 } from "chart.js";
 
 ChartJS.register(
@@ -22,7 +23,8 @@ ChartJS.register(
 	LineElement,
 	Title,
 	Tooltip,
-	Legend
+	Legend,
+	Filler
 );
 
 export default {
@@ -44,10 +46,29 @@ export default {
 					{
 						label: "Data One",
 						backgroundColor: "#f87979",
-						data: [40, 39, 10, 40, 39, 80, 40],
+						data: [40, 39, 15, 40, 39, 80, 40],
+						backgroundColor: 'rgba(108, 96, 243, 0.2)',
+						fill: true,
+						pointHoverBackgroundColor: 'green',
+						
 					},
 				],
 			},
+			chartOptions: {
+				plugins: {
+					// remove the legend on top
+					legend: {
+						display: false
+					}
+				},
+				elements: {
+					line: {
+						tension: 0.4,
+						borderColor: '#6C60F3',
+					}
+				}
+				
+			}
 		};
 	},
 };

@@ -2,6 +2,7 @@
     <EasyDataTable
       :headers="headers"
       :items="items"
+      table-class-name="customize-table"
     />
   </template>
   
@@ -28,3 +29,11 @@
     }
 
 </script>
+
+<style>
+  .customize-table {
+    /* remove table border */
+    --easy-table-border: 0px;
+  }
+</style>
+

@@ -185,4 +185,8 @@ body {
   cursor: pointer;
 }
 
+.expenses-table {
+  padding: 0px 30px;
+}
+
 </style>

@@ -15,13 +15,15 @@
     "@fortawesome/vue-fontawesome": "^3.0.0-5",
     "@revolist/vue-datagrid": "^3.5.2",
     "chart.js": "^4.2.1",
+    "firebase": "^9.18.0",
     "firebaseui": "^0.600.0",
     "vue": "^3.2.47",
     "vue-chartjs": "^5.2.0",
     "vue-filter-table-component": "^0.1.40",
     "vue-router": "^4.1.6",
     "vue-simple-progress": "^1.1.1",
-    "vue3-easy-data-table": "^1.5.42"
+    "vue3-easy-data-table": "^1.5.42",
+    "vuetify": "^3.1.12"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",

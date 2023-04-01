@@ -54,10 +54,10 @@
     <div class="section3">
         <div class="top-line">
             <div class="font-18">Expenses History</div>
-            <div class="filter-btn-wrapper">
+            <!-- <div class="filter-btn-wrapper"> -->
               <div class="filter-btn">
-                <fa icon="filter" />Filter
-              </div>
+                <fa icon="filter" /> Filter
+              <!-- </div> -->
             </div>
         </div>
         <div class="expenses-table">
@@ -140,20 +140,17 @@ body {
 }
 
 .breakdown-box {
-  width: 285px;
+  width: 380px;
   /* height: 233px; */
-  background: #FFFFFF;
+  background: var(--color-card);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  padding: 0px 20px;
-  /* min-width: fit-content; */
 }
 
 .font-18 {
   font-size: 18px;
   font-weight: 500;
-  margin: 30px;
-  /* padding: 5px 0px; */
+  padding: 20px;
 }
 
 
@@ -165,10 +162,8 @@ body {
 }
 
 .line-graph-box {
-  width: 797px;
-  /* height: 231.25px; */
-  /* max-width: fit-content; */
-  background: #FFFFFF;
+  width: 800px;
+  background: var(--color-card);
   box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   text-align: left;
@@ -179,6 +174,10 @@ body {
 .progress {
   /* add space between each category */
   margin-bottom: 20px;
+}
+
+.categories {
+  padding: 0px 20px;
 }
 
 .category-1-top {
@@ -204,8 +203,10 @@ body {
 .section3 {
   /* width: 1090px;
   height: 366px; */
-  background: #ffffff;
+  background: var(--color-card);
   box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
+  margin-right: 30px;
+  /* max-width: 90%; */
 }
 
 .top-line {
@@ -216,8 +217,8 @@ body {
 
 .filter-btn { /* possibly for all buttons */
   align-items: center;
-  background-color: #FFFFFF;
-  border: 0.5px solid #F4F4F4;
+  background-color: var(--color-card);
+  border: 0.5px solid --color-btn-border;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   padding: 5px 10px 5px 10px;

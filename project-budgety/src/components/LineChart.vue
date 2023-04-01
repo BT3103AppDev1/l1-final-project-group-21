@@ -66,7 +66,8 @@ export default {
 						tension: 0.4,
 						borderColor: '#6C60F3',
 					}
-				}
+				},
+				responsive: true
 				
 			}
 		};

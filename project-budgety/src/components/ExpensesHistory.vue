@@ -34,6 +34,14 @@
   .customize-table {
     /* remove table border */
     --easy-table-border: 0px;
+    --easy-table-header-font-color: var(--color-text);
+    --easy-table-header-background-color: var(--color-card);
+    --easy-table-body-row-font-color: var(--color-text);
+    --easy-table-body-row-background-color: var(--color-card);
+    --easy-table-footer-font-color: var(--color-text);
+    --easy-table-footer-background-color: var(--color-card);
+
+
   }
 </style>
 

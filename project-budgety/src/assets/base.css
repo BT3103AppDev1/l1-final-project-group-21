@@ -6,7 +6,7 @@
 
 	--vt-c-black: #181818;
 	--vt-c-black-soft: #222222;
-	--vt-c-black-mute: #282828;
+	--vt-c-black-mute: #282743;
 
 	--vt-c-indigo: #2c3e50;
 
@@ -19,6 +19,14 @@
 	--vt-c-text-light-2: rgba(60, 60, 60, 0.66);
 	--vt-c-text-dark-1: var(--vt-c-white);
 	--vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+
+	/* card colours */
+	--vt-c-card-light: #ffffff;
+	--vt-c-card-dark: #363551;
+
+	/* button border colour */
+	--vt-c-btn-border-light: #F4F4F4;
+	--vt-c-btn-border-dark: #5C5B77;
 }
 
 /* semantic color variables for this project */
@@ -34,6 +42,10 @@
 	--color-text: var(--vt-c-text-light-1);
 
 	--section-gap: 160px;
+
+	--color-card: var(--vt-c-card-light);
+
+	--color-btn-border: var(--vt-c-btn-border-light);
 }
 
 @media (prefers-color-scheme: light) {
@@ -46,7 +58,11 @@
 		--color-border-hover: var(--vt-c-divider-dark-1);
 
 		--color-heading: var(--vt-c-text-dark-1);
-		--color-text: var(--vt-c-text-dark-2);
+		--color-text: var(--vt-c-text-dark-1);
+
+		--color-card: var(--vt-c-card-dark);
+
+		--color-btn-border: var(--vt-c-btn-border-dark);
 	}
 }
 

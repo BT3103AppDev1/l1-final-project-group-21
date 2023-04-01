@@ -171,6 +171,7 @@ body {
 #myform {
 	margin: 30px;
 }
+
 input {
 	margin: 0px 0px 20px 0px;
 	width:220px; 

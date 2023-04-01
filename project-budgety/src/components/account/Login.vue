@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import { ref } from 'vue';
 import {
 	getAuth,
 	signInWithEmailAndPassword,
@@ -67,20 +68,30 @@ export default {
 
 	methods: {
 		login() {
-			if (this.email == "" || this.password == "") {
-				alert("Please fill in all sections.");
-			} else {
-				signInWithEmailAndPassword(getAuth(), email.value, password.value)
-					.then((data) => {
-						alert("Successfully signed in!");
-						this.$router.push({ name: "Dashboard" });
-					})
-					.catch((error) => {
-						console.log(error.code);
-						alert(error.message);
-					});
-			}
-		},
+			let errMsg = '';
+			signInWithEmailAndPassword(getAuth(), email.value, password.value)
+				.then((data) => {
+					alert("Successfully signed in!");
+					this.$router.push({ name: "Dashboard" });
+				})
+				.catch((error) => {
+					switch (error.code) {
+						case 'auth/invalid-email':
+							errMsg = 'Invalid email'
+							break
+						case 'auth/user-not-found':
+							errMsg = 'No account with that email was found'
+							break
+						case 'auth/wrong-password':
+							errMsg = "Incorrect password"
+							break
+						default:
+							errMsg = 'Email or password was incorrect'
+							break
+						}
+						alert(errMsg);
+				});
+		}
 	},
 };
 </script>

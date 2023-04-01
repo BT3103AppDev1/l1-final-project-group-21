@@ -16,7 +16,6 @@
 					id="username1"
 					required=""
 					placeholder="new username"
-					style="width:220px;"
 					/> 
 					<div class="update">
 						<button id="purpleButton" type="button" v-on:click="updateUsername">
@@ -42,24 +41,72 @@
 </template>
 
 <script>
+import { getAuth, updateProfile } from "firebase/auth";
+import { useRoute } from 'vue-router';
+import { onBeforeUnmount } from 'vue';
+import { getFirestore } from "firebase/firestore";
+
+// const db = getFirestore(firebaseApp);
+
 export default {
 	name: "Profile",
 
+
+	// data() {
+	// 	return {
+	// 		auth: "",
+	// 		router: ""
+	// 	}
+	// },
+
 	mounted() {
-		console.log("Profile Page Mounted")
+		console.log("Profile Page Mounted");
+		// const auth = getAuth();
+		// console.log(auth.currentUser.email);
+		// if (!auth) { // not logged in
+		// 	alert("You are not logged in, redirecting you to login page");
+		// 	this.$router.push({ name: "Login" });
+		// }
+		// onBeforeUnmount(() => {
+		// 	// clear up listener
+		// 	authListener();
+		// })
 	},
 
 	methods: {
 		async updateUsername() {
-
+			console.log("Updating username");
+			let newUser = document.getElementById("username1").value;
+			if (newUser) {
+				const user = getAuth().currentUser;
+				updateProfile(user, { displayName: newUser }).
+				then(() => {
+					alert("Your new username is now: " + user.displayName);
+					console.log(user.displayName);
+				}).
+				catch((error) => {
+					console.log(error.code);
+					alert(error.message);
+				})
+			} else {
+				alert("Please input something into the text box");
+			}
 		},
 		
 		async logoutAccount() {
-
+			getAuth().signOut();
+			alert("Successfully logged out.");
+			this.$router.push({ name: "Login" });
 		},
 		
 		async deleteAccount() {
-
+			let toDelete = confirm("Are you sure you want to delete your account?");
+			if (toDelete) {
+				const user = getAuth().currentUser;
+				// await deleteDoc(doc(db, user.email)) // havent set up db
+				await user.delete()
+				this.$router.push({ name: "Login" });
+			}
 		},
 	},
 };
@@ -126,12 +173,23 @@ body {
 }
 input {
 	margin: 0px 0px 20px 0px;
+	width:220px; 
+	border: 2px solid;
+	border-radius: 3px;
+	outline: 1px 1px 1px 1px var(--sidebar-bg-color);
 }
+
+input:hover {
+	outline: 1px 1px 1px 1px var(--sidebar-bg-color);
+	border-radius: 2px;
+}
+
 .font-18 {
   font-size: 18px;
   font-weight: 500;
   margin: 0px 0px 10px 0px;
-  /* padding: 5px 0px; */
+  padding: 5px 0px;
+  text-decoration: underline;
 }
 
 .section {
@@ -153,4 +211,5 @@ input {
 	right: 0;
 	/* bottom: 0; */
 }
+
 </style>

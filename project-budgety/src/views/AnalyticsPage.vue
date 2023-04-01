@@ -1,7 +1,5 @@
 <template>
 <body>
-  <!-- <div id="analytics-page"> -->
-
     <div class="section1">
         <div class="analytics-header">Analytics</div>
         <div class="expense-boxes">
@@ -26,20 +24,32 @@
         <div class="breakdown-box">
             <div class="font-18">Breakdown by Category</div>
             <div class="categories">
-              <div class="category-1">
+              <!-- <div class="category-1"> -->
                 <div class="category-1-top">
                     <img class="category-icon" src="../assets/icons/Fashion.png" />
                     <span class="category-text">Fashion</span>
                     <span class="category-text">27.8%</span>
                     <span class="category-text">$59.91</span>
-              </div>
-              <div class="progress">
-                <!-- <LinearProgressBar /> -->
-              </div>            
-            </div>  
+                </div>
+                <div class="progress">
+                  <v-progress-linear rounded=true color="#856DC8" model-value="27.8" height="8px"></v-progress-linear>                <!-- <LinearProgressBar /> -->
+                </div>            
+              <!-- </div>   -->
+              <!-- second category -->
+              <div class="category-1-top">
+                    <img class="category-icon" src="../assets/icons/Food.png" />
+                    <span class="category-text blue">Food</span>
+                    <span class="category-text blue">17.4%</span>
+                    <span class="category-text blue">$33.14</span>
+                </div>
+                <div class="progress">
+                  <v-progress-linear rounded=true color="#4F94BC" model-value="27.8" height="8px"></v-progress-linear>                <!-- <LinearProgressBar /> -->
+                </div>            
+              </div>  
+
           </div>
         </div>
-    </div>
+    <!-- </div> -->
 
     <div class="section3">
         <div class="top-line">
@@ -54,7 +64,6 @@
           <ExpensesHistory />
         </div>
     </div>
-  <!-- </div> -->
   
 </body>
 </template>
@@ -62,7 +71,6 @@
 <script>
 import LineChart from '../components/LineChart.vue'
 import ExpensesHistory from '../components/ExpensesHistory.vue'
-// import LinearProgressBar from '../components/LinearProgressBar.vue'
 
 export default {
       name:'Analytics',
@@ -70,7 +78,6 @@ export default {
       components: { 
         LineChart, 
         ExpensesHistory,
-        // LinearProgressBar
       },
       mounted() {
         console.log("Component Mounted")
@@ -133,9 +140,8 @@ body {
 }
 
 .breakdown-box {
-  /* width: 282px;
-  height: 233px; */
-  /* max-width: fit-content; */
+  width: 285px;
+  /* height: 233px; */
   background: #FFFFFF;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
@@ -170,14 +176,16 @@ body {
   padding: 0px 10px 10px 10px;
 }
 
-/* .categories {
-  padding: 10px
-} */
+.progress {
+  /* add space between each category */
+  margin-bottom: 20px;
+}
 
 .category-1-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 .category-icon {
@@ -187,6 +195,10 @@ body {
 .category-text {
   color: #856DC8;
   font-weight: 700;
+}
+
+.blue {
+  color: #4F94BC;
 }
 
 .section3 {

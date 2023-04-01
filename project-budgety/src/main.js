@@ -13,9 +13,24 @@ import "vue3-easy-data-table/dist/style.css";
 
 library.add(fas);
 
+// Vuetify
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+
+const vuetify = createVuetify({
+  components,
+  directives,
+})
+
+
+
 createApp(App)
 	.component("EasyDataTable", Vue3EasyDataTable)
 	.component("fa", FontAwesomeIcon)
+	// .use(Vuetify)
+	.use(vuetify)
 	.use(router)
 	.mount("#app");
 // createApp(App).mount("#app");

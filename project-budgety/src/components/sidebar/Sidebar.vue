@@ -1,8 +1,8 @@
 <template>
   <div class="sidebar">
-    <div class="img">
+    <button type="home" class="img" v-on:click="goToLogin()">
       <img src="../../assets/Budgety Logo.png" alt="Budgety Logo">
-    </div>
+    </button>
   <div class="sidebar-contents">
       <!-- <SidebarLink to="/"><fa icon="home" /> Login</SidebarLink> -->
       <SidebarLink to="/dashboard"><fa icon="home" /> Dashboard</SidebarLink>
@@ -20,7 +20,11 @@ import SidebarLink from './SidebarLink.vue'
 export default {
   components: { SidebarLink },
 
-  
+  methods: {
+    goToLogin() {
+      this.$router.push({ name: "Login" });
+    }
+  }
 }
 </script>
 

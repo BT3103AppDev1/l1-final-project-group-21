@@ -15,13 +15,13 @@
 </template>
 
 <script>
-import Sidebar from '@/components/sidebar/Sidebar.vue'
+// import Sidebar from '@/components/sidebar/Sidebar.vue'
 
 export default {
   name: 'App',
-  components: {
-    Sidebar
-  }
+  // components: {
+  //   Sidebar
+  // }
 }
 </script>
 

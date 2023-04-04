@@ -66,11 +66,13 @@
     </div>
   
 </body>
+<Sidebar/>
 </template>
 
 <script>
-import LineChart from '../components/LineChart.vue'
-import ExpensesHistory from '../components/ExpensesHistory.vue'
+import LineChart from '../components/LineChart.vue';
+import ExpensesHistory from '../components/ExpensesHistory.vue';
+import Sidebar from '@/components/sidebar/Sidebar.vue';
 
 export default {
       name:'Analytics',
@@ -78,6 +80,7 @@ export default {
       components: { 
         LineChart, 
         ExpensesHistory,
+        Sidebar,
       },
       mounted() {
         console.log("Component Mounted")

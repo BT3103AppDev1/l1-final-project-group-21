@@ -105,7 +105,7 @@ body {
 
 .container {
 	display: flex;
-	justify-content: center;
+	justify-content: left;
 	align-items: center;
 	height: 100vh;
 	width: 100vw;

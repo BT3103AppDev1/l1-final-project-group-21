@@ -38,6 +38,8 @@
 			</div>
 		</div>
 	</body>
+	<!-- <router-view/> -->
+	<Sidebar/>
 </template>
 
 <script>
@@ -45,11 +47,16 @@ import { getAuth, updateProfile } from "firebase/auth";
 import { useRoute } from 'vue-router';
 import { onBeforeUnmount } from 'vue';
 import { getFirestore } from "firebase/firestore";
+import Sidebar from '@/components/sidebar/Sidebar.vue';
 
 // const db = getFirestore(firebaseApp);
 
 export default {
 	name: "Profile",
+
+	components: {
+		Sidebar,
+	},
 
 
 	// data() {
@@ -112,7 +119,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 body {
 	/* remove the centering from main.css */
 	place-items: unset !important;
@@ -161,18 +168,19 @@ body {
 
 .container {
 	/* encapsulate into a box */
-	background: #ffffff;
+	background: var(--color-card);
   	box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
 	border-radius: 10px;
 	padding: 0px 10px 10px 10px;
 	height: 100vh;	/* keeps the container at 100 viewport height */
+	margin-right: 30px;
 }
 
 #myform {
 	margin: 30px;
 }
 
-input {
+/* input {
 	margin: 0px 0px 20px 0px;
 	width:220px; 
 	border: 2px solid;
@@ -183,6 +191,28 @@ input {
 input:hover {
 	outline: 1px 1px 1px 1px var(--sidebar-bg-color);
 	border-radius: 2px;
+} */
+
+input {
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	border-bottom-style: 1px ridge;
+	border-bottom-color: #aba6a6;
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	margin-bottom: 20px;
+}
+
+input:hover {
+	border-top-style: solid;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-color: #aba6a6;
+	box-shadow: 2px 2px #ee82ee;
+	border-radius: 2px;
+	border-width: 2px;
 }
 
 .font-18 {

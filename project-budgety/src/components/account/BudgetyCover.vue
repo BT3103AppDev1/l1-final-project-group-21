@@ -1,10 +1,20 @@
 <template>
-	<div id="grad">
+	<button type="dashboard" id="grad" v-on:click="goToDash()">
 		<img src="../../assets/budgety_logo.png" alt="" />
-	</div>
+	</button>
 </template>
 
-<script></script>
+<script>
+export default {
+	name: "BudgetyCover",
+
+	methods: {
+		goToDash() {
+			this.$router.push({ name: "Dashboard" });
+		}
+	}
+}
+</script>
 
 <style scoped>
 #grad {

@@ -6,7 +6,7 @@
 		</div>
 			
 		<div class="container">
-			<form id="myform">
+			<form ref="myform" id="myform">
 				<div class="font-18" style="font-weight:bold;">Update Username</div>					
 				<div class="formli">
 					<label for="coin1">Enter new username:</label>
@@ -90,6 +90,7 @@ export default {
 				then(() => {
 					alert("Your new username is now: " + user.displayName);
 					console.log(user.displayName);
+					this.$refs.myform.reset();
 				}).
 				catch((error) => {
 					console.log(error.code);

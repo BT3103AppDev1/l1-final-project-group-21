@@ -68,6 +68,7 @@ export default {
 
 	methods: {
 		login() {
+			console.log("in login function")
 			let errMsg = '';
 			signInWithEmailAndPassword(getAuth(), email.value, password.value)
 				.then((data) => {
@@ -89,6 +90,7 @@ export default {
 							errMsg = 'Email or password was incorrect'
 							break
 						}
+						console.log(error.code);
 						alert(errMsg);
 				});
 		}

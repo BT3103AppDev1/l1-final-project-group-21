@@ -5,6 +5,7 @@
 			<div class="input-div">
 				<input
 					type="text"
+					class="input-text"
 					id="email"
 					required=""
 					placeholder="Email Address"
@@ -16,6 +17,7 @@
 			<div class="input-div">
 				<input
 					type="text"
+					class="input-text"
 					id="username"
 					required=""
 					placeholder="Username"
@@ -27,6 +29,7 @@
 			<div class="input-div">
 				<input
 					type="password"
+					class="input-text"
 					id="password"
 					required=""
 					placeholder="Password"
@@ -38,6 +41,7 @@
 			<div class="input-div">
 				<input
 					type="password"
+					class="input-text"
 					id="repeatpassword"
 					required=""
 					placeholder="Repeat Password"
@@ -142,12 +146,12 @@ body {
 	justify-content: center;
 }
 
-input {
-	border-top-style: none;
-	border-right-style: none;
-	border-left-style: none;
-	border-bottom-style: 1px ridge;
+.input-text {
+	border-bottom-style: ridge;
 	border-bottom-color: #aba6a6;
+}
+
+input {
 	width: 100%;
 	padding: 10px;
 	box-sizing: border-box;
@@ -213,6 +217,6 @@ input.text:focus {
 	color: #aba6a6;
 	position: absolute;
 	right: 10px;
-	top: 10px;
+	top: 15px;
 }
 </style>

@@ -5,6 +5,7 @@
 			<div class="input-div">
 				<input
 					type="email"
+					class="input-text"
 					id="email"
 					required=""
 					placeholder="Email Address"
@@ -16,6 +17,7 @@
 			<div class="input-div">
 				<input
 					type="password"
+					class="input-text"
 					id="password"
 					required=""
 					placeholder="Password"
@@ -43,7 +45,7 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref } from "vue";
 import {
 	getAuth,
 	signInWithEmailAndPassword,
@@ -68,8 +70,7 @@ export default {
 
 	methods: {
 		login() {
-			console.log("in login function")
-			let errMsg = '';
+			let errMsg = "";
 			signInWithEmailAndPassword(getAuth(), email.value, password.value)
 				.then((data) => {
 					alert("Successfully signed in!");
@@ -77,23 +78,22 @@ export default {
 				})
 				.catch((error) => {
 					switch (error.code) {
-						case 'auth/invalid-email':
-							errMsg = 'Invalid email'
-							break
-						case 'auth/user-not-found':
-							errMsg = 'No account with that email was found'
-							break
-						case 'auth/wrong-password':
-							errMsg = "Incorrect password"
-							break
+						case "auth/invalid-email":
+							errMsg = "Invalid email";
+							break;
+						case "auth/user-not-found":
+							errMsg = "No account with that email was found";
+							break;
+						case "auth/wrong-password":
+							errMsg = "Incorrect password";
+							break;
 						default:
-							errMsg = 'Email or password was incorrect'
-							break
-						}
-						console.log(error.code);
-						alert(errMsg);
+							errMsg = "Email or password was incorrect";
+							break;
+					}
+					alert(errMsg);
 				});
-		}
+		},
 	},
 };
 </script>
@@ -128,12 +128,12 @@ body {
 	justify-content: center;
 }
 
-input {
-	border-top-style: none;
-	border-right-style: none;
-	border-left-style: none;
-	border-bottom-style: 1px ridge;
+.input-text {
+	border-bottom-style: ridge;
 	border-bottom-color: #aba6a6;
+}
+
+input {
 	width: 100%;
 	padding: 10px;
 	box-sizing: border-box;
@@ -199,6 +199,6 @@ input.text:focus {
 	color: #aba6a6;
 	position: absolute;
 	right: 10px;
-	top: 10px;
+	top: 15px;
 }
 </style>

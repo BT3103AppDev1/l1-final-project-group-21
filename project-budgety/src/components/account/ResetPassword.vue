@@ -5,6 +5,7 @@
 			<div class="input-div">
 				<input
 					type="email"
+					class="input-text"
 					id="email"
 					required=""
 					placeholder="Email Address"
@@ -88,12 +89,12 @@ body {
 	justify-content: center;
 }
 
-input {
-	border-top-style: none;
-	border-right-style: none;
-	border-left-style: none;
-	border-bottom-style: 1px ridge;
+.input-text {
+	border-bottom-style: ridge;
 	border-bottom-color: #aba6a6;
+}
+
+input {
 	width: 100%;
 	padding: 10px;
 	box-sizing: border-box;
@@ -159,6 +160,6 @@ input.text:focus {
 	color: #aba6a6;
 	position: absolute;
 	right: 10px;
-	top: 10px;
+	top: 15px;
 }
 </style>

@@ -1,22 +1,23 @@
 <!-- Add Profile Code here -->
 <template>
-	<body>	
+	<body>
 		<div class="header">
 			<div class="profile-header">Profile</div>
 		</div>
-			
+
 		<div class="container">
 			<form ref="myform" id="myform">
-				<div class="font-18" style="font-weight:bold;">Update Username</div>					
+				<div class="font-18" style="font-weight: bold">Update Username</div>
 				<div class="formli">
 					<label for="coin1">Enter new username:</label>
-					<br>
+					<br />
 					<input
-					type="text"
-					id="username1"
-					required=""
-					placeholder="new username"
-					/> 
+						type="text"
+						class="input-text"
+						id="username1"
+						required=""
+						placeholder="New Username"
+					/>
 					<div class="update">
 						<button id="purpleButton" type="button" v-on:click="updateUsername">
 							Update
@@ -24,7 +25,7 @@
 					</div>
 				</div>
 			</form>
-			<div class="section">	
+			<div class="section">
 				<div class="logout">
 					<button id="purpleButton" type="button" v-on:click="logoutAccount">
 						Logout
@@ -34,20 +35,20 @@
 					<button id="redButton" type="button" v-on:click="deleteAccount">
 						Delete Account
 					</button>
-				</div>	
+				</div>
 			</div>
 		</div>
 	</body>
 	<!-- <router-view/> -->
-	<Sidebar/>
+	<Sidebar />
 </template>
 
 <script>
 import { getAuth, updateProfile } from "firebase/auth";
-import { useRoute } from 'vue-router';
-import { onBeforeUnmount } from 'vue';
+import { useRoute } from "vue-router";
+import { onBeforeUnmount } from "vue";
 import { getFirestore } from "firebase/firestore";
-import Sidebar from '@/components/sidebar/Sidebar.vue';
+import Sidebar from "@/components/sidebar/Sidebar.vue";
 
 // const db = getFirestore(firebaseApp);
 
@@ -57,7 +58,6 @@ export default {
 	components: {
 		Sidebar,
 	},
-
 
 	// data() {
 	// 	return {
@@ -86,33 +86,33 @@ export default {
 			let newUser = document.getElementById("username1").value;
 			if (newUser) {
 				const user = getAuth().currentUser;
-				updateProfile(user, { displayName: newUser }).
-				then(() => {
-					alert("Your new username is now: " + user.displayName);
-					console.log(user.displayName);
-					this.$refs.myform.reset();
-				}).
-				catch((error) => {
-					console.log(error.code);
-					alert(error.message);
-				})
+				updateProfile(user, { displayName: newUser })
+					.then(() => {
+						alert("Your new username is now: " + user.displayName);
+						console.log(user.displayName);
+						this.$refs.myform.reset();
+					})
+					.catch((error) => {
+						console.log(error.code);
+						alert(error.message);
+					});
 			} else {
 				alert("Please input something into the text box");
 			}
 		},
-		
+
 		async logoutAccount() {
 			getAuth().signOut();
 			alert("Successfully logged out.");
 			this.$router.push({ name: "Login" });
 		},
-		
+
 		async deleteAccount() {
 			let toDelete = confirm("Are you sure you want to delete your account?");
 			if (toDelete) {
 				const user = getAuth().currentUser;
 				// await deleteDoc(doc(db, user.email)) // havent set up db
-				await user.delete()
+				await user.delete();
 				this.$router.push({ name: "Login" });
 			}
 		},
@@ -136,7 +136,7 @@ body {
 }
 
 #purpleButton {
-	color: #FFFFFF;
+	color: #ffffff;
 	background-color: var(--sidebar-bg-color);
 	padding: 12px;
 	border: none;
@@ -152,7 +152,7 @@ body {
 }
 
 #redButton {
-	color: #FFFFFF;
+	color: #ffffff;
 	background-color: darkred;
 	padding: 12px;
 	border: none;
@@ -170,15 +170,23 @@ body {
 .container {
 	/* encapsulate into a box */
 	background: var(--color-card);
-  	box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
+	box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
 	border-radius: 10px;
 	padding: 0px 10px 10px 10px;
-	height: 100vh;	/* keeps the container at 100 viewport height */
+	height: 100vh; /* keeps the container at 100 viewport height */
 	margin-right: 30px;
 }
 
 #myform {
 	margin: 30px;
+}
+
+.input-text {
+	border-bottom-style: ridge;
+	border-bottom-color: #aba6a6;
+	width: 15%;
+	margin: 10px 0;
+	margin-bottom: 20px;
 }
 
 /* input {
@@ -217,11 +225,11 @@ input:hover {
 }
 
 .font-18 {
-  font-size: 18px;
-  font-weight: 500;
-  margin: 0px 0px 10px 0px;
-  padding: 5px 0px;
-  text-decoration: underline;
+	font-size: 18px;
+	font-weight: 500;
+	margin: 0px 0px 10px 0px;
+	padding: 5px 0px;
+	text-decoration: underline;
 }
 
 .section {
@@ -243,5 +251,4 @@ input:hover {
 	right: 0;
 	/* bottom: 0; */
 }
-
 </style>

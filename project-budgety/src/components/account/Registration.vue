@@ -149,7 +149,7 @@ body {
 
 .container {
 	display: flex;
-	justify-content: left;
+	justify-content: center;
 	align-items: center;
 	height: 100vh;
 	width: 100vw;

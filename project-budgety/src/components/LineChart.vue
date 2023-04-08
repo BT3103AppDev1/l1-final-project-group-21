@@ -13,8 +13,11 @@ import {
 	Title,
 	Tooltip,
 	Legend,
-	Filler
+	Filler,
 } from "chart.js";
+
+import { db, authentication } from "../firebase.js";
+import { getAuth } from "firebase/auth";
 
 ChartJS.register(
 	CategoryScale,
@@ -46,11 +49,10 @@ export default {
 					{
 						label: "Data One",
 						backgroundColor: "#f87979",
-						data: [40, 39, 15, 40, 39, 80, 40],
-						backgroundColor: 'rgba(108, 96, 243, 0.2)',
+						data: [47, 39, 15, 40, 39, 80, 40],
+						backgroundColor: "rgba(108, 96, 243, 0.2)",
 						fill: true,
-						pointHoverBackgroundColor: 'green',
-						
+						pointHoverBackgroundColor: "green",
 					},
 				],
 			},
@@ -58,19 +60,20 @@ export default {
 				plugins: {
 					// remove the legend on top
 					legend: {
-						display: false
-					}
+						display: false,
+					},
 				},
 				elements: {
 					line: {
 						tension: 0.4,
-						borderColor: '#6C60F3',
-					}
+						borderColor: "#6C60F3",
+					},
 				},
-				responsive: true
-				
-			}
+				responsive: true,
+			},
 		};
 	},
+
+	async mounted() {},
 };
 </script>

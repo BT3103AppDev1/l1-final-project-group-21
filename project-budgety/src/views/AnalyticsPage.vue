@@ -113,25 +113,35 @@ export default {
 		return {
 			loaded: false,
 			totalExpenses: 0,
-			avgExpenses: 0,
+			avgExpenses: 50,
 		};
 	},
 	async mounted() {
-		const date = new Date();
-		const day = date.getDate();
-		const month = date.getMonth();
-
-		const newDate = new Date();
-		let tempDate = new Date();
-
-		// Set beginning of month by changing date and time
-		let monthStart = newDate.setDate(1);
-		let tempMonthStart = new Date(monthStart).setHours(0, 0, 0, 0);
-		monthStart = new Date(tempMonthStart);
-
 		try {
-			// Fetch expenses data
 			const userEmail = authentication.currentUser.email;
+			// Update Total and Average Expenses
+			await this.getExpenses(userEmail);
+			this.loaded = true;
+		} catch (err) {
+			console.error(err);
+		}
+	},
+
+	methods: {
+		async getExpenses(userEmail) {
+			const date = new Date();
+			const day = date.getDate();
+			const month = date.getMonth();
+
+			const newDate = new Date();
+			let tempDate = new Date();
+
+			// Set beginning of month by changing date and time
+			let monthStart = newDate.setDate(1);
+			let tempMonthStart = new Date(monthStart).setHours(0, 0, 0, 0);
+			monthStart = new Date(tempMonthStart);
+
+			// Fetch expenses data
 			const amtsRef = collection(db, userEmail, "expensesDoc", "expenses");
 			// Filter from beginning of the month to current time
 			const q = query(
@@ -148,13 +158,11 @@ export default {
 				let expAmt = data.amount;
 				this.totalExpenses += expAmt;
 			});
-			this.avgExpenses = parseFloat(this.totalExpenses / day).toFixed(2);
+			this.avgExpenses = (
+				parseFloat(this.totalExpenses) / parseFloat(day)
+			).toFixed(2);
 			this.totalExpenses = parseFloat(this.totalExpenses).toFixed(2);
-
-			this.loaded = true;
-		} catch (err) {
-			console.error(err);
-		}
+		},
 	},
 };
 </script>

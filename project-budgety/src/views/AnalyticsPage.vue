@@ -2,16 +2,16 @@
 	<body>
 		<div class="section1">
 			<div class="analytics-header">Analytics</div>
-			<div class="expense-boxes">
+			<div class="expense-boxes" v-if="loaded">
 				<div class="expense-box">
 					<div class="expense-box-header">TOTAL EXPENSES</div>
 
-					<div class="expense-value">$190.56</div>
+					<div class="expense-value">${{ totalExpenses }}</div>
 				</div>
 				<div class="expense-box">
 					<div class="expense-box-header">AVG EXPENSES/DAY</div>
 
-					<div class="expense-value">$13.62</div>
+					<div class="expense-value">${{ avgExpenses }}</div>
 				</div>
 			</div>
 		</div>
@@ -84,8 +84,21 @@ import LineChart from "../components/LineChart.vue";
 import ExpensesHistory from "../components/ExpensesHistory.vue";
 import Sidebar from "@/components/sidebar/Sidebar.vue";
 
-import { db, authentication } from "../firebase.js";
+import { authentication } from "../firebase.js";
+import firebaseApp from "../firebase.js";
 import { getAuth } from "firebase/auth";
+import {
+	collection,
+	addDoc,
+	setDoc,
+	doc,
+	query,
+	where,
+	getDocs,
+	getFirestore,
+} from "firebase/firestore";
+
+const db = getFirestore(firebaseApp);
 
 export default {
 	name: "Analytics",
@@ -97,9 +110,52 @@ export default {
 	},
 
 	data() {
-		return {};
+		return {
+			loaded: false,
+			totalExpenses: 0,
+			avgExpenses: 0,
+		};
 	},
-	mounted() {},
+	async mounted() {
+		const date = new Date();
+		const day = date.getDate();
+		const month = date.getMonth();
+
+		const newDate = new Date();
+		let tempDate = new Date();
+
+		// Set beginning of month by changing date and time
+		let monthStart = newDate.setDate(1);
+		let tempMonthStart = new Date(monthStart).setHours(0, 0, 0, 0);
+		monthStart = new Date(tempMonthStart);
+
+		try {
+			// Fetch expenses data
+			const userEmail = authentication.currentUser.email;
+			const amtsRef = collection(db, userEmail, "expensesDoc", "expenses");
+			// Filter from beginning of the month to current time
+			const q = query(
+				amtsRef,
+				where("date", ">=", new Date(monthStart)),
+				where("date", "<=", new Date())
+			);
+			const amtsSnapshot = await getDocs(q);
+			let amtsByDate = {};
+
+			// Find total sum of expenses for each day
+			amtsSnapshot.forEach((doc) => {
+				let data = doc.data();
+				let expAmt = data.amount;
+				this.totalExpenses += expAmt;
+			});
+			this.avgExpenses = parseFloat(this.totalExpenses / day).toFixed(2);
+			this.totalExpenses = parseFloat(this.totalExpenses).toFixed(2);
+
+			this.loaded = true;
+		} catch (err) {
+			console.error(err);
+		}
+	},
 };
 </script>
 

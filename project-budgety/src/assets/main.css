@@ -26,6 +26,7 @@
   body {
     display: flex;
     place-items: center;
+    margin-left: 130px;
   }
 
   /* #app {

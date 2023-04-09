@@ -91,7 +91,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 /* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap'); */
 /* root {
   apply to everything
@@ -103,6 +103,8 @@ body {
   place-items: unset !important;
   display: flex;
   flex-direction: column;
+  overflow-x:scroll;
+  /* height: 100vh; */
 }
 
 .analytics-header, .expense-value {
@@ -143,11 +145,13 @@ body {
 }
 
 .breakdown-box {
-  width: 380px;
+  width: 23.75rem;
+  max-width: 100%;
   /* height: 233px; */
   background: var(--color-card);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
+  border-radius: 0.625rem;
+  margin-right: 1.875rem;
 }
 
 .font-18 {
@@ -156,42 +160,41 @@ body {
   padding: 20px;
 }
 
-
 .section2 {
   display: flex;
   /* justify-content: space-between; */
-  gap: 20px;
-  margin: 25px 0px;
+  gap: 1.25rem;
+  margin: 1.563rem 0rem;
 }
 
 .line-graph-box {
-  width: 800px;
+  width: 50rem;
   background: var(--color-card);
   box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   text-align: left;
   /* add space between line chart and container */
-  padding: 0px 10px 10px 10px;
+  padding: 0px 0.625rem 0.625rem 0.625rem;
 }
 
 .progress {
   /* add space between each category */
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
 .categories {
-  padding: 0px 20px;
+  padding: 0rem 1.25rem;
 }
 
 .category-1-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 .category-icon {
-  width: 40px;
+  width: 2.5rem;
 }
 
 .category-text {
@@ -208,7 +211,7 @@ body {
   height: 366px; */
   background: var(--color-card);
   box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
-  margin-right: 30px;
+  margin-right: 1.875rem;
   /* max-width: 90%; */
 }
 
@@ -238,7 +241,7 @@ body {
 }
 
 .expenses-table {
-  padding: 0px 30px;
+  padding: 0rem 1.875rem;
 }
 
 </style>

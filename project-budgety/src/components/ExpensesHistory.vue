@@ -34,22 +34,6 @@ export default {
 				{ text: "CATEGORY", value: "category" },
 				{ text: "AMOUNT", value: "amount" },
 			],
-			items: [
-				{
-					id: "1",
-					item: "Starbucks",
-					date: "14/04/2023",
-					category: "Food",
-					amount: "$33.14",
-				},
-				{
-					id: "2",
-					item: "Fruits",
-					date: "14/04/2023",
-					category: "Groceries",
-					amount: "$26.51",
-				},
-			],
 			itemsList: [],
 		};
 	},

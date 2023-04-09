@@ -95,48 +95,57 @@ export default {
 	},
 
 	async mounted() {
-		const date = new Date();
-		const day = date.getDate();
-		const month = date.getMonth();
+		try {
+			const userEmail = authentication.currentUser.email;
+			await this.getDailyExpenses(userEmail);
+			// Mount Line Chart component after updating daily expenses
+			this.loaded = true;
+		} catch (err) {
+			console.error(err);
+		}
+	},
+	methods: {
+		async getDailyExpenses(userEmail) {
+			const date = new Date();
+			const day = date.getDate();
+			const month = date.getMonth();
 
-		const newDate = new Date();
-		let tempDate = new Date();
-
-		// Set beginning of month by changing date and time
-		let monthStart = newDate.setDate(1);
-		let tempMonthStart = new Date(monthStart).setHours(0, 0, 0, 0);
-		monthStart = new Date(tempMonthStart);
-
-		// Get end date of month
-		// Note: different possible end dates for different months, possible values: 31, 30, 29, 28
-		this.numDays = 31;
-		let monthEnd = tempDate.setDate(31);
-		if (new Date(monthEnd).getMonth() != month) {
-			this.numDays -= 1;
+			const newDate = new Date();
 			let tempDate = new Date();
-			monthEnd = tempDate.setDate(30);
+
+			// Set beginning of month by changing date and time
+			let monthStart = newDate.setDate(1);
+			let tempMonthStart = new Date(monthStart).setHours(0, 0, 0, 0);
+			monthStart = new Date(tempMonthStart);
+
+			// Get end date of month
+			// Note: different possible end dates for different months, possible values: 31, 30, 29, 28
+			this.numDays = 31;
+			let monthEnd = tempDate.setDate(31);
 			if (new Date(monthEnd).getMonth() != month) {
 				this.numDays -= 1;
-
 				let tempDate = new Date();
-				monthEnd = tempDate.setDate(29);
+				monthEnd = tempDate.setDate(30);
 				if (new Date(monthEnd).getMonth() != month) {
 					this.numDays -= 1;
+
 					let tempDate = new Date();
-					monthEnd = tempDate.setDate(28);
+					monthEnd = tempDate.setDate(29);
+					if (new Date(monthEnd).getMonth() != month) {
+						this.numDays -= 1;
+						let tempDate = new Date();
+						monthEnd = tempDate.setDate(28);
+					}
 				}
 			}
-		}
 
-		// Update numDays for Line Chart horizontal axis
-		this.daysLabels = Array(this.numDays)
-			.fill()
-			.map((v, i) => String(i + 1));
-		this.chartData.labels = this.daysLabels;
+			// Update numDays for Line Chart horizontal axis
+			this.daysLabels = Array(this.numDays)
+				.fill()
+				.map((v, i) => String(i + 1));
+			this.chartData.labels = this.daysLabels;
 
-		try {
 			// Fetch expenses data
-			const userEmail = authentication.currentUser.email;
 			const amtsRef = collection(db, userEmail, "expensesDoc", "expenses");
 			// Filter only expenses in current month
 			const q = query(
@@ -167,12 +176,7 @@ export default {
 
 			// Update expense chart data before mounting Line Chart component
 			this.chartData.datasets[0].data = this.amtsList;
-
-			// Mount Line Chart component
-			this.loaded = true;
-		} catch (err) {
-			console.error(err);
-		}
+		},
 	},
 };
 </script>

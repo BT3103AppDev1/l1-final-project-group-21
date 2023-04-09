@@ -45,7 +45,145 @@
 	</div>
 
 	<div class="container3">
-		
+		<div class="food">
+			<div class="cat_top"> 
+				<img style="margin:0.1em" class="category-icon" src="../assets/icons/Food.png" /> 
+				<h1 style="margin:0.1em; font-weight: bold; color: #4F94BC; left:0.3em">Food</h1> 
+				<div class="x-btn"><fa icon="xmark" /></div>
+			</div>
+
+			<div class="budget_set">
+				<h3 style="font-weight: bold">Budget Set:</h3>
+				<h3 style="font-weight: bold; left:0.5em">$200.00</h3>
+			</div>
+
+			<div class="percent_spent">
+				<h4 style="font-weight: bold; line-height:0em; color:#36C629">78% SPENT</h4>
+			</div>
+
+			<div class="money_left">
+				<h1 style="font-weight: bold; color: #4F94BC; font-size:3em">$42.00</h1> 
+			</div>
+
+			<div>
+				<h4 style="font-weight: bold; line-height:0em; color: #4F94BC">left this month</h4>
+			</div>
+
+			<br>
+			<div class="progress_bar"><div class="food_progress"></div></div>
+		</div>
+
+		<div class="fashion">
+			<div class="cat_top">
+				<img class="category-icon" src="../assets/icons/Fashion.png" />
+				<h1 style="margin:0.1em; font-weight: bold; color: #856DC8; left:0.3em">Fashion</h1>
+				<div class="x-btn"><fa icon="xmark" /></div>
+			</div>
+
+			<div class="budget_set">
+				<h3 style="font-weight: bold">Budget Set:</h3>
+				<h3 style="font-weight: bold; left:0.5em">$80.00</h3>
+			</div>
+
+			<div class="percent_spent">
+				<h4 style="font-weight: bold; line-height:0em; color:#36C629">55% SPENT</h4>
+			</div>
+
+			<div class="money_left">
+				<h1 style="font-weight: bold; color: #856DC8; font-size:3em">$36.00</h1> 
+			</div>
+
+			<div>
+				<h4 style="font-weight: bold; line-height:0em; color: #856DC8">left this month</h4>
+			</div>
+
+			<br>
+			<div class="progress_bar"><div class="fashion_progress"></div></div>
+		</div>
+
+		<div class="entertainment">
+			<div class="cat_top">
+				<img class="category-icon" src="../assets/icons/Entertainment.png" />
+				<h1 style="margin:0.1em; font-weight: bold; color: #EB8AD0; left:0.3em">Entertainment</h1>
+				<div class="x-btn"><fa icon="xmark" /></div>
+			</div>
+
+			<div class="budget_set">
+				<h3 style="font-weight: bold">Budget Set:</h3>
+				<h3 style="font-weight: bold; left:0.5em">$80.00</h3>
+			</div>
+
+			<div class="percent_spent">
+				<h4 style="font-weight: bold; line-height:0em; color:#BE0D0D">120% SPENT</h4>
+			</div>
+
+			<div class="money_left">
+				<h1 style="font-weight: bold; color: #EB8AD0; font-size:3em">-$12.00</h1> 
+			</div>
+
+			<div>
+				<h4 style="font-weight: bold; line-height:0em; color: #EB8AD0">left this month</h4>
+			</div>
+
+			<br>
+			<div class="progress_bar"><div class="entertainment_progress"></div></div>
+		</div>
+
+		<div class="transportation">
+			<div class="cat_top">
+				<img class="category-icon" src="../assets/icons/Transportation.png" />
+				<h1 style="margin:0.1em; font-weight: bold; color: #CC8A4A; left:0.3em">Transportation</h1>
+				<div class="x-btn"><fa icon="xmark" /></div>
+			</div>
+
+			<div class="budget_set">
+				<h3 style="font-weight: bold">Budget Set:</h3>
+				<h3 style="font-weight: bold; left:0.5em">$80.00</h3>
+			</div>
+
+			<div class="percent_spent">
+				<h4 style="font-weight: bold; line-height:0em; color:#36C629">55% SPENT</h4>
+			</div>
+
+			<div class="money_left">
+				<h1 style="font-weight: bold; color: #CC8A4A; font-size:3em">$36.00</h1> 
+			</div>
+
+			<div>
+				<h4 style="font-weight: bold; line-height:0em; color: #CC8A4A">left this month</h4>
+			</div>
+
+			<br>
+			<div class="progress_bar"><div class="transportation_progress"></div></div>
+		</div>
+
+		<div class="healthcare">
+			<div class="cat_top">
+				<img class="category-icon" src="../assets/icons/Healthcare.png" />
+				<h1 style="margin:0.1em; font-weight: bold; color: #539F37; left:0.3em">Healthcare</h1>
+				<div class="x-btn"><fa icon="xmark" /></div>
+			</div>
+
+			<div class="budget_set">
+				<h3 style="font-weight: bold">Budget Set:</h3>
+				<h3 style="font-weight: bold; left:0.5em">$80.00</h3>
+			</div>
+
+			<div class="percent_spent">
+				<h4 style="font-weight: bold; line-height:0em; color:#36C629">55% SPENT</h4>
+			</div>
+
+			<div class="money_left">
+				<h1 style="font-weight: bold; color: #539F37; font-size:3em">-$12.00</h1> 
+			</div>
+
+			<div>
+				<h4 style="font-weight: bold; line-height:0em; color: #539F37">left this month</h4>
+			</div>
+
+			<br>
+			<div class="progress_bar"><div class="healthcare_progress"></div></div>
+		</div>
 
 	</div>
 
@@ -68,6 +206,112 @@ export default {
 
 <style>
 
+.x-btn {
+	vertical-align: center;
+	margin: 0.5em;
+	text-align: center;
+	padding: 0em;
+}
+
+.x-btn:hover {
+	background-color: #F2F2F2;
+	cursor: grab;
+}
+
+.healthcare_progress {
+	color: black;
+    height: 2.4em;
+    width: 55%;
+    border: solid 1px #BEF0AC;
+    background: #BEF0AC;
+    border-radius: 10px;
+}
+
+.transportation_progress {
+	color: black;
+    height: 2.4em;
+    width: 55%;
+    border: solid 1px #FFDBB9;
+    background: #FFDBB9;
+    border-radius: 10px;
+}
+
+.entertainment_progress {
+	color: black;
+    height: 2.4em;
+    width: 0%;
+    border: solid 1px #FFD7F4;
+    background: #FFD7F4;
+    border-radius: 10px;
+}
+
+.fashion_progress {
+	color: black;
+    height: 2.4em;
+    width: 45%;
+    border: solid 1px #D4C5FF;
+    background: #D4C5FF;
+    border-radius: 10px;
+}
+
+.food_progress {
+	color: black;
+    height: 2.4em;
+    width: 22%;
+    border: solid 1px #CFEDFE;
+    background: #CFEDFE;
+    border-radius: 10px;
+}
+
+.progress_bar {
+	color: black;
+    height: 2.5em;
+    width: 100%;
+    border: solid 1px lightgray;
+    background: white;
+    border-radius: 10px;
+	justify-content: left;
+	box-shadow: rgba(0, 0, 0, 0.352) 0px 5px 3px;
+}
+
+.percent_spent {
+	font-weight: bold;
+}
+
+.budget_set {
+	color: #6C60F3;
+	line-height: 3em;
+	display: flex;
+}
+
+.cat_top {
+  	display: grid;
+    grid-template-columns: 0% 55% 0%;
+    grid-gap: 4em;
+}
+
+.category-icon {
+  width: 4em;
+}
+
+.food, .fashion, .entertainment, .transportation, .healthcare {
+	color: black;
+    height: 20em;
+    width: 90%;
+    padding: 2em;
+    border: solid 1px black;
+    background: white;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.container3 {
+	margin: 0em 0em 2em 2em;
+	display: grid;
+    grid-template-columns: 32.5% 32.5% 32.5%;
+    grid-row-gap: 2em;
+}
+
 .money {
 	color: black;
     height: 20em;
@@ -77,15 +321,14 @@ export default {
     background: white;
     border-radius: 10px;
     text-align: center;
-	
 }
 
 .money_words {
 	margin: 0.5	em 0em 0em 3.2em;
-	position: absolute;
 	top: 50%;
 	-ms-transform: translateY(-50%);
 	transform: translateY(-50%);
+	text-align: center ;
 }
 
 .percentage {
@@ -102,7 +345,7 @@ export default {
 }
 
 .container2 {
-	margin: 0em 0em 0em 2em;
+	margin: 0em 0em 2em 2em;
 	display: grid;
     grid-template-columns: 60% 31%;
     grid-gap: 3em;

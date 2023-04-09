@@ -68,7 +68,7 @@ export default {
 					.map((v, i) => String(i + 1)),
 				datasets: [
 					{
-						label: "Data One",
+						label: "Amount Spent",
 						backgroundColor: "#f87979",
 						data: this.amtsList,
 						backgroundColor: "rgba(108, 96, 243, 0.2)",
@@ -123,7 +123,6 @@ export default {
 				}
 			}
 		}
-		// console.log(new Date(monthStart), new Date(monthEnd));
 
 		try {
 			// Fetch expenses data
@@ -136,7 +135,6 @@ export default {
 				where("date", "<=", new Date(monthEnd))
 			);
 			const amtsSnapshot = await getDocs(q);
-			// console.log(amtsSnapshot);
 			let amtsByDate = {};
 
 			// Find total sum of expenses for each day
@@ -144,7 +142,6 @@ export default {
 				let data = doc.data();
 				let expDateRaw = data.date;
 				let formattedDate = new Date(expDateRaw.seconds * 1000 + 28800 * 1000);
-				console.log(formattedDate);
 				let expDay = formattedDate.getDate().toString();
 				let expAmt = data.amount;
 				if (expDay in amtsByDate) {
@@ -167,40 +164,5 @@ export default {
 			console.error(err);
 		}
 	},
-
-	/*
-		const userEmail = authentication.currentUser.email;
-		const colRef = collection(db, userEmail, "expensesDoc", "expenses");
-		// console.log(colRef);
-		// ***for query need to add in: where date = for that specific month only
-		const q = query(
-			collection(db, userEmail, "expensesDoc", "expenses")
-			// where("category", "==", "food")
-		);
-
-		const querySnapshot = await getDocs(q);
-		querySnapshot.forEach((doc) => {
-			// console.log(doc.id, " => ", doc.data());
-		});
-
-		const expRef = collection(db, userEmail, "expensesDoc", "expenses");
-		const expSnapshot = await getDocs(colRef);
-		const expList = expSnapshot.docs.map((doc) => [doc.id, doc.data()]);
-		// console.log(expList);
-		*/
-
-	// let amtList = amtsSnapshot.docs
-	// 	.map((doc) => doc.data())
-	// 	// .map((doc) => doc.amount);
-	// 	.sort((x, y) => x.amount < y.amount);
-	// .map((doc) => doc[1].amount);
-	// .sort((x, y) => x[1].date.seconds < y[1].date.seconds) // sort by earlier date first
-	// .map(
-	// 	(doc) => new Date(doc[1].date.seconds * 1000 + 28800 * 1000),
-	// 	doc[1].amount
-	// );
-	// console.log(this.amtsList);
-	// console.log(amtsByDate);
-	// },
 };
 </script>

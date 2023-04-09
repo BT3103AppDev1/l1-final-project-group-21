@@ -182,8 +182,9 @@ body {
 }
 
 .input-text {
-	border-bottom-style: ridge;
-	border-bottom-color: #aba6a6;
+	border-style: ridge;
+	border-color: #aba6a6;
+	border-radius: 5px;
 	width: 15%;
 	margin: 10px 0;
 	margin-bottom: 20px;

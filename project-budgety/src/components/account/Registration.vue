@@ -71,6 +71,12 @@ import {
 	createUserWithEmailAndPassword,
 	updateProfile,
 } from "firebase/auth";
+import { collection, addDoc, setDoc, doc } from "firebase/firestore";
+import firebaseApp from "../../firebase.js";
+import { getFirestore } from "firebase/firestore";
+
+const db = getFirestore(firebaseApp);
+const auth = getAuth();
 
 export default {
 	name: "Registration",
@@ -88,7 +94,7 @@ export default {
 	},
 
 	methods: {
-		register() {
+		async register() {
 			if (
 				this.username == "" ||
 				this.email == "" ||
@@ -96,20 +102,38 @@ export default {
 				this.repeatpassword == ""
 			) {
 				alert("Please fill in all sections.");
-			} else if (this.password == this.repeatpassword) {
-				createUserWithEmailAndPassword(getAuth(), email.value, password.value)
-					.then((data) => {
-						alert("Account successfully registered!");
-						const auth = getAuth();
-						updateProfile(auth.currentUser, { displayName: username.value });
-						this.$router.push({ name: "Dashboard" });
-					})
-					.catch((error) => {
-						console.log(error.code);
-						alert(error.message);
-					});
-			} else {
+			} else if (this.password != this.repeatpassword) {
 				alert("Please ensure that both passwords match.");
+			} else if (this.password == this.repeatpassword) {
+				try {
+					createUserWithEmailAndPassword(
+						getAuth(),
+						email.value,
+						password.value
+					).then(async (data) => {
+						alert("Account successfully registered!");
+
+						// add user's username under Firebase Authentication displayName
+						updateProfile(auth.currentUser, { displayName: username.value });
+
+						// create collection for new user in Firestore DB
+						// for each user create "budgets" and "expenses" documents
+						const docRef1 = await setDoc(
+							doc(db, String(email.value), "expensesDoc"),
+							{}
+						);
+						const docRef2 = await setDoc(
+							doc(db, String(email.value), "budgetsDoc"),
+							{}
+						);
+
+						// navigate user to the Dashboard (main page)
+						this.$router.push({ name: "Dashboard" });
+					});
+				} catch (error) {
+					console.log(error.code);
+					alert(error.message);
+				}
 			}
 		},
 	},
@@ -125,7 +149,7 @@ body {
 
 .container {
 	display: flex;
-	justify-content: left;
+	justify-content: center;
 	align-items: center;
 	height: 100vh;
 	width: 100vw;

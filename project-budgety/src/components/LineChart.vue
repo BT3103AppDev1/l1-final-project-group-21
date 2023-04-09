@@ -55,17 +55,16 @@ export default {
 	components: { Line },
 	data() {
 		return {
-			// Initialise amtsList to 30 days of $0
-			amtsList: Array(30)
+			// Find number of days in the month
+			numDays: 0,
+			daysLabels: [],
+			// Initialise amtsList to $0 for all days of the month
+			amtsList: Array(31)
 				.fill()
 				.map((v, i) => String(0)),
 			loaded: false,
-			chartData: null,
 			chartData: {
-				// Labels for 30 days of expenditure
-				labels: Array(30)
-					.fill()
-					.map((v, i) => String(i + 1)),
+				labels: this.daysLabels,
 				datasets: [
 					{
 						label: "Amount Spent",
@@ -110,19 +109,30 @@ export default {
 
 		// Get end date of month
 		// Note: different possible end dates for different months, possible values: 31, 30, 29, 28
+		this.numDays = 31;
 		let monthEnd = tempDate.setDate(31);
 		if (new Date(monthEnd).getMonth() != month) {
+			this.numDays -= 1;
 			let tempDate = new Date();
 			monthEnd = tempDate.setDate(30);
 			if (new Date(monthEnd).getMonth() != month) {
+				this.numDays -= 1;
+
 				let tempDate = new Date();
 				monthEnd = tempDate.setDate(29);
 				if (new Date(monthEnd).getMonth() != month) {
+					this.numDays -= 1;
 					let tempDate = new Date();
 					monthEnd = tempDate.setDate(28);
 				}
 			}
 		}
+
+		// Update numDays for Line Chart horizontal axis
+		this.daysLabels = Array(this.numDays)
+			.fill()
+			.map((v, i) => String(i + 1));
+		this.chartData.labels = this.daysLabels;
 
 		try {
 			// Fetch expenses data

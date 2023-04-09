@@ -117,29 +117,21 @@ export default {
 		};
 	},
 	async mounted() {
+		const date = new Date();
+		const day = date.getDate();
+		const month = date.getMonth();
+
+		const newDate = new Date();
+		let tempDate = new Date();
+
+		// Set beginning of month by changing date and time
+		let monthStart = newDate.setDate(1);
+		let tempMonthStart = new Date(monthStart).setHours(0, 0, 0, 0);
+		monthStart = new Date(tempMonthStart);
+
 		try {
-			const userEmail = authentication.currentUser.email;
-			await this.getDailyExpenses(userEmail);
-			this.loaded = true;
-		} catch (err) {
-			console.error(err);
-		}
-	},
-	methods: {
-		async getDailyExpenses(userEmail) {
-			const date = new Date();
-			const day = date.getDate();
-			const month = date.getMonth();
-
-			const newDate = new Date();
-			let tempDate = new Date();
-
-			// Set beginning of month by changing date and time
-			let monthStart = newDate.setDate(1);
-			let tempMonthStart = new Date(monthStart).setHours(0, 0, 0, 0);
-			monthStart = new Date(tempMonthStart);
-
 			// Fetch expenses data
+			const userEmail = authentication.currentUser.email;
 			const amtsRef = collection(db, userEmail, "expensesDoc", "expenses");
 			// Filter from beginning of the month to current time
 			const q = query(
@@ -158,7 +150,11 @@ export default {
 			});
 			this.avgExpenses = parseFloat(this.totalExpenses / day).toFixed(2);
 			this.totalExpenses = parseFloat(this.totalExpenses).toFixed(2);
-		},
+
+			this.loaded = true;
+		} catch (err) {
+			console.error(err);
+		}
 	},
 };
 </script>

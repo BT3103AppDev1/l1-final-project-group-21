@@ -18,6 +18,74 @@
 
 		<div class="section2">
 			<div class="line-graph-box">
+				<div class="font-18">Testing</div>
+				<div v-for="(row, index) in catList" :key="cat">
+					<div class="category-1-top">
+						<!-- If statements for icons -->
+						<img
+							v-if="row[0] == 'Fashion'"
+							class="category-icon"
+							src="../assets/icons/Fashion.png"
+						/>
+						<img
+							v-if="row[0] == 'Entertainment'"
+							class="category-icon"
+							src="../assets/icons/Entertainment.png"
+						/>
+						<img
+							v-if="row[0] == 'Food'"
+							class="category-icon"
+							src="../assets/icons/Food.png"
+						/>
+						<img
+							v-if="row[0] == 'Healthcare'"
+							class="category-icon"
+							src="../assets/icons/Healthcare.png"
+						/>
+						<img
+							v-if="row[0] == 'Transportation'"
+							class="category-icon"
+							src="../assets/icons/Transportation.png"
+						/>
+						<img
+							v-if="row[0] == 'Utilities'"
+							class="category-icon"
+							src="../assets/icons/Utilities.png"
+						/>
+						<img
+							v-if="row[0] == 'Groceries'"
+							class="category-icon"
+							src="../assets/icons/Groceries.png"
+						/>
+						<img
+							v-if="row[0] == 'Others'"
+							class="category-icon"
+							src="../assets/icons/Others.png"
+						/>
+						<img
+							v-if="row[0] == 'Rental'"
+							class="category-icon"
+							src="../assets/icons/Rental.png"
+						/>
+
+						<span class="category-text">{{ row[0] }}</span>
+						<span class="category-text">{{ row[2] }}%</span>
+						<span class="category-text">${{ row[1] }}</span>
+					</div>
+					<div class="progress">
+						<p>
+							Using v-html dire<p></p>ctive: {{ row[2] }}<span v-html="rawHtml"></span>
+						</p>
+						<v-progress-linear
+							rounded="true"
+							color="#856DC8"
+							model-value="{{row[2]}}"
+							height="8px"
+						></v-progress-linear>
+					</div>
+				</div>
+			</div>
+			<div class="line-graph-box">
 				<div class="font-18">Daily Expenditure</div>
 				<LineChart />
 			</div>
@@ -114,13 +182,16 @@ export default {
 			loaded: false,
 			totalExpenses: 0,
 			avgExpenses: 50,
+			catList: [],
 		};
 	},
 	async mounted() {
 		try {
 			const userEmail = authentication.currentUser.email;
-			// Update Total and Average Expenses
-			await this.getExpenses(userEmail);
+			const amtsRef = collection(db, userEmail, "expensesDoc", "expenses");
+			// Update total and average expenses
+			// And get breakdown by category
+			await this.getExpenses(amtsRef);
 			this.loaded = true;
 		} catch (err) {
 			console.error(err);
@@ -128,7 +199,7 @@ export default {
 	},
 
 	methods: {
-		async getExpenses(userEmail) {
+		async getExpenses(amtsRef) {
 			const date = new Date();
 			const day = date.getDate();
 			const month = date.getMonth();
@@ -142,14 +213,13 @@ export default {
 			monthStart = new Date(tempMonthStart);
 
 			// Fetch expenses data
-			const amtsRef = collection(db, userEmail, "expensesDoc", "expenses");
 			// Filter from beginning of the month to current time
-			const q = query(
+			const amtsQuery = query(
 				amtsRef,
 				where("date", ">=", new Date(monthStart)),
 				where("date", "<=", new Date())
 			);
-			const amtsSnapshot = await getDocs(q);
+			const amtsSnapshot = await getDocs(amtsQuery);
 			let amtsByDate = {};
 
 			// Find total sum of expenses for each day
@@ -162,6 +232,32 @@ export default {
 				parseFloat(this.totalExpenses) / parseFloat(day)
 			).toFixed(2);
 			this.totalExpenses = parseFloat(this.totalExpenses).toFixed(2);
+
+			// Get expenses breakdown by category
+			let catDict = {};
+			amtsSnapshot.forEach((doc) => {
+				let data = doc.data();
+				let expAmt = data.amount;
+				let expCat = data.category;
+				if (expCat in catDict) {
+					catDict[expCat] += expAmt;
+				} else {
+					catDict[expCat] = expAmt;
+				}
+			});
+			const totExp = parseFloat(this.totalExpenses);
+			// Format: [category name, total cat expense, percentage of total]
+			for (var key in catDict) {
+				this.catList.push([
+					key,
+					catDict[key].toFixed(2), // total cat expense
+					((catDict[key] / totExp) * 100).toFixed(1), // percentage of total
+				]);
+			}
+			// Sort according to highest expenditure first
+			this.catList.sort(function (x, y) {
+				return y[1] - x[1];
+			});
 		},
 	},
 };
@@ -231,6 +327,7 @@ body {
 	background: var(--color-card);
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	border-radius: 10px;
+	overflow-y: scroll;
 }
 
 .font-18 {

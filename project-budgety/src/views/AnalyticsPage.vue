@@ -55,10 +55,8 @@
     <div class="section3">
         <div class="top-line">
             <div class="font-18">Expenses History</div>
-            <!-- <div class="filter-btn-wrapper"> -->
               <div class="filter-btn">
                 <fa icon="filter" /> Filter
-              <!-- </div> -->
             </div>
         </div>
         <div class="expenses-table">
@@ -117,7 +115,6 @@ export default {
   margin: 15px 25px 0px 0px;
   
 }
-
 .expense-box-header {
   font-style: normal;
   font-weight: 300;
@@ -133,7 +130,6 @@ export default {
 }
 .breakdown-box {
   /* width: 23.75rem; */
-
   /* height: 233px; */
   background: var(--color-card);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);

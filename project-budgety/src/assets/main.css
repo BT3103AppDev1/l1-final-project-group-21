@@ -28,16 +28,16 @@ body {
 }
 @media screen and (max-width: 767px) {
   /* apply styling if screen width >= 480px*/
-  /* body {
+  body {
     background-color: blue;
-  } */
+  }
 }
 
 @media screen and (max-width: 700px) {
   /* apply styling if screen width >= 480px*/
-  /* body {
+  body {
     background-color: yellow;
-  } */
+  }
   .expense-boxes {
     flex-wrap: wrap;
   }
@@ -49,7 +49,7 @@ body {
 
 @media screen and (min-width: 768px) {
   body {
-    /* background-color: pink; */
+    background-color: pink;
   }
   
 } 
@@ -60,7 +60,7 @@ body {
     /* display: flex;
     place-items: center; */
     /* margin-left: 130px; */
-    /* background-color: brown; */
+    background-color: brown;
   }
 
   /* #app {
@@ -74,6 +74,6 @@ body {
     /* display: flex;
     place-items: center; */
     /* margin-left: 130px; */
-    /* background-color: green; */
+    background-color: green;
   }
 }

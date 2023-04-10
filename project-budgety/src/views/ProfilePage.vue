@@ -1,13 +1,19 @@
-<!-- Add Profile Code here -->
 <template>
-	<body>
+	<div id="profile-page">
 		<div class="header">
 			<div class="profile-header">Profile</div>
 		</div>
 
 		<div class="container">
+			<div class="night-mode">
+				<div class="font-18">Night Mode</div>
+				<div class="toggle-btn">
+					<fa icon="toggle-off"/>
+				</div>
+			</div>
+			<div class="font-18">Update Username</div>
+
 			<form ref="myform" id="myform">
-				<div class="font-18" style="font-weight: bold">Update Username</div>
 				<div class="formli">
 					<label for="coin1">Enter new username:</label>
 					<br />
@@ -38,7 +44,7 @@
 				</div>
 			</div>
 		</div>
-	</body>
+	</div>
 	<!-- <router-view/> -->
 	<Sidebar />
 </template>
@@ -121,15 +127,11 @@ export default {
 </script>
 
 <style scoped>
-body {
-	/* remove the centering from main.css */
-	place-items: unset !important;
-	display: flex;
-	flex-direction: column;
+#profile-page {
+	margin: 0 2rem;
 }
-
 .profile-header {
-	font-size: 40px;
+	font-size: 24px;
 	font-weight: 500;
 	padding-top: 50px;
 	text-align: left;
@@ -167,18 +169,29 @@ body {
 	box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
 }
 
+.night-mode {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.toggle-btn {
+	font-size: 35px;
+	margin-right: 2rem
+}
+
 .container {
 	/* encapsulate into a box */
 	background: var(--color-card);
 	box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
 	border-radius: 10px;
-	padding: 0px 10px 10px 10px;
+	padding: 1rem;
 	height: 100vh; /* keeps the container at 100 viewport height */
-	margin-right: 30px;
+	margin: 1.875rem 1.875rem 0rem 0rem;
 }
 
 #myform {
-	margin: 30px;
+	margin-left: 20px;
 }
 
 .input-text {
@@ -228,9 +241,8 @@ input:hover {
 .font-18 {
 	font-size: 18px;
 	font-weight: 500;
-	margin: 0px 0px 10px 0px;
-	padding: 5px 0px;
-	text-decoration: underline;
+	padding: 20px;
+	font-weight: 600;
 }
 
 .section {
@@ -243,6 +255,7 @@ input:hover {
 .logout {
 	display: inline;
 	margin-right: 30px;
+	/* position: absolute */
 }
 
 .delete {

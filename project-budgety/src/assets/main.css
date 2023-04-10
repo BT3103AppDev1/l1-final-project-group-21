@@ -19,32 +19,7 @@ body {
     margin-left: 230px;
 }
 
-@media screen and (max-width:1023px) {
-  /* apply styling if screen width >= 480px*/
-  .section2 {
-    flex-direction: column;
-  }
 
-}
-@media screen and (max-width: 767px) {
-  /* apply styling if screen width >= 480px*/
-  body {
-    background-color: blue;
-  }
-}
-
-@media screen and (max-width: 700px) {
-  /* apply styling if screen width >= 480px*/
-  body {
-    background-color: yellow;
-  }
-  .expense-boxes {
-    flex-wrap: wrap;
-  }
-  .expense-box {
-    flex: 1;
-  }
-}
 
 
 @media screen and (min-width: 768px) {
@@ -62,6 +37,7 @@ body {
     /* margin-left: 130px; */
     background-color: brown;
   }
+  
 
   /* #app {
     display: grid;
@@ -75,5 +51,44 @@ body {
     place-items: center; */
     /* margin-left: 130px; */
     background-color: green;
+  }
+}
+@media screen and (max-width:1023px) {
+  /* apply styling if screen width >= 480px*/
+  .section2 {
+    flex-direction: column;
+  }
+  .dashboard-section1 {
+    flex-direction: column;
+  }
+  
+
+}
+@media screen and (max-width: 767px) {
+  /* apply styling if screen width >= 480px*/
+  body {
+    background-color: blue;
+  }
+  .weekly-title {
+    font-size: 6px;
+    color: red;
+  }
+  .dashboard-section1 {
+    flex-wrap: wrap;
+    row-gap: 1rem;
+  }
+  
+}
+
+@media screen and (max-width: 700px) {
+  /* apply styling if screen width >= 480px*/
+  body {
+    background-color: yellow;
+  }
+  .expense-boxes {
+    flex-wrap: wrap;
+  }
+  .expense-box {
+    flex: 1;
   }
 }

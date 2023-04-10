@@ -40,14 +40,16 @@ export default {
 				plugins: {
 					// remove the legend on top
 					legend: {
-						display: false
+						display: false,
+						// position: 'right'
 					}
 				},
 				elements: {
 					
 				},
 				responsive: true,
-				// maintainAspectRatio: false
+				// aspectRatio: 2,
+				// maintainAspectRatio: true
 				
 			}
 		};

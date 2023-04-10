@@ -161,7 +161,7 @@ export default {
   flex: 1;
   /* add space between line chart and container */
   padding: 0px 0.625rem 0.625rem 0.625rem;
-  position: relative;
+  /* position: relative; */
   overflow: auto;
 
 }

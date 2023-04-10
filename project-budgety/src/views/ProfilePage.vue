@@ -9,6 +9,7 @@
 				<div class="font-18">Night Mode</div>
 				<div class="toggle-btn">
 					<fa icon="toggle-off"/>
+					<!-- change to toggle-on when night mode is on -->
 				</div>
 			</div>
 			<div class="font-18">Update Username</div>
@@ -32,16 +33,16 @@
 				</div>
 			</form>
 			<div class="section">
-				<div class="logout">
+				<!-- <div class="logout"> -->
 					<button id="purpleButton" type="button" v-on:click="logoutAccount">
 						Logout
 					</button>
-				</div>
-				<div class="delete">
+				<!-- </div> -->
+				<!-- <div class="delete"> -->
 					<button id="redButton" type="button" v-on:click="deleteAccount">
 						Delete Account
 					</button>
-				</div>
+				<!-- </div> -->
 			</div>
 		</div>
 	</div>
@@ -138,34 +139,36 @@ export default {
 }
 
 #purpleButton {
+	flex: 1;
 	color: #ffffff;
 	background-color: var(--sidebar-bg-color);
-	padding: 12px;
+	max-width: fit-content;
+	padding: 12px 48px;
 	border: none;
 	text-align: center;
 	text-decoration: none;
-	display: inline-block;
+	/* display: inline-block; */
 	font-size: 18px;
 	font-weight: bold;
-	/* margin: 4px 20px; */
 	border-radius: 12px; /* creates the curve */
-	width: 150px; /* how long it is */
 	box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
+	
 }
 
 #redButton {
+	flex: 1;
 	color: #ffffff;
 	background-color: darkred;
+	max-width: fit-content;
 	padding: 12px;
 	border: none;
 	text-align: center;
 	text-decoration: none;
-	display: inline-block;
+	/* display: inline-block; */
 	font-size: 18px;
 	font-weight: bold;
 	/* margin: 4px 20px; */
 	border-radius: 12px; /* creates the curve */
-	width: 200px; /* how long it is */
 	box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
 }
 
@@ -198,7 +201,8 @@ export default {
 	border-style: ridge;
 	border-color: #aba6a6;
 	border-radius: 5px;
-	width: 15%;
+	min-width: 11rem;
+	max-width: 15%;
 	margin: 10px 0;
 	margin-bottom: 20px;
 }
@@ -246,23 +250,27 @@ input:hover {
 }
 
 .section {
-	margin: 30px;
+	margin: 30px 20px;
 	margin-top: 200px; /* brute force */
+	display: flex;
+	justify-content: space-between;
 	/* position: absolute;
 	bottom: 30px; */
 }
 
 .logout {
-	display: inline;
-	margin-right: 30px;
+	flex: 1;
+	/* display: inline; */
+	/* margin-right: 30px; */
 	/* position: absolute */
 }
 
 .delete {
-	display: inline;
+	flex: 1;
+	/* display: inline; */
 	/* margin: 0px; */
-	position: absolute;
-	right: 0;
+	/* position: absolute; */
+	/* right: 0; */
 	/* bottom: 0; */
 }
 </style>

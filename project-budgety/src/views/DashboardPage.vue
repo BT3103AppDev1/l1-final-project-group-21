@@ -15,10 +15,10 @@
             <div class="weekly">
                 <div class="weekly-title">WEEKLY SPENDING</div>
                 <div class="spending-container">
-                    <div class="doughnutchart">
+                    <!-- <div class="doughnutchart"> -->
                         <DoughnutChart /> 
-                    </div>
-                    <div class="top3">Top 3 Categories</div>
+                    <!-- </div> -->
+                    <div class="top3">TOP 3 CATEGORIES</div>
                 </div>
             </div>
         </div>
@@ -68,12 +68,15 @@ export default {
     flex-direction: row;
     padding-top: 3.125rem;
     margin: 1.563rem 0rem;
+    /* align-items: baseline; */
+    /* justify-content: baseline; */
 }
 .left {
     display: flex;
     flex-direction: column;
     margin-right: 1.25rem;
     overflow: auto;
+    flex: 1;
     /* flex: 0.5 0.5 auto; */
 }
 .title {
@@ -95,11 +98,11 @@ export default {
     rgba(213, 144, 219, 0.87) 85.06%, #AB8CDD 98.97%);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 2.5rem;
-    padding: 4.5rem 2rem;
+    padding: 4.5rem 0rem;
     margin: 25px 25px 0px 0px;
     text-align: center;
     color: #FFFFFF;
-    /* flex: 1; */
+    /* max-width: 350px; */
 }
 .expense-box-header {
     font-style: normal;
@@ -109,7 +112,7 @@ export default {
 }
 .expense-value-dashboard {
     font-weight: 600;
-    font-size: 60px;
+    font-size: 55px;
 }
 
 .weekly {
@@ -117,18 +120,24 @@ export default {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 2.4rem;
     text-align: center;
-    /* flex: 2; */
+    flex: 1.5;
     overflow: auto;
 }
 .spending-container {
     display: flex;
-    overflow: auto;
+    /* overflow: auto; */
+    flex: 1;
+    padding: 0rem 4rem;
 }
 .doughnutchart {
     flex: 1;
+    /* overflow: auto; */
+    /* height: 200px; */
 }
 
 .top3 {
+    font-size: 18px;
+    font-weight: 700;
     flex: 1;
 }
 

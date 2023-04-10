@@ -1,6 +1,8 @@
 @import './base.css';
 
 #app {
+    /* margin: 0 auto; */
+  
   /* max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -8,25 +10,57 @@
   font-weight: normal; */
 }
 
-/* a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-} */
+ /* $desktop: 1200px; // xl
+  $laptop: 1024px; // lg
+  $tablet: 768px; // md
+  $phone: 480px; // sm */
 
-/* @media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
+body {
+    margin-left: 230px;
+}
+
+@media screen and (max-width:1023px) {
+  /* apply styling if screen width >= 480px*/
+  .section2 {
+    flex-direction: column;
   }
-} */
+
+}
+@media screen and (max-width: 767px) {
+  /* apply styling if screen width >= 480px*/
+  /* body {
+    background-color: blue;
+  } */
+}
+
+@media screen and (max-width: 700px) {
+  /* apply styling if screen width >= 480px*/
+  /* body {
+    background-color: yellow;
+  } */
+  .expense-boxes {
+    flex-wrap: wrap;
+  }
+  .expense-box {
+    flex: 1;
+  }
+}
+
+
+@media screen and (min-width: 768px) {
+  body {
+    /* background-color: pink; */
+  }
+  
+} 
 
 
 @media (min-width: 1024px) {
   body {
-    display: flex;
-    place-items: center;
-    margin-left: 130px;
+    /* display: flex;
+    place-items: center; */
+    /* margin-left: 130px; */
+    /* background-color: brown; */
   }
 
   /* #app {
@@ -34,4 +68,12 @@
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
   } */
+}
+@media (min-width: 1450px) {
+  body {
+    /* display: flex;
+    place-items: center; */
+    /* margin-left: 130px; */
+    /* background-color: green; */
+  }
 }

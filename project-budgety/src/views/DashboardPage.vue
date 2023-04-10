@@ -68,7 +68,7 @@ body {
     place-items: unset !important;
     display: flex;
     flex-direction: column;
-  }
+}
 
 .top3 {
 	position: absolute;

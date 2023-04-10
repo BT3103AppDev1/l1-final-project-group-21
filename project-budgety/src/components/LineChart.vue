@@ -67,7 +67,8 @@ export default {
 						borderColor: '#6C60F3',
 					}
 				},
-				responsive: true
+				responsive: true,
+				// maintainAspectRatio: false
 				
 			}
 		};

@@ -2,38 +2,66 @@
 	<div class="breakdown-box" v-if="loaded">
 		<div class="font-18">Breakdown by Category</div>
 		<div class="categories">
-			<!-- <div class="category-1"> -->
-			<div class="category-1-top">
-				<img class="category-icon" src="../assets/icons/Fashion.png" />
-				<span class="category-text">Fashion</span>
-				<span class="category-text">27.8%</span>
-				<span class="category-text">$59.91</span>
-			</div>
-			<div class="progress">
-				<v-progress-linear
-					rounded="true"
-					color="#856DC8"
-					model-value="27.8"
-					height="8px"
-				></v-progress-linear>
-				<!-- <LinearProgressBar /> -->
-			</div>
-			<!-- </div>   -->
-			<!-- second category -->
-			<div class="category-1-top">
-				<img class="category-icon" src="../assets/icons/Food.png" />
-				<span class="category-text blue">Food</span>
-				<span class="category-text blue">17.4%</span>
-				<span class="category-text blue">$33.14</span>
-			</div>
-			<div class="progress">
-				<v-progress-linear
-					rounded="true"
-					color="#4F94BC"
-					model-value="27.8"
-					height="8px"
-				></v-progress-linear>
-				<!-- <LinearProgressBar /> -->
+			<div v-for="(row, index) in catList" :key="row[0]">
+				<div class="category-1-top">
+					<!-- If statements for icons -->
+					<img
+						v-if="row[0] == 'Fashion'"
+						class="category-icon"
+						src="../assets/icons/Fashion.png"
+					/>
+					<img
+						v-else-if="row[0] == 'Entertainment'"
+						class="category-icon"
+						src="../assets/icons/Entertainment.png"
+					/>
+					<img
+						v-else-if="row[0] == 'Food'"
+						class="category-icon"
+						src="../assets/icons/Food.png"
+					/>
+					<img
+						v-else-if="row[0] == 'Healthcare'"
+						class="category-icon"
+						src="../assets/icons/Healthcare.png"
+					/>
+					<img
+						v-else-if="row[0] == 'Transportation'"
+						class="category-icon"
+						src="../assets/icons/Transportation.png"
+					/>
+					<img
+						v-else-if="row[0] == 'Utilities'"
+						class="category-icon"
+						src="../assets/icons/Utilities.png"
+					/>
+					<img
+						v-else-if="row[0] == 'Groceries'"
+						class="category-icon"
+						src="../assets/icons/Groceries.png"
+					/>
+					<img
+						v-else-if="row[0] == 'Others'"
+						class="category-icon"
+						src="../assets/icons/Others.png"
+					/>
+					<img
+						v-else-if="row[0] == 'Rental'"
+						class="category-icon"
+						src="../assets/icons/Rental.png"
+					/>
+					<span class="category-text">{{ row[0] }}</span>
+					<span class="category-text">{{ row[2] }}%</span>
+					<span class="category-text">${{ row[1] }}</span>
+				</div>
+				<div class="progress">
+					<v-progress-linear
+						rounded="true"
+						color="#856DC8"
+						v-model="row[2]"
+						height="8px"
+					></v-progress-linear>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -63,6 +91,7 @@ export default {
 			catList: [],
 			totalExpenses: 0,
 			loaded: false,
+			testValue: 90,
 		};
 	},
 	async mounted() {
@@ -140,7 +169,7 @@ export default {
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	border-radius: 0.625rem;
 	flex: 1;
-	overflow: auto;
+	overflow-y: scroll;
 	height: 100%;
 }
 .font-18 {
@@ -170,5 +199,29 @@ export default {
 }
 .blue {
 	color: #4f94bc;
+}
+.purple {
+	color: #856dc8;
+}
+.gold {
+	color: #ac986b;
+}
+.green {
+	color: #539f37;
+}
+.pink {
+	color: #eb8ad0;
+}
+.turquoise {
+	color: #38aca5;
+}
+.grey {
+	color: #8f8f8f;
+}
+.brown {
+	color: #8e451c;
+}
+.orange {
+	color: #cc8a4a;
 }
 </style>

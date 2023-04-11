@@ -23,42 +23,7 @@
 				<LineChart />
 			</div>
 			<div class="breakdown-box">
-				<div class="font-18">Breakdown by Category</div>
-				<div class="categories">
-					<!-- <div class="category-1"> -->
-					<div class="category-1-top">
-						<img class="category-icon" src="../assets/icons/Fashion.png" />
-						<span class="category-text">Fashion</span>
-						<span class="category-text">27.8%</span>
-						<span class="category-text">$59.91</span>
-					</div>
-					<div class="progress">
-						<v-progress-linear
-							rounded="true"
-							color="#856DC8"
-							model-value="27.8"
-							height="8px"
-						></v-progress-linear>
-						<!-- <LinearProgressBar /> -->
-					</div>
-					<!-- </div>   -->
-					<!-- second category -->
-					<div class="category-1-top">
-						<img class="category-icon" src="../assets/icons/Food.png" />
-						<span class="category-text blue">Food</span>
-						<span class="category-text blue">17.4%</span>
-						<span class="category-text blue">$33.14</span>
-					</div>
-					<div class="progress">
-						<v-progress-linear
-							rounded="true"
-							color="#4F94BC"
-							model-value="27.8"
-							height="8px"
-						></v-progress-linear>
-						<!-- <LinearProgressBar /> -->
-					</div>
-				</div>
+				<CategoryBreakdown />
 			</div>
 		</div>
 		<!-- </div> -->
@@ -79,6 +44,7 @@
 
 <script>
 import LineChart from "../components/LineChart.vue";
+import CategoryBreakdown from "../components/CategoryBreakdown.vue";
 import ExpensesHistory from "../components/ExpensesHistory.vue";
 import Sidebar from "@/components/sidebar/Sidebar.vue";
 
@@ -103,6 +69,7 @@ export default {
 	// local registration using components
 	components: {
 		LineChart,
+		CategoryBreakdown,
 		ExpensesHistory,
 		Sidebar,
 	},
@@ -172,6 +139,7 @@ export default {
 				parseFloat(this.totalExpenses) / parseFloat(day)
 			).toFixed(2);
 			this.totalExpenses = parseFloat(this.totalExpenses).toFixed(2);
+
 			// Get expenses breakdown by category
 			let catDict = {};
 			amtsSnapshot.forEach((doc) => {
@@ -282,29 +250,6 @@ export default {
 	padding: 0px 0.625rem 0.625rem 0.625rem;
 	/* position: relative; */
 	overflow: auto;
-}
-.progress {
-	/* add space between each category */
-	margin-bottom: 1.25rem;
-}
-.categories {
-	padding: 0rem 1.25rem;
-}
-.category-1-top {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 0.625rem;
-}
-.category-icon {
-	width: 2.5rem;
-}
-.category-text {
-	color: #856dc8;
-	font-weight: 700;
-}
-.blue {
-	color: #4f94bc;
 }
 .section3 {
 	/* width: 1090px;

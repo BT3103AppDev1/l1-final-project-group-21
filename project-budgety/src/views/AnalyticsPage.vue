@@ -1,7 +1,7 @@
 <template>
 	<body>
 		<div class="section1">
-			<div class="analytics-header">Analytics</div>
+			<div class="analytics-header">Analytics for {{ monthName }}</div>
 			<div class="expense-boxes" v-if="loaded">
 				<div class="expense-box">
 					<div class="expense-box-header">TOTAL EXPENSES</div>
@@ -17,74 +17,6 @@
 		</div>
 
 		<div class="section2">
-			<div class="line-graph-box">
-				<div class="font-18">Testing</div>
-				<div v-for="(row, index) in catList" :key="cat">
-					<div class="category-1-top">
-						<!-- If statements for icons -->
-						<img
-							v-if="row[0] == 'Fashion'"
-							class="category-icon"
-							src="../assets/icons/Fashion.png"
-						/>
-						<img
-							v-if="row[0] == 'Entertainment'"
-							class="category-icon"
-							src="../assets/icons/Entertainment.png"
-						/>
-						<img
-							v-if="row[0] == 'Food'"
-							class="category-icon"
-							src="../assets/icons/Food.png"
-						/>
-						<img
-							v-if="row[0] == 'Healthcare'"
-							class="category-icon"
-							src="../assets/icons/Healthcare.png"
-						/>
-						<img
-							v-if="row[0] == 'Transportation'"
-							class="category-icon"
-							src="../assets/icons/Transportation.png"
-						/>
-						<img
-							v-if="row[0] == 'Utilities'"
-							class="category-icon"
-							src="../assets/icons/Utilities.png"
-						/>
-						<img
-							v-if="row[0] == 'Groceries'"
-							class="category-icon"
-							src="../assets/icons/Groceries.png"
-						/>
-						<img
-							v-if="row[0] == 'Others'"
-							class="category-icon"
-							src="../assets/icons/Others.png"
-						/>
-						<img
-							v-if="row[0] == 'Rental'"
-							class="category-icon"
-							src="../assets/icons/Rental.png"
-						/>
-
-						<span class="category-text">{{ row[0] }}</span>
-						<span class="category-text">{{ row[2] }}%</span>
-						<span class="category-text">${{ row[1] }}</span>
-					</div>
-					<div class="progress">
-						<p>
-							Using v-html dire<p></p>ctive: {{ row[2] }}<span v-html="rawHtml"></span>
-						</p>
-						<v-progress-linear
-							rounded="true"
-							color="#856DC8"
-							model-value="{{row[2]}}"
-							height="8px"
-						></v-progress-linear>
-					</div>
-				</div>
-			</div>
 			<div class="line-graph-box">
 				<div class="font-18">Daily Expenditure</div>
 				<LineChart />
@@ -183,6 +115,21 @@ export default {
 			totalExpenses: 0,
 			avgExpenses: 50,
 			catList: [],
+			monthName: "",
+			months: [
+				"January",
+				"February",
+				"March",
+				"April",
+				"May",
+				"June",
+				"July",
+				"August",
+				"September",
+				"October",
+				"November",
+				"December",
+			],
 		};
 	},
 	async mounted() {
@@ -203,6 +150,7 @@ export default {
 			const date = new Date();
 			const day = date.getDate();
 			const month = date.getMonth();
+			this.monthName = this.months[month];
 
 			const newDate = new Date();
 			let tempDate = new Date();
@@ -388,6 +336,7 @@ body {
 	background: var(--color-card);
 	box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
 	margin-right: 30px;
+	margin-bottom: 80px;
 	/* max-width: 90%; */
 }
 

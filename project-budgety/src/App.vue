@@ -1,11 +1,5 @@
 <template>
-	<!-- <Sidebar/> -->
-
 	<div id="nav">
-		<!-- <router-link to="/dashboard">Dashboard</router-link> |
-    <router-link to="/analytics">Analytics</router-link> |
-    <router-link to="/budget">Budget</router-link> |
-    <router-link to="/profile">Profile</router-link> | -->
 		<router-view />
 	</div>
 </template>

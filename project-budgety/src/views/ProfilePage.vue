@@ -33,25 +33,21 @@
 				</div>
 			</form>
 			<div class="section">
-				<!-- <div class="logout"> -->
-					<button id="purpleButton" type="button" v-on:click="logoutAccount">
-						Logout
-					</button>
-				<!-- </div> -->
-				<!-- <div class="delete"> -->
-					<button id="redButton" type="button" v-on:click="deleteAccount">
-						Delete Account
-					</button>
-				<!-- </div> -->
+				<button id="purpleButton" type="button" v-on:click="logoutAccount">
+					Logout
+				</button>
+
+				<button id="redButton" type="button" v-on:click="deleteAccount">
+					Delete Account
+				</button>
 			</div>
 		</div>
 	</div>
-	<!-- <router-view/> -->
 	<Sidebar />
 </template>
 
 <script>
-import { getAuth, updateProfile } from "firebase/auth";
+import { getAuth, updateProfile, signOut } from "firebase/auth";
 import { useRoute } from "vue-router";
 import { onBeforeUnmount } from "vue";
 import { getFirestore } from "firebase/firestore";
@@ -66,25 +62,8 @@ export default {
 		Sidebar,
 	},
 
-	// data() {
-	// 	return {
-	// 		auth: "",
-	// 		router: ""
-	// 	}
-	// },
-
 	mounted() {
 		console.log("Profile Page Mounted");
-		// const auth = getAuth();
-		// console.log(auth.currentUser.email);
-		// if (!auth) { // not logged in
-		// 	alert("You are not logged in, redirecting you to login page");
-		// 	this.$router.push({ name: "Login" });
-		// }
-		// onBeforeUnmount(() => {
-		// 	// clear up listener
-		// 	authListener();
-		// })
 	},
 
 	methods: {
@@ -104,18 +83,20 @@ export default {
 						alert(error.message);
 					});
 			} else {
-				alert("Please input something into the text box");
+				alert("Please input something.");
 			}
 		},
 
 		async logoutAccount() {
-			getAuth().signOut();
+			const auth = getAuth();
+			const user = auth.currentUser;
+			await signOut(auth, user)
 			alert("Successfully logged out.");
 			this.$router.push({ name: "Login" });
 		},
 
 		async deleteAccount() {
-			let toDelete = confirm("Are you sure you want to delete your account?");
+			let toDelete = confirm("Are you sure you want to delete your account? This action is irreversible!");
 			if (toDelete) {
 				const user = getAuth().currentUser;
 				// await deleteDoc(doc(db, user.email)) // havent set up db
@@ -147,7 +128,6 @@ export default {
 	border: none;
 	text-align: center;
 	text-decoration: none;
-	/* display: inline-block; */
 	font-size: 18px;
 	font-weight: bold;
 	border-radius: 12px; /* creates the curve */
@@ -164,10 +144,8 @@ export default {
 	border: none;
 	text-align: center;
 	text-decoration: none;
-	/* display: inline-block; */
 	font-size: 18px;
 	font-weight: bold;
-	/* margin: 4px 20px; */
 	border-radius: 12px; /* creates the curve */
 	box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
 }
@@ -207,19 +185,6 @@ export default {
 	margin-bottom: 20px;
 }
 
-/* input {
-	margin: 0px 0px 20px 0px;
-	width:220px; 
-	border: 2px solid;
-	border-radius: 3px;
-	outline: 1px 1px 1px 1px var(--sidebar-bg-color);
-}
-
-input:hover {
-	outline: 1px 1px 1px 1px var(--sidebar-bg-color);
-	border-radius: 2px;
-} */
-
 input {
 	border-top-style: none;
 	border-right-style: none;
@@ -254,23 +219,14 @@ input:hover {
 	margin-top: 200px; /* brute force */
 	display: flex;
 	justify-content: space-between;
-	/* position: absolute;
-	bottom: 30px; */
+
 }
 
 .logout {
 	flex: 1;
-	/* display: inline; */
-	/* margin-right: 30px; */
-	/* position: absolute */
 }
 
 .delete {
 	flex: 1;
-	/* display: inline; */
-	/* margin: 0px; */
-	/* position: absolute; */
-	/* right: 0; */
-	/* bottom: 0; */
 }
 </style>

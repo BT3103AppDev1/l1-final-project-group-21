@@ -15,10 +15,28 @@
             <div class="weekly">
                 <div class="weekly-title">WEEKLY SPENDING</div>
                 <div class="spending-container">
-                    <!-- <div class="doughnutchart"> -->
+                    <div class="doughnutchart">
                         <DoughnutChart /> 
-                    <!-- </div> -->
-                    <div class="top3">TOP 3 CATEGORIES</div>
+                    </div>
+                    <div class="top3">
+                        <div class="top3-title">TOP 3 CATEGORIES</div>
+                        <div class="top3-content">
+                            <div class="each-content">
+                                <!-- change icon colour through .cat1 in style -->
+                                <fa icon="square" class="cat1" />
+                                Fashion, 40%
+                            </div>
+                            <div class="each-content">
+                                <fa icon="square" class="cat2" />
+                                Food, 25%
+                            </div>
+                            <div class="each-content">
+                                <fa icon="square" class="cat3" />
+                                Groceries, 20%
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -65,7 +83,6 @@ export default {
 }
 .dashboard-section1 {
     display: flex;
-    flex-direction: row;
     padding-top: 3.125rem;
     margin: 1.563rem 0rem;
     /* align-items: baseline; */
@@ -74,9 +91,9 @@ export default {
 .left {
     display: flex;
     flex-direction: column;
-    margin-right: 1.25rem;
+    margin-right: 1rem;
     overflow: auto;
-    flex: 1;
+    flex: 0.8;
     /* flex: 0.5 0.5 auto; */
 }
 .title {
@@ -87,7 +104,7 @@ export default {
     font-size: 24px;
     font-weight: 300;
     letter-spacing: 1px;
-    margin-top: 1rem;
+    margin: 1rem 0rem;
 }
 .subtitle {
     font-size: 14px;
@@ -99,7 +116,7 @@ export default {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 2.5rem;
     padding: 4.5rem 0rem;
-    margin: 25px 25px 0px 0px;
+    margin: 25px 15px 0px 0px;
     text-align: center;
     color: #FFFFFF;
     /* max-width: 350px; */
@@ -125,20 +142,47 @@ export default {
 }
 .spending-container {
     display: flex;
-    /* overflow: auto; */
-    flex: 1;
-    padding: 0rem 4rem;
+    padding: 0rem 2.2rem;
+    /* centralise doughnut and top3 */
+    align-items: center;
 }
 .doughnutchart {
-    flex: 1;
-    /* overflow: auto; */
-    /* height: 200px; */
+    height: 250px;
 }
 
 .top3 {
+    flex: 1;
+    /* align with top3-content */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.top3-title {
     font-size: 18px;
     font-weight: 700;
-    flex: 1;
+}
+
+.top3-content {
+    text-align: start;
+}
+
+.each-content {
+    margin-top: 0.9rem;
+    font-size: 16px;
+    font-weight: 500;
+}
+/* color of square for each category - can be changed later */
+.cat1 {
+    color: #D4C5FF;
+}
+
+.cat2 {
+    color: #CFEDFE
+}
+
+.cat3 {
+    color: #FFECC0;
 }
 
 .font-18 {
@@ -157,7 +201,7 @@ export default {
     align-items: center;
 }
 
-.add-btn { /* possibly for all buttons */
+.add-btn {
     align-items: center;
     text-align: center;
     background-color: var(--color-card);

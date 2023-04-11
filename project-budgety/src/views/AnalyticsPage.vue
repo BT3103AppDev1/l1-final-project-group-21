@@ -2,17 +2,17 @@
 <!-- <body> -->
   <div id="analytics-page">
     <div class="section1">
-        <div class="analytics-header">Analytics for {{ monthName }}</div>
+        <div class="analytics-header">Analytics</div>
         <div class="expense-boxes">
             <div class="expense-box">
                 <div class="expense-box-header">TOTAL EXPENSES</div>
                 
-                <div class="expense-value">${{ totalExpenses }}</div>
+                <div class="expense-value">$190.56</div>
             </div>
             <div class="expense-box">
                 <div class="expense-box-header">AVG EXPENSES/DAY</div>
                 
-                <div class="expense-value">${{ avgExpenses }}</div>
+                <div class="expense-value">$13.62</div>
             </div>
         </div>
     </div>
@@ -69,169 +69,39 @@
 </template>
 
 <script>
-import LineChart from "../components/LineChart.vue";
-import ExpensesHistory from "../components/ExpensesHistory.vue";
-import Sidebar from "@/components/sidebar/Sidebar.vue";
-
-import { authentication } from "../firebase.js";
-import firebaseApp from "../firebase.js";
-import { getAuth } from "firebase/auth";
-import {
-	collection,
-	addDoc,
-	setDoc,
-	doc,
-	query,
-	where,
-	getDocs,
-	getFirestore,
-} from "firebase/firestore";
-
-const db = getFirestore(firebaseApp);
+import LineChart from '../components/LineChart.vue';
+import ExpensesHistory from '../components/ExpensesHistory.vue';
+import Sidebar from '@/components/sidebar/Sidebar.vue';
 
 export default {
-	name: "Analytics",
-	// local registration using components
-	components: {
-		LineChart,
-		ExpensesHistory,
-		Sidebar,
-	},
+      name:'Analytics',
+      // local registration using components
+      components: { 
+        LineChart, 
+        ExpensesHistory,
+        Sidebar,
+      },
+      mounted() {
+        console.log("Component Mounted")
 
-	data() {
-		return {
-			loaded: false,
-			totalExpenses: 0,
-			avgExpenses: 50,
-			catList: [],
-			monthName: "",
-			months: [
-				"January",
-				"February",
-				"March",
-				"April",
-				"May",
-				"June",
-				"July",
-				"August",
-				"September",
-				"October",
-				"November",
-				"December",
-			],
-		};
-	},
-	async mounted() {
-		try {
-			const userEmail = authentication.currentUser.email;
-			const amtsRef = collection(db, userEmail, "expensesDoc", "expenses");
-			// Update total and average expenses
-			// And get breakdown by category
-			await this.getExpenses(amtsRef);
-			this.loaded = true;
-		} catch (err) {
-			console.error(err);
-		}
-	},
 
-	methods: {
-		async getExpenses(amtsRef) {
-			const date = new Date();
-			const day = date.getDate();
-			const month = date.getMonth();
-			this.monthName = this.months[month];
-
-			const newDate = new Date();
-			let tempDate = new Date();
-
-			// Set beginning of month by changing date and time
-			let monthStart = newDate.setDate(1);
-			let tempMonthStart = new Date(monthStart).setHours(0, 0, 0, 0);
-			monthStart = new Date(tempMonthStart);
-
-			// Fetch expenses data
-			// Filter from beginning of the month to current time
-			const amtsQuery = query(
-				amtsRef,
-				where("date", ">=", new Date(monthStart)),
-				where("date", "<=", new Date())
-			);
-			const amtsSnapshot = await getDocs(amtsQuery);
-			let amtsByDate = {};
-
-			// Find total sum of expenses for each day
-			amtsSnapshot.forEach((doc) => {
-				let data = doc.data();
-				let expAmt = data.amount;
-				this.totalExpenses += expAmt;
-			});
-			this.avgExpenses = (
-				parseFloat(this.totalExpenses) / parseFloat(day)
-			).toFixed(2);
-			this.totalExpenses = parseFloat(this.totalExpenses).toFixed(2);
-
-			// Get expenses breakdown by category
-			let catDict = {};
-			amtsSnapshot.forEach((doc) => {
-				let data = doc.data();
-				let expAmt = data.amount;
-				let expCat = data.category;
-				if (expCat in catDict) {
-					catDict[expCat] += expAmt;
-				} else {
-					catDict[expCat] = expAmt;
-				}
-			});
-			const totExp = parseFloat(this.totalExpenses);
-			// Format: [category name, total cat expense, percentage of total]
-			for (var key in catDict) {
-				this.catList.push([
-					key,
-					catDict[key].toFixed(2), // total cat expense
-					((catDict[key] / totExp) * 100).toFixed(1), // percentage of total
-				]);
-			}
-			// Sort according to highest expenditure first
-			this.catList.sort(function (x, y) {
-				return y[1] - x[1];
-			});
-		},
-	},
-};
-</script>
-
-/*
-<style>
-
-body {
-	/* remove the centering from main.css */
-	place-items: unset !important;
-	display: flex;
-	flex-direction: column;
-	margin-left: 230px;
+      }
+      
 }
-
-.analytics-header,
-.expense-value {
-	font-size: 24px;
-	font-weight: 500;
-*/
+</script>
 
 <style scoped>
 #analytics-page {
   margin: 0 2rem;
 }
-
 .analytics-header, .expense-value {
   font-size: 24px;
   font-weight: 500;
 }
-
 .analytics-header {
-	padding-top: 50px;
-	text-align: left;
+  padding-top: 50px;
+  text-align: left;
 }
-
 .expense-boxes {
   display: flex;
   max-width: 100%;
@@ -242,22 +112,21 @@ body {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   padding: 20px 45px 15px 45px;
-  margin: 15px 25px 0px 0px; 
+  margin: 15px 25px 0px 0px;
+  
 }
-
 .expense-box-header {
-	font-style: normal;
-	font-weight: 300;
-	font-size: 13px;
-	letter-spacing: 2px;
-	color: #ffffff;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: #FFFFFF;
 }
-
 .expense-value {
-	font-weight: 600;
-	letter-spacing: 2px;
-	text-align: center;
-	color: #ffffff;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-align: center;
+  color: #FFFFFF;
 }
 .breakdown-box {
   /* width: 23.75rem; */
@@ -270,9 +139,9 @@ body {
 }
 
 .font-18 {
-	font-size: 18px;
-	font-weight: 500;
-	padding: 20px;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 20px;
 }
 
 .section2 {
@@ -318,12 +187,12 @@ body {
 }
 
 .category-text {
-	color: #856dc8;
-	font-weight: 700;
+  color: #856DC8;
+  font-weight: 700;
 }
 
 .blue {
-	color: #4f94bc;
+  color: #4F94BC;
 }
 
 .section3 {
@@ -336,32 +205,32 @@ body {
 }
 
 .top-line {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.filter-btn {
-	/* possibly for all buttons */
-	align-items: center;
-	background-color: var(--color-card);
-	border: 0.5px solid --color-btn-border;
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-	border-radius: 4px;
-	padding: 5px 10px 5px 10px;
-	margin-right: 35px;
-	font-weight: 500;
-	font-size: 12px;
-	color: #aba6a6;
-	/* font-weight: var(--font-medium); */
+.filter-btn { /* possibly for all buttons */
+  align-items: center;
+  background-color: var(--color-card);
+  border: 0.5px solid --color-btn-border;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  padding: 5px 10px 5px 10px;
+  margin-right: 35px;
+  font-weight: 500;
+  font-size: 12px;
+  color: #ABA6A6;
+  /* font-weight: var(--font-medium); */
 }
 
 .filter-btn:hover {
-	background-color: #f2f2f2;
-	cursor: pointer;
+  background-color: #F2F2F2;
+  cursor: pointer;
 }
 
 .expenses-table {
   padding: 0rem 1.875rem;
 }
+
 </style>

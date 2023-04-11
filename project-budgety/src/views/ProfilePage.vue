@@ -167,7 +167,7 @@ export default {
 	box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
 	border-radius: 10px;
 	padding: 1rem;
-	height: 100vh; /* keeps the container at 100 viewport height */
+	height: 620px; /* keeps the container at 100 viewport height */
 	margin: 1.875rem 1.875rem 0rem 0rem;
 }
 

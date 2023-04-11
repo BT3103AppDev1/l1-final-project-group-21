@@ -132,7 +132,7 @@ export default {
 	async mounted() {
 		try {
 			const userEmail = authentication.currentUser.email;
-			const amtsRef = collection(db, userEmail, "expensesDoc", "expenses");
+			const amtsRef = collection(db, "users", userEmail, "expenses");
 			// Update total and average expenses
 			// And get breakdown by category
 			await this.getExpenses(amtsRef);
@@ -157,15 +157,15 @@ export default {
 			// Filter from beginning of the month to current time
 			const amtsQuery = query(
 				amtsRef,
-				where("date", ">=", new Date(monthStart)),
-				where("date", "<=", new Date())
+				where("Date", ">=", new Date(monthStart)),
+				where("Date", "<=", new Date())
 			);
 			const amtsSnapshot = await getDocs(amtsQuery);
 			let amtsByDate = {};
 			// Find total sum of expenses for each day
 			amtsSnapshot.forEach((doc) => {
 				let data = doc.data();
-				let expAmt = data.amount;
+				let expAmt = data.Amount;
 				this.totalExpenses += expAmt;
 			});
 			this.avgExpenses = (
@@ -176,8 +176,8 @@ export default {
 			let catDict = {};
 			amtsSnapshot.forEach((doc) => {
 				let data = doc.data();
-				let expAmt = data.amount;
-				let expCat = data.category;
+				let expAmt = data.Amount;
+				let expCat = data.Category;
 				if (expCat in catDict) {
 					catDict[expCat] += expAmt;
 				} else {

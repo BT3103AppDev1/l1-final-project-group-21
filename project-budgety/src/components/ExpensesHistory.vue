@@ -55,12 +55,12 @@ export default {
 			let monthStart = newDate.setDate(1);
 			let tempMonthStart = new Date(monthStart).setHours(0, 0, 0, 0);
 			monthStart = new Date(tempMonthStart);
-			const amtsRef = collection(db, userEmail, "expensesDoc", "expenses");
+			const amtsRef = collection(db, "users", userEmail, "expenses");
 			// Filter from beginning of the month to current time
 			const q = query(
 				amtsRef,
-				where("date", ">=", new Date(monthStart)),
-				where("date", "<=", new Date())
+				where("Date", ">=", new Date(monthStart)),
+				where("Date", "<=", new Date())
 			);
 			const amtsSnapshot = await getDocs(q);
 			// Put individual items into a list then convert nested list to dictionary after sorting by date
@@ -69,10 +69,10 @@ export default {
 			amtsSnapshot.forEach((doc) => {
 				let data = doc.data();
 				let dataID = doc.id;
-				let expName = data.name;
-				let expAmt = "$" + String(parseFloat(data.amount).toFixed(2));
-				let expCat = data.category;
-				let expDate = data.date;
+				let expName = data.Item;
+				let expAmt = "$" + String(parseFloat(data.Amount).toFixed(2));
+				let expCat = data.Category;
+				let expDate = data.Date;
 				// Format date
 				let expDateFormatted = new Date(expDate.seconds * 1000 + 28800 * 1000);
 				let expDay = expDateFormatted.getDate();

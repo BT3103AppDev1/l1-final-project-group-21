@@ -135,22 +135,22 @@ export default {
 				.map((v, i) => String(i + 1));
 			this.chartData.labels = this.daysLabels;
 			// Fetch expenses data
-			const amtsRef = collection(db, userEmail, "expensesDoc", "expenses");
+			const amtsRef = collection(db, "users", userEmail, "expenses");
 			// Filter only expenses in current month
 			const q = query(
 				amtsRef,
-				where("date", ">=", new Date(monthStart)),
-				where("date", "<=", new Date(monthEnd))
+				where("Date", ">=", new Date(monthStart)),
+				where("Date", "<=", new Date(monthEnd))
 			);
 			const amtsSnapshot = await getDocs(q);
 			let amtsByDate = {};
 			// Find total sum of expenses for each day
 			amtsSnapshot.forEach((doc) => {
 				let data = doc.data();
-				let expDateRaw = data.date;
+				let expDateRaw = data.Date;
 				let formattedDate = new Date(expDateRaw.seconds * 1000 + 28800 * 1000);
 				let expDay = formattedDate.getDate().toString();
-				let expAmt = data.amount;
+				let expAmt = data.Amount;
 				if (expDay in amtsByDate) {
 					amtsByDate[expDay] += expAmt;
 				} else {

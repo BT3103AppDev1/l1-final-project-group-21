@@ -1,77 +1,86 @@
 <template>
-<!-- <body> -->
-  <div id="analytics-page">
-    <div class="section1">
-        <div class="analytics-header">Analytics for {{ monthName }}</div>
-        <div class="expense-boxes">
-            <div class="expense-box">
-                <div class="expense-box-header">TOTAL EXPENSES</div>
-                
-                <div class="expense-value">${{ totalExpenses }}</div>
-            </div>
-            <div class="expense-box">
-                <div class="expense-box-header">AVG EXPENSES/DAY</div>
-                
-                <div class="expense-value">${{ avgExpenses }}</div>
-            </div>
-        </div>
-    </div>
+	<!-- <body> -->
+	<div id="analytics-page">
+		<div class="section1">
+			<div class="analytics-header">Analytics for {{ monthName }}</div>
+			<div class="expense-boxes">
+				<div class="expense-box">
+					<div class="expense-box-header">TOTAL EXPENSES</div>
 
-    <div class="section2">
-        <div class="line-graph-box">
-            <div class="font-18">Daily Expenditure</div>
-            <LineChart />
-        </div>
-        <div class="breakdown-box">
-            <div class="font-18">Breakdown by Category</div>
-            <div class="categories">
-              <!-- <div class="category-1"> -->
-                <div class="category-1-top">
-                    <img class="category-icon" src="../assets/icons/Fashion.png" />
-                    <span class="category-text">Fashion</span>
-                    <span class="category-text">27.8%</span>
-                    <span class="category-text">$59.91</span>
-                </div>
-                <div class="progress">
-                  <v-progress-linear rounded=true color="#856DC8" model-value="27.8" height="8px"></v-progress-linear>                <!-- <LinearProgressBar /> -->
-                </div>            
-              <!-- </div>   -->
-              <!-- second category -->
-              <div class="category-1-top">
-                    <img class="category-icon" src="../assets/icons/Food.png" />
-                    <span class="category-text blue">Food</span>
-                    <span class="category-text blue">17.4%</span>
-                    <span class="category-text blue">$33.14</span>
-                </div>
-                <div class="progress">
-                  <v-progress-linear rounded=true color="#4F94BC" model-value="27.8" height="8px"></v-progress-linear>                <!-- <LinearProgressBar /> -->
-                </div>            
-              </div>  
+					<div class="expense-value">${{ totalExpenses }}</div>
+				</div>
+				<div class="expense-box">
+					<div class="expense-box-header">AVG EXPENSES/DAY</div>
 
-          </div>
-        </div>
-    <!-- </div> -->
+					<div class="expense-value">${{ avgExpenses }}</div>
+				</div>
+			</div>
+		</div>
 
-    <div class="section3">
-        <div class="top-line">
-            <div class="font-18">Expenses History</div>
-              <div class="filter-btn">
-                <fa icon="filter" /> Filter
-            </div>
-        </div>
-        <div class="expenses-table">
-          <ExpensesHistory />
-        </div>
-    </div>
-  </div>
-<!-- </body> -->
-<Sidebar/>
+		<div class="section2">
+			<div class="line-graph-box">
+				<div class="font-18">Daily Expenditure</div>
+				<LineChart />
+			</div>
+			<div class="breakdown-box">
+				<div class="font-18">Breakdown by Category</div>
+				<div class="categories">
+					<!-- <div class="category-1"> -->
+					<div class="category-1-top">
+						<img class="category-icon" src="../assets/icons/Fashion.png" />
+						<span class="category-text">Fashion</span>
+						<span class="category-text">27.8%</span>
+						<span class="category-text">$59.91</span>
+					</div>
+					<div class="progress">
+						<v-progress-linear
+							rounded="true"
+							color="#856DC8"
+							model-value="27.8"
+							height="8px"
+						></v-progress-linear>
+						<!-- <LinearProgressBar /> -->
+					</div>
+					<!-- </div>   -->
+					<!-- second category -->
+					<div class="category-1-top">
+						<img class="category-icon" src="../assets/icons/Food.png" />
+						<span class="category-text blue">Food</span>
+						<span class="category-text blue">17.4%</span>
+						<span class="category-text blue">$33.14</span>
+					</div>
+					<div class="progress">
+						<v-progress-linear
+							rounded="true"
+							color="#4F94BC"
+							model-value="27.8"
+							height="8px"
+						></v-progress-linear>
+						<!-- <LinearProgressBar /> -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- </div> -->
+
+		<div class="section3">
+			<div class="top-line">
+				<div class="font-18">Expenses History</div>
+				<div class="filter-btn"><fa icon="filter" /> Filter</div>
+			</div>
+			<div class="expenses-table">
+				<ExpensesHistory />
+			</div>
+		</div>
+	</div>
+	<!-- </body> -->
+	<Sidebar />
 </template>
 
 <script>
-import LineChart from '../components/LineChart.vue';
-import ExpensesHistory from '../components/ExpensesHistory.vue';
-import Sidebar from '@/components/sidebar/Sidebar.vue';
+import LineChart from "../components/LineChart.vue";
+import ExpensesHistory from "../components/ExpensesHistory.vue";
+import Sidebar from "@/components/sidebar/Sidebar.vue";
 
 import { authentication } from "../firebase.js";
 import firebaseApp from "../firebase.js";
@@ -90,16 +99,79 @@ import {
 const db = getFirestore(firebaseApp);
 
 export default {
-      name:'Analytics',
-      // local registration using components
-      components: { 
-        LineChart, 
-        ExpensesHistory,
-        Sidebar,
-      },
-      mounted() {
-        console.log("Component Mounted")
-
+	name: "Analytics",
+	// local registration using components
+	components: {
+		LineChart,
+		ExpensesHistory,
+		Sidebar,
+	},
+	data() {
+		return {
+			loaded: false,
+			totalExpenses: 0,
+			avgExpenses: 0,
+			catList: [],
+			monthName: "",
+			months: [
+				"January",
+				"February",
+				"March",
+				"April",
+				"May",
+				"June",
+				"July",
+				"August",
+				"September",
+				"October",
+				"November",
+				"December",
+			],
+		};
+	},
+	async mounted() {
+		try {
+			const userEmail = authentication.currentUser.email;
+			const amtsRef = collection(db, userEmail, "expensesDoc", "expenses");
+			// Update total and average expenses
+			// And get breakdown by category
+			await this.getExpenses(amtsRef);
+			this.loaded = true;
+		} catch (err) {
+			console.error(err);
+		}
+	},
+	methods: {
+		async getExpenses(amtsRef) {
+			const date = new Date();
+			const day = date.getDate();
+			const month = date.getMonth();
+			this.monthName = this.months[month];
+			const newDate = new Date();
+			let tempDate = new Date();
+			// Set beginning of month by changing date and time
+			let monthStart = newDate.setDate(1);
+			let tempMonthStart = new Date(monthStart).setHours(0, 0, 0, 0);
+			monthStart = new Date(tempMonthStart);
+			// Fetch expenses data
+			// Filter from beginning of the month to current time
+			const amtsQuery = query(
+				amtsRef,
+				where("date", ">=", new Date(monthStart)),
+				where("date", "<=", new Date())
+			);
+			const amtsSnapshot = await getDocs(amtsQuery);
+			let amtsByDate = {};
+			// Find total sum of expenses for each day
+			amtsSnapshot.forEach((doc) => {
+				let data = doc.data();
+				let expAmt = data.amount;
+				this.totalExpenses += expAmt;
+			});
+			this.avgExpenses = (
+				parseFloat(this.totalExpenses) / parseFloat(day)
+			).toFixed(2);
+			this.totalExpenses = parseFloat(this.totalExpenses).toFixed(2);
 			// Get expenses breakdown by category
 			let catDict = {};
 			amtsSnapshot.forEach((doc) => {
@@ -130,137 +202,142 @@ export default {
 };
 </script>
 
-
 <style scoped>
 #analytics-page {
-  margin: 0 2rem;
+	margin: 0 2rem;
 }
-.analytics-header, .expense-value {
-  font-size: 24px;
-  font-weight: 500;
+.analytics-header,
+.expense-value {
+	font-size: 24px;
+	font-weight: 500;
 }
 
 .expense-value {
-  font-size: 24px;
-  font-weight: 500;
+	font-size: 24px;
+	font-weight: 500;
 }
 .analytics-header {
-  padding-top: 50px;
-  text-align: left;
+	padding-top: 50px;
+	text-align: left;
 }
 .expense-boxes {
-  display: flex;
-  max-width: 100%;
+	display: flex;
+	max-width: 100%;
 }
 .expense-box {
-  background: linear-gradient(44.35deg, #B55656 1.1%, #8CA3FC 1.11%,
-   rgba(213, 144, 219, 0.87) 85.06%, #AB8CDD 98.97%);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 4px;
-  padding: 20px 45px 15px 45px;
-  margin: 15px 25px 0px 0px;
-  
+	background: linear-gradient(
+		44.35deg,
+		#b55656 1.1%,
+		#8ca3fc 1.11%,
+		rgba(213, 144, 219, 0.87) 85.06%,
+		#ab8cdd 98.97%
+	);
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 4px;
+	padding: 20px 45px 15px 45px;
+	margin: 15px 25px 0px 0px;
 }
 .expense-box-header {
-  font-style: normal;
-  font-weight: 300;
-  font-size: 13px;
-  letter-spacing: 2px;
-  color: #FFFFFF;
+	font-style: normal;
+	font-weight: 300;
+	font-size: 13px;
+	letter-spacing: 2px;
+	color: #ffffff;
 }
 .expense-value {
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-align: center;
-  color: #FFFFFF;
+	font-weight: 600;
+	letter-spacing: 2px;
+	text-align: center;
+	color: #ffffff;
 }
 .breakdown-box {
-  /* width: 23.75rem; */
-  /* height: 233px; */
-  background: var(--color-card);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 0.625rem;
-  flex: 1;
-  overflow: auto;
+	/* width: 23.75rem; */
+	/* height: 233px; */
+	background: var(--color-card);
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 0.625rem;
+	flex: 1;
+	overflow: auto;
 }
 .font-18 {
-  font-size: 18px;
-  font-weight: 500;
-  padding: 20px;
+	font-size: 18px;
+	font-weight: 500;
+	padding: 20px;
 }
 .section2 {
-  display: flex;
-  /* flex: 1 1 auto; */
-  /* justify-content: space-between; */
-  gap: 1.25rem;
-  margin: 1.563rem 0rem;
+	display: flex;
+	/* flex: 1 1 auto; */
+	/* justify-content: space-between; */
+	gap: 1.25rem;
+	margin: 1.563rem 0rem;
 }
 .line-graph-box {
-  max-width: 50rem;
-  background: var(--color-card);
-  box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  text-align: left;
-  flex: 1;
-  /* add space between line chart and container */
-  padding: 0px 0.625rem 0.625rem 0.625rem;
-  /* position: relative; */
-  overflow: auto;
+	max-width: 50rem;
+	background: var(--color-card);
+	box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
+	border-radius: 10px;
+	text-align: left;
+	flex: 1;
+	/* add space between line chart and container */
+	padding: 0px 0.625rem 0.625rem 0.625rem;
+	/* position: relative; */
+	overflow: auto;
 }
 .progress {
-  /* add space between each category */
-  margin-bottom: 1.25rem;
+	/* add space between each category */
+	margin-bottom: 1.25rem;
 }
 .categories {
-  padding: 0rem 1.25rem;
+	padding: 0rem 1.25rem;
 }
 .category-1-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.625rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 0.625rem;
 }
 .category-icon {
-  width: 2.5rem;
+	width: 2.5rem;
 }
 .category-text {
-  color: #856DC8;
-  font-weight: 700;
+	color: #856dc8;
+	font-weight: 700;
 }
 .blue {
-  color: #4F94BC;
+	color: #4f94bc;
 }
 .section3 {
-  /* width: 1090px;
+	/* width: 1090px;
   height: 366px; */
-  background: var(--color-card);
-  box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
-  /* margin-right: 1.875rem; */
-  /* max-width: 90%; */
+	background: var(--color-card);
+	box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
+	/* margin-right: 1.875rem; */
+	/* max-width: 90%; */
 }
 .top-line {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
-.filter-btn { /* possibly for all buttons */
-  align-items: center;
-  background-color: var(--color-card);
-  border: 0.5px solid --color-btn-border;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 4px;
-  padding: 5px 10px 5px 10px;
-  margin-right: 35px;
-  font-weight: 500;
-  font-size: 12px;
-  color: #ABA6A6;
-  /* font-weight: var(--font-medium); */
+.filter-btn {
+	/* possibly for all buttons */
+	align-items: center;
+	background-color: var(--color-card);
+	border: 0.5px solid --color-btn-border;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 4px;
+	padding: 5px 10px 5px 10px;
+	margin-right: 35px;
+	font-weight: 500;
+	font-size: 12px;
+	color: #aba6a6;
+	/* font-weight: var(--font-medium); */
 }
 .filter-btn:hover {
-  background-color: #F2F2F2;
-  cursor: pointer;
+	background-color: #f2f2f2;
+	cursor: pointer;
 }
 .expenses-table {
-  padding: 0rem 1.875rem;
+	padding: 0rem 1.875rem;
 }
 </style>

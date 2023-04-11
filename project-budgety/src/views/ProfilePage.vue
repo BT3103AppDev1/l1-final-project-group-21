@@ -48,12 +48,11 @@
 
 <script>
 import { getAuth, updateProfile, signOut } from "firebase/auth";
-import { useRoute } from "vue-router";
-import { onBeforeUnmount } from "vue";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, doc, deleteDoc } from "firebase/firestore";
+import firebaseApp from "@/firebase.js";
 import Sidebar from "@/components/sidebar/Sidebar.vue";
 
-// const db = getFirestore(firebaseApp);
+const db = getFirestore(firebaseApp);
 
 export default {
 	name: "Profile",
@@ -99,7 +98,8 @@ export default {
 			let toDelete = confirm("Are you sure you want to delete your account? This action is irreversible!");
 			if (toDelete) {
 				const user = getAuth().currentUser;
-				// await deleteDoc(doc(db, user.email)) // havent set up db
+				// await db.collection(String(user.email)).delete() // altering db format
+				// await deleteDoc(doc(db, "user", user.email))
 				await user.delete();
 				this.$router.push({ name: "Login" });
 			}

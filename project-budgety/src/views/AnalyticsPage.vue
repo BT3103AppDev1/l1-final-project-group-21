@@ -2,17 +2,17 @@
 <!-- <body> -->
   <div id="analytics-page">
     <div class="section1">
-        <div class="analytics-header">Analytics</div>
+        <div class="analytics-header">Analytics for {{ monthName }}</div>
         <div class="expense-boxes">
             <div class="expense-box">
                 <div class="expense-box-header">TOTAL EXPENSES</div>
                 
-                <div class="expense-value">$190.56</div>
+                <div class="expense-value">${{ totalExpenses }}</div>
             </div>
             <div class="expense-box">
                 <div class="expense-box-header">AVG EXPENSES/DAY</div>
                 
-                <div class="expense-value">$13.62</div>
+                <div class="expense-value">${{ avgExpenses }}</div>
             </div>
         </div>
     </div>
@@ -73,6 +73,22 @@ import LineChart from '../components/LineChart.vue';
 import ExpensesHistory from '../components/ExpensesHistory.vue';
 import Sidebar from '@/components/sidebar/Sidebar.vue';
 
+import { authentication } from "../firebase.js";
+import firebaseApp from "../firebase.js";
+import { getAuth } from "firebase/auth";
+import {
+	collection,
+	addDoc,
+	setDoc,
+	doc,
+	query,
+	where,
+	getDocs,
+	getFirestore,
+} from "firebase/firestore";
+
+const db = getFirestore(firebaseApp);
+
 export default {
       name:'Analytics',
       // local registration using components
@@ -84,17 +100,47 @@ export default {
       mounted() {
         console.log("Component Mounted")
 
-
-      }
-      
-}
+			// Get expenses breakdown by category
+			let catDict = {};
+			amtsSnapshot.forEach((doc) => {
+				let data = doc.data();
+				let expAmt = data.amount;
+				let expCat = data.category;
+				if (expCat in catDict) {
+					catDict[expCat] += expAmt;
+				} else {
+					catDict[expCat] = expAmt;
+				}
+			});
+			const totExp = parseFloat(this.totalExpenses);
+			// Format: [category name, total cat expense, percentage of total]
+			for (var key in catDict) {
+				this.catList.push([
+					key,
+					catDict[key].toFixed(2), // total cat expense
+					((catDict[key] / totExp) * 100).toFixed(1), // percentage of total
+				]);
+			}
+			// Sort according to highest expenditure first
+			this.catList.sort(function (x, y) {
+				return y[1] - x[1];
+			});
+		},
+	},
+};
 </script>
+
 
 <style scoped>
 #analytics-page {
   margin: 0 2rem;
 }
 .analytics-header, .expense-value {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.expense-value {
   font-size: 24px;
   font-weight: 500;
 }
@@ -137,13 +183,11 @@ export default {
   flex: 1;
   overflow: auto;
 }
-
 .font-18 {
   font-size: 18px;
   font-weight: 500;
   padding: 20px;
 }
-
 .section2 {
   display: flex;
   /* flex: 1 1 auto; */
@@ -151,7 +195,6 @@ export default {
   gap: 1.25rem;
   margin: 1.563rem 0rem;
 }
-
 .line-graph-box {
   max-width: 50rem;
   background: var(--color-card);
@@ -163,38 +206,30 @@ export default {
   padding: 0px 0.625rem 0.625rem 0.625rem;
   /* position: relative; */
   overflow: auto;
-
 }
-
 .progress {
   /* add space between each category */
   margin-bottom: 1.25rem;
 }
-
 .categories {
   padding: 0rem 1.25rem;
 }
-
 .category-1-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.625rem;
 }
-
 .category-icon {
   width: 2.5rem;
 }
-
 .category-text {
   color: #856DC8;
   font-weight: 700;
 }
-
 .blue {
   color: #4F94BC;
 }
-
 .section3 {
   /* width: 1090px;
   height: 366px; */
@@ -203,13 +238,11 @@ export default {
   /* margin-right: 1.875rem; */
   /* max-width: 90%; */
 }
-
 .top-line {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
 .filter-btn { /* possibly for all buttons */
   align-items: center;
   background-color: var(--color-card);
@@ -223,14 +256,11 @@ export default {
   color: #ABA6A6;
   /* font-weight: var(--font-medium); */
 }
-
 .filter-btn:hover {
   background-color: #F2F2F2;
   cursor: pointer;
 }
-
 .expenses-table {
   padding: 0rem 1.875rem;
 }
-
 </style>

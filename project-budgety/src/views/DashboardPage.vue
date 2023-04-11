@@ -3,7 +3,7 @@
         <div class="dashboard-section1">
             <div class="left">
                 <div class="welcome">
-                    <div class="title">Welcome back, Doraemon!</div>
+                    <div class="title">Welcome back, {{ username }}!</div>
                     <div class="subtitle">Here's an overview of your weekly expenses:</div>
                 </div>
                 <div class="expense-box">
@@ -69,8 +69,14 @@ export default {
         RecentExpenses,
         Sidebar,
         },
+        data() {
+          return {
+            username: "",
+            };
+        },
         mounted() {
-        console.log("Component Mounted")
+          this.username = authentication.currentUser.displayName;
+          console.log("Component Mounted")
         }
     }
 </script>

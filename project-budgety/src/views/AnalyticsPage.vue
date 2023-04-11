@@ -1,82 +1,71 @@
 <template>
-	<body>
-		<div class="section1">
-			<div class="analytics-header">Analytics for {{ monthName }}</div>
-			<div class="expense-boxes" v-if="loaded">
-				<div class="expense-box">
-					<div class="expense-box-header">TOTAL EXPENSES</div>
+<!-- <body> -->
+  <div id="analytics-page">
+    <div class="section1">
+        <div class="analytics-header">Analytics for {{ monthName }}</div>
+        <div class="expense-boxes">
+            <div class="expense-box">
+                <div class="expense-box-header">TOTAL EXPENSES</div>
+                
+                <div class="expense-value">${{ totalExpenses }}</div>
+            </div>
+            <div class="expense-box">
+                <div class="expense-box-header">AVG EXPENSES/DAY</div>
+                
+                <div class="expense-value">${{ avgExpenses }}</div>
+            </div>
+        </div>
+    </div>
 
-					<div class="expense-value">${{ totalExpenses }}</div>
-				</div>
-				<div class="expense-box">
-					<div class="expense-box-header">AVG EXPENSES/DAY</div>
+    <div class="section2">
+        <div class="line-graph-box">
+            <div class="font-18">Daily Expenditure</div>
+            <LineChart />
+        </div>
+        <div class="breakdown-box">
+            <div class="font-18">Breakdown by Category</div>
+            <div class="categories">
+              <!-- <div class="category-1"> -->
+                <div class="category-1-top">
+                    <img class="category-icon" src="../assets/icons/Fashion.png" />
+                    <span class="category-text">Fashion</span>
+                    <span class="category-text">27.8%</span>
+                    <span class="category-text">$59.91</span>
+                </div>
+                <div class="progress">
+                  <v-progress-linear rounded=true color="#856DC8" model-value="27.8" height="8px"></v-progress-linear>                <!-- <LinearProgressBar /> -->
+                </div>            
+              <!-- </div>   -->
+              <!-- second category -->
+              <div class="category-1-top">
+                    <img class="category-icon" src="../assets/icons/Food.png" />
+                    <span class="category-text blue">Food</span>
+                    <span class="category-text blue">17.4%</span>
+                    <span class="category-text blue">$33.14</span>
+                </div>
+                <div class="progress">
+                  <v-progress-linear rounded=true color="#4F94BC" model-value="27.8" height="8px"></v-progress-linear>                <!-- <LinearProgressBar /> -->
+                </div>            
+              </div>  
 
-					<div class="expense-value">${{ avgExpenses }}</div>
-				</div>
-			</div>
-		</div>
+          </div>
+        </div>
+    <!-- </div> -->
 
-		<div class="section2">
-			<div class="line-graph-box">
-				<div class="font-18">Daily Expenditure</div>
-				<LineChart />
-			</div>
-			<div class="breakdown-box">
-				<div class="font-18">Breakdown by Category</div>
-				<div class="categories">
-					<!-- <div class="category-1"> -->
-					<div class="category-1-top">
-						<img class="category-icon" src="../assets/icons/Fashion.png" />
-						<span class="category-text">Fashion</span>
-						<span class="category-text">27.8%</span>
-						<span class="category-text">$59.91</span>
-					</div>
-					<div class="progress">
-						<v-progress-linear
-							rounded="true"
-							color="#856DC8"
-							model-value="27.8"
-							height="8px"
-						></v-progress-linear>
-						<!-- <LinearProgressBar /> -->
-					</div>
-					<!-- </div>   -->
-					<!-- second category -->
-					<div class="category-1-top">
-						<img class="category-icon" src="../assets/icons/Food.png" />
-						<span class="category-text blue">Food</span>
-						<span class="category-text blue">17.4%</span>
-						<span class="category-text blue">$33.14</span>
-					</div>
-					<div class="progress">
-						<v-progress-linear
-							rounded="true"
-							color="#4F94BC"
-							model-value="27.8"
-							height="8px"
-						></v-progress-linear>
-						<!-- <LinearProgressBar /> -->
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- </div> -->
-
-		<div class="section3">
-			<div class="top-line">
-				<div class="font-18">Expenses History</div>
-				<!-- <div class="filter-btn-wrapper"> -->
-				<div class="filter-btn">
-					<fa icon="filter" /> Filter
-					<!-- </div> -->
-				</div>
-			</div>
-			<div class="expenses-table">
-				<ExpensesHistory />
-			</div>
-		</div>
-	</body>
-	<Sidebar />
+    <div class="section3">
+        <div class="top-line">
+            <div class="font-18">Expenses History</div>
+              <div class="filter-btn">
+                <fa icon="filter" /> Filter
+            </div>
+        </div>
+        <div class="expenses-table">
+          <ExpensesHistory />
+        </div>
+    </div>
+  </div>
+<!-- </body> -->
+<Sidebar/>
 </template>
 
 <script>
@@ -211,12 +200,8 @@ export default {
 };
 </script>
 
+/*
 <style>
-/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap'); */
-/* root {
-  apply to everything
-  font-family: 'Inter';
-} */
 
 body {
 	/* remove the centering from main.css */
@@ -230,28 +215,34 @@ body {
 .expense-value {
 	font-size: 24px;
 	font-weight: 500;
+*/
+
+<style scoped>
+#analytics-page {
+  margin: 0 2rem;
 }
+
+.analytics-header, .expense-value {
+  font-size: 24px;
+  font-weight: 500;
+}
+
 .analytics-header {
 	padding-top: 50px;
 	text-align: left;
 }
 
 .expense-boxes {
-	display: flex;
+  display: flex;
+  max-width: 100%;
 }
-
 .expense-box {
-	background: linear-gradient(
-		44.35deg,
-		#b55656 1.1%,
-		#8ca3fc 1.11%,
-		rgba(213, 144, 219, 0.87) 85.06%,
-		#ab8cdd 98.97%
-	);
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-	border-radius: 4px;
-	padding: 20px 45px 15px 45px;
-	margin: 15px 25px 0px 0px;
+  background: linear-gradient(44.35deg, #B55656 1.1%, #8CA3FC 1.11%,
+   rgba(213, 144, 219, 0.87) 85.06%, #AB8CDD 98.97%);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  padding: 20px 45px 15px 45px;
+  margin: 15px 25px 0px 0px; 
 }
 
 .expense-box-header {
@@ -268,14 +259,14 @@ body {
 	text-align: center;
 	color: #ffffff;
 }
-
 .breakdown-box {
-	width: 380px;
-	/* height: 233px; */
-	background: var(--color-card);
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-	border-radius: 10px;
-	overflow-y: scroll;
+  /* width: 23.75rem; */
+  /* height: 233px; */
+  background: var(--color-card);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 0.625rem;
+  flex: 1;
+  overflow: auto;
 }
 
 .font-18 {
@@ -285,40 +276,45 @@ body {
 }
 
 .section2 {
-	display: flex;
-	/* justify-content: space-between; */
-	gap: 20px;
-	margin: 25px 0px;
+  display: flex;
+  /* flex: 1 1 auto; */
+  /* justify-content: space-between; */
+  gap: 1.25rem;
+  margin: 1.563rem 0rem;
 }
 
 .line-graph-box {
-	width: 800px;
-	background: var(--color-card);
-	box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
-	border-radius: 10px;
-	text-align: left;
-	/* add space between line chart and container */
-	padding: 0px 10px 10px 10px;
+  max-width: 50rem;
+  background: var(--color-card);
+  box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  text-align: left;
+  flex: 1;
+  /* add space between line chart and container */
+  padding: 0px 0.625rem 0.625rem 0.625rem;
+  /* position: relative; */
+  overflow: auto;
+
 }
 
 .progress {
-	/* add space between each category */
-	margin-bottom: 20px;
+  /* add space between each category */
+  margin-bottom: 1.25rem;
 }
 
 .categories {
-	padding: 0px 20px;
+  padding: 0rem 1.25rem;
 }
 
 .category-1-top {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.625rem;
 }
 
 .category-icon {
-	width: 40px;
+  width: 2.5rem;
 }
 
 .category-text {
@@ -331,13 +327,12 @@ body {
 }
 
 .section3 {
-	/* width: 1090px;
+  /* width: 1090px;
   height: 366px; */
-	background: var(--color-card);
-	box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
-	margin-right: 30px;
-	margin-bottom: 80px;
-	/* max-width: 90%; */
+  background: var(--color-card);
+  box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
+  /* margin-right: 1.875rem; */
+  /* max-width: 90%; */
 }
 
 .top-line {
@@ -367,6 +362,6 @@ body {
 }
 
 .expenses-table {
-	padding: 0px 30px;
+  padding: 0rem 1.875rem;
 }
 </style>

@@ -1,13 +1,20 @@
-<!-- Add Profile Code here -->
 <template>
-	<body>
+	<div id="profile-page">
 		<div class="header">
 			<div class="profile-header">Profile</div>
 		</div>
 
 		<div class="container">
+			<div class="night-mode">
+				<div class="font-18">Night Mode</div>
+				<div class="toggle-btn">
+					<fa icon="toggle-off"/>
+					<!-- change to toggle-on when night mode is on -->
+				</div>
+			</div>
+			<div class="font-18">Update Username</div>
+
 			<form ref="myform" id="myform">
-				<div class="font-18" style="font-weight: bold">Update Username</div>
 				<div class="formli">
 					<label for="coin1">Enter new username:</label>
 					<br />
@@ -26,31 +33,26 @@
 				</div>
 			</form>
 			<div class="section">
-				<div class="logout">
-					<button id="purpleButton" type="button" v-on:click="logoutAccount">
-						Logout
-					</button>
-				</div>
-				<div class="delete">
-					<button id="redButton" type="button" v-on:click="deleteAccount">
-						Delete Account
-					</button>
-				</div>
+				<button id="purpleButton" type="button" v-on:click="logoutAccount">
+					Logout
+				</button>
+
+				<button id="redButton" type="button" v-on:click="deleteAccount">
+					Delete Account
+				</button>
 			</div>
 		</div>
-	</body>
-	<!-- <router-view/> -->
+	</div>
 	<Sidebar />
 </template>
 
 <script>
-import { getAuth, updateProfile } from "firebase/auth";
-import { useRoute } from "vue-router";
-import { onBeforeUnmount } from "vue";
-import { getFirestore } from "firebase/firestore";
+import { getAuth, updateProfile, signOut } from "firebase/auth";
+import { getFirestore, doc, deleteDoc } from "firebase/firestore";
+import firebaseApp from "@/firebase.js";
 import Sidebar from "@/components/sidebar/Sidebar.vue";
 
-// const db = getFirestore(firebaseApp);
+const db = getFirestore(firebaseApp);
 
 export default {
 	name: "Profile",
@@ -59,25 +61,8 @@ export default {
 		Sidebar,
 	},
 
-	// data() {
-	// 	return {
-	// 		auth: "",
-	// 		router: ""
-	// 	}
-	// },
-
 	mounted() {
 		console.log("Profile Page Mounted");
-		// const auth = getAuth();
-		// console.log(auth.currentUser.email);
-		// if (!auth) { // not logged in
-		// 	alert("You are not logged in, redirecting you to login page");
-		// 	this.$router.push({ name: "Login" });
-		// }
-		// onBeforeUnmount(() => {
-		// 	// clear up listener
-		// 	authListener();
-		// })
 	},
 
 	methods: {
@@ -97,21 +82,24 @@ export default {
 						alert(error.message);
 					});
 			} else {
-				alert("Please input something into the text box");
+				alert("Please input something.");
 			}
 		},
 
 		async logoutAccount() {
-			getAuth().signOut();
+			const auth = getAuth();
+			const user = auth.currentUser;
+			await signOut(auth, user)
 			alert("Successfully logged out.");
 			this.$router.push({ name: "Login" });
 		},
 
 		async deleteAccount() {
-			let toDelete = confirm("Are you sure you want to delete your account?");
+			let toDelete = confirm("Are you sure you want to delete your account? This action is irreversible!");
 			if (toDelete) {
 				const user = getAuth().currentUser;
-				// await deleteDoc(doc(db, user.email)) // havent set up db
+				// await db.collection(String(user.email)).delete() // altering db format
+				// await deleteDoc(doc(db, "user", user.email))
 				await user.delete();
 				this.$router.push({ name: "Login" });
 			}
@@ -121,50 +109,56 @@ export default {
 </script>
 
 <style scoped>
-body {
-	/* remove the centering from main.css */
-	place-items: unset !important;
-	display: flex;
-	flex-direction: column;
+#profile-page {
+	margin: 0 2rem;
 }
-
 .profile-header {
-	font-size: 40px;
+	font-size: 24px;
 	font-weight: 500;
 	padding-top: 50px;
 	text-align: left;
 }
 
 #purpleButton {
+	flex: 1;
 	color: #ffffff;
 	background-color: var(--sidebar-bg-color);
-	padding: 12px;
+	max-width: fit-content;
+	padding: 12px 48px;
 	border: none;
 	text-align: center;
 	text-decoration: none;
-	display: inline-block;
 	font-size: 18px;
 	font-weight: bold;
-	/* margin: 4px 20px; */
 	border-radius: 12px; /* creates the curve */
-	width: 150px; /* how long it is */
 	box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
+	
 }
 
 #redButton {
+	flex: 1;
 	color: #ffffff;
 	background-color: darkred;
+	max-width: fit-content;
 	padding: 12px;
 	border: none;
 	text-align: center;
 	text-decoration: none;
-	display: inline-block;
 	font-size: 18px;
 	font-weight: bold;
-	/* margin: 4px 20px; */
 	border-radius: 12px; /* creates the curve */
-	width: 200px; /* how long it is */
 	box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
+}
+
+.night-mode {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.toggle-btn {
+	font-size: 35px;
+	margin-right: 2rem
 }
 
 .container {
@@ -172,36 +166,24 @@ body {
 	background: var(--color-card);
 	box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
 	border-radius: 10px;
-	padding: 0px 10px 10px 10px;
-	height: 100vh; /* keeps the container at 100 viewport height */
-	margin-right: 30px;
+	padding: 1rem;
+	height: 620px; /* keeps the container at 100 viewport height */
+	margin: 1.875rem 1.875rem 0rem 0rem;
 }
 
 #myform {
-	margin: 30px;
+	margin-left: 20px;
 }
 
 .input-text {
 	border-style: ridge;
 	border-color: #aba6a6;
 	border-radius: 5px;
-	width: 15%;
+	min-width: 11rem;
+	max-width: 15%;
 	margin: 10px 0;
 	margin-bottom: 20px;
 }
-
-/* input {
-	margin: 0px 0px 20px 0px;
-	width:220px; 
-	border: 2px solid;
-	border-radius: 3px;
-	outline: 1px 1px 1px 1px var(--sidebar-bg-color);
-}
-
-input:hover {
-	outline: 1px 1px 1px 1px var(--sidebar-bg-color);
-	border-radius: 2px;
-} */
 
 input {
 	border-top-style: none;
@@ -228,28 +210,23 @@ input:hover {
 .font-18 {
 	font-size: 18px;
 	font-weight: 500;
-	margin: 0px 0px 10px 0px;
-	padding: 5px 0px;
-	text-decoration: underline;
+	padding: 20px;
+	font-weight: 600;
 }
 
 .section {
-	margin: 30px;
+	margin: 30px 20px;
 	margin-top: 200px; /* brute force */
-	/* position: absolute;
-	bottom: 30px; */
+	display: flex;
+	justify-content: space-between;
+
 }
 
 .logout {
-	display: inline;
-	margin-right: 30px;
+	flex: 1;
 }
 
 .delete {
-	display: inline;
-	/* margin: 0px; */
-	position: absolute;
-	right: 0;
-	/* bottom: 0; */
+	flex: 1;
 }
 </style>

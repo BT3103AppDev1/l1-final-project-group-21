@@ -1,124 +1,234 @@
 <template>
-	<body>
-		<div class="welcome">
-			<h2 style="font-weight: bold">Welcome back, {{ username }}!</h2>
-			<h4>Here's an overview of your weekly expenses:</h4>
-		</div>
-
-		<div class="expenses">
-			<h3 style="font-size: 1.5em; letter-spacing: 0.2em">EXPENSES</h3>
-			<h1 style="font-size: 5em">$123.45</h1>
-		</div>
-
-		<div class="weekly">
-			<h3 style="font-family: Verdana; letter-spacing: 0.2em">
-				WEEKLY SPENDING
-			</h3>
-			<div class="donut">
-				<div class="hole"></div>
-			</div>
-			<div class="top3">
-				<h2 style="font-weight: bold; font-size: 1.2em">TOP 3 CATEGORIES</h2>
-			</div>
-		</div>
-
-		<div class="section3">
-			<div class="top-line">
-				<div class="font-18">Recent Expenses</div>
-				<div class="filter-btn"><fa icon="add" /> Add</div>
-			</div>
-			<div class="expenses-table">
-				<RecentExpenses />
-			</div>
-		</div>
-	</body>
-	<Sidebar />
+    <div id="dashboard-page">
+        <div class="dashboard-section1">
+            <div class="left">
+                <div class="welcome">
+                    <div class="title">Welcome back, {{ username }}!</div>
+                    <div class="subtitle">Here's an overview of your weekly expenses:</div>
+                </div>
+                <div class="expense-box">
+                    <div class="expense-box-header">EXPENSES</div>
+                    <div class="expense-value-dashboard">$132.56</div>
+                </div>
+            </div>
+    
+            <div class="weekly">
+                <div class="weekly-title">WEEKLY SPENDING</div>
+                <div class="spending-container">
+                    <div class="doughnutchart">
+                        <DoughnutChart /> 
+                    </div>
+                    <div class="top3">
+                        <div class="top3-title">TOP 3 CATEGORIES</div>
+                        <div class="top3-content">
+                            <div class="each-content">
+                                <!-- change icon colour through .cat1 in style -->
+                                <fa icon="square" class="cat1" />
+                                Fashion, 40%
+                            </div>
+                            <div class="each-content">
+                                <fa icon="square" class="cat2" />
+                                Food, 25%
+                            </div>
+                            <div class="each-content">
+                                <fa icon="square" class="cat3" />
+                                Groceries, 20%
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    
+        <div class="dashboard-section2">
+            <div class="top-line">
+                <div class="font-18">Recent Expenses</div>
+                  <div class="add-btn">
+                    <fa icon="add" />
+                </div>
+            </div>
+            <div class="expenses-table">
+              <RecentExpenses />
+            </div>
+        </div>
+    </div>
+    <Sidebar/>
 </template>
-
+    
 <script>
-import LineChart from "../components/LineChart.vue";
-import RecentExpenses from "../components/RecentExpenses.vue";
-import Sidebar from "@/components/sidebar/Sidebar.vue";
-
-import { db, authentication } from "../firebase.js";
-import { getAuth } from "firebase/auth";
+import DoughnutChart from '../components/DoughnutChart.vue';
+import RecentExpenses from '../components/RecentExpenses.vue';
+import Sidebar from '@/components/sidebar/Sidebar.vue';
 
 export default {
-	name: "Dashboard",
-	// local registration using components
-	components: {
-		LineChart,
-		RecentExpenses,
-		Sidebar,
-	},
-	data() {
-		return {
-			username: "",
-		};
-	},
-	mounted() {
-		this.username = authentication.currentUser.displayName;
-	},
-};
+        name:'Dashboard',
+        // local registration using components
+        components: { 
+        DoughnutChart, 
+        RecentExpenses,
+        Sidebar,
+        },
+        data() {
+          return {
+            username: "",
+            };
+        },
+        mounted() {
+          this.username = authentication.currentUser.displayName;
+          console.log("Component Mounted")
+        }
+    }
 </script>
 
 <style scoped>
-.top3 {
-	position: absolute;
-	left: 30em;
-	top: 8em;
+#dashboard-page {
+    display: flex;
+    flex-direction: column;
+    margin: 0rem 2rem;
 }
-
-.donut {
-	margin: 1.8em;
-	width: 15em;
-	height: 15em;
-	border-radius: 50%;
-	background: conic-gradient(#ffdbb9, #a383ff);
-	display: flex;
-	align-items: center;
-	justify-content: center;
+.dashboard-section1 {
+    display: flex;
+    padding-top: 3.125rem;
+    margin: 1.563rem 0rem;
+    /* align-items: baseline; */
+    /* justify-content: baseline; */
 }
-
-.hole {
-	width: 8em;
-	height: 8em;
-	border-radius: 50%;
-	background: #ffffff;
+.left {
+    display: flex;
+    flex-direction: column;
+    margin-right: 1rem;
+    overflow: auto;
+    flex: 0.8;
+    /* flex: 0.5 0.5 auto; */
 }
-
-.welcome {
-	margin: 1.6em;
-	padding: 1.6em 1.6em 0em 0em;
-	float: left;
-	height: 5em;
-	width: 25em;
+.title {
+    font-size: 24px;
+    font-weight: 500;
 }
-
-.expenses {
-	color: white;
-	margin: 1.6em 1.6em 2.8em 1em;
-	float: left;
-	height: 18em;
-	width: 25em;
-	padding: 3.5em;
-	border: solid 1px black;
-	background: linear-gradient(0.15turn, #8ca3fc, #d590db, #ab8cdd);
-	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-	border-radius: 10px;
-	text-align: center;
+.weekly-title {
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin: 1rem 0rem;
+}
+.subtitle {
+    font-size: 14px;
+    font-weight: 300;
+}
+.expense-box {
+    background: linear-gradient(44.35deg, #B55656 1.1%, #8CA3FC 1.11%,
+    rgba(213, 144, 219, 0.87) 85.06%, #AB8CDD 98.97%);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 2.5rem;
+    padding: 4.5rem 0rem;
+    margin: 25px 15px 0px 0px;
+    text-align: center;
+    color: #FFFFFF;
+    /* max-width: 350px; */
+}
+.expense-box-header {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 24x;
+    letter-spacing: 2px;
+}
+.expense-value-dashboard {
+    font-weight: 600;
+    font-size: 55px;
 }
 
 .weekly {
-	position: absolute;
-	left: 30em;
-	top: 3em;
-	height: 24.5em;
-	width: 53em;
-	padding: 2em;
-	border: solid 1px black;
-	box-shadow: rgba(0, 0, 0, 0.814) 0px 3px 8px;
-	border-radius: 10px;
-	text-align: center;
+    background: var(--color-card);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 2.4rem;
+    text-align: center;
+    flex: 1.5;
+    overflow: auto;
 }
+.spending-container {
+    display: flex;
+    padding: 0rem 2.2rem;
+    /* centralise doughnut and top3 */
+    align-items: center;
+}
+.doughnutchart {
+    height: 250px;
+}
+
+.top3 {
+    flex: 1;
+    /* align with top3-content */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.top3-title {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.top3-content {
+    text-align: start;
+}
+
+.each-content {
+    margin-top: 0.9rem;
+    font-size: 16px;
+    font-weight: 500;
+}
+/* color of square for each category - can be changed later */
+.cat1 {
+    color: #D4C5FF;
+}
+
+.cat2 {
+    color: #CFEDFE
+}
+
+.cat3 {
+    color: #FFECC0;
+}
+
+.font-18 {
+    font-size: 18px;
+    font-weight: 500;
+    padding: 20px;
+}
+.dashboard-section2 {
+    background: var(--color-card);
+    box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
+}
+
+.top-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-btn {
+    align-items: center;
+    text-align: center;
+    background-color: var(--color-card);
+    border: 0.5px solid --color-btn-border;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 40px;
+    padding: 5px 10px 5px 10px;
+    margin-right: 35px;
+    font-weight: 500;
+    font-size: 15px;
+    color: #ABA6A6;
+} 
+
+.add-btn:hover {
+    background-color: #F2F2F2;
+    cursor: pointer;
+}
+
+.expenses-table {
+    padding: 0rem 1.875rem;
+}
+    
 </style>
+    

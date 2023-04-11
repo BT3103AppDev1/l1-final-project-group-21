@@ -1,30 +1,25 @@
 <template>
   <div class="sidebar">
-    <button type="home" class="img" v-on:click="goToLogin()">
+    <div type="home" class="img">
       <img src="../../assets/Budgety Logo.png" alt="Budgety Logo">
-    </button>
-  <div class="sidebar-contents">
-      <!-- <SidebarLink to="/"><fa icon="home" /> Login</SidebarLink> -->
-      <SidebarLink to="/dashboard"><fa icon="home" /> Dashboard</SidebarLink>
-      <SidebarLink to="/analytics"><fa icon="chart-line" /> Analytics</SidebarLink>
-      <SidebarLink to="/budget"><fa icon="calculator" /> Budget</SidebarLink>
-      <SidebarLink to="/profile"><fa icon="user" /> Profile</SidebarLink>
-  </div>
-  
+    </div>
+
+    <div class="sidebar-contents">
+        <!-- <SidebarLink to="/"><fa icon="home" /> Login</SidebarLink> -->
+        <SidebarLink to="/dashboard"><fa icon="home" /> Dashboard</SidebarLink>
+        <SidebarLink to="/analytics"><fa icon="chart-line" /> Analytics</SidebarLink>
+        <SidebarLink to="/budget"><fa icon="calculator" /> Budget</SidebarLink>
+        <SidebarLink to="/profile"><fa icon="user" /> Profile</SidebarLink>
+    </div>
 </div>
 </template>
 
 <script>
-import SidebarLink from './SidebarLink.vue'
+import { getAuth, signOut } from "firebase/auth";
+import SidebarLink from './SidebarLink.vue';
 
 export default {
   components: { SidebarLink },
-
-  methods: {
-    goToLogin() {
-      this.$router.push({ name: "Login" });
-    }
-  }
 }
 </script>
 
@@ -45,7 +40,7 @@ export default {
 .sidebar {
   color: #FFFFFF;
   background-color: var(--sidebar-bg-color);
-  border-radius: 0px 25px 0px 0px;
+  border-radius: 0px 25px 25px 0px;
   width: 200px;
 
   /* float: left; */

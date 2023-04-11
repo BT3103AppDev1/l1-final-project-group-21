@@ -27,6 +27,9 @@
 	/* button border colour */
 	--vt-c-btn-border-light: #F4F4F4;
 	--vt-c-btn-border-dark: #5C5B77;
+
+	/* THEME COLOURS! */
+	--color-purple: #6C60F3;
 }
 
 /* semantic color variables for this project */
@@ -48,7 +51,7 @@
 	--color-btn-border: var(--vt-c-btn-border-light);
 }
 
-@media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: dark) {
 	:root {
 		--color-background: var(--vt-c-black);
 		--color-background-soft: var(--vt-c-black-soft);

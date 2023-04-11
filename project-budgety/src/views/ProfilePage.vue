@@ -1,13 +1,20 @@
-<!-- Add Profile Code here -->
 <template>
-	<body>
+	<div id="profile-page">
 		<div class="header">
 			<div class="profile-header">Profile</div>
 		</div>
 
 		<div class="container">
+			<div class="night-mode">
+				<div class="font-18">Night Mode</div>
+				<div class="toggle-btn">
+					<fa icon="toggle-off"/>
+					<!-- change to toggle-on when night mode is on -->
+				</div>
+			</div>
+			<div class="font-18">Update Username</div>
+
 			<form ref="myform" id="myform">
-				<div class="font-18" style="font-weight: bold">Update Username</div>
 				<div class="formli">
 					<label for="coin1">Enter new username:</label>
 					<br />
@@ -26,19 +33,19 @@
 				</div>
 			</form>
 			<div class="section">
-				<div class="logout">
+				<!-- <div class="logout"> -->
 					<button id="purpleButton" type="button" v-on:click="logoutAccount">
 						Logout
 					</button>
-				</div>
-				<div class="delete">
+				<!-- </div> -->
+				<!-- <div class="delete"> -->
 					<button id="redButton" type="button" v-on:click="deleteAccount">
 						Delete Account
 					</button>
-				</div>
+				<!-- </div> -->
 			</div>
 		</div>
-	</body>
+	</div>
 	<!-- <router-view/> -->
 	<Sidebar />
 </template>
@@ -121,50 +128,59 @@ export default {
 </script>
 
 <style scoped>
-body {
-	/* remove the centering from main.css */
-	place-items: unset !important;
-	display: flex;
-	flex-direction: column;
+#profile-page {
+	margin: 0 2rem;
 }
-
 .profile-header {
-	font-size: 40px;
+	font-size: 24px;
 	font-weight: 500;
 	padding-top: 50px;
 	text-align: left;
 }
 
 #purpleButton {
+	flex: 1;
 	color: #ffffff;
 	background-color: var(--sidebar-bg-color);
-	padding: 12px;
+	max-width: fit-content;
+	padding: 12px 48px;
 	border: none;
 	text-align: center;
 	text-decoration: none;
-	display: inline-block;
+	/* display: inline-block; */
 	font-size: 18px;
 	font-weight: bold;
-	/* margin: 4px 20px; */
 	border-radius: 12px; /* creates the curve */
-	width: 150px; /* how long it is */
 	box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
+	
 }
 
 #redButton {
+	flex: 1;
 	color: #ffffff;
 	background-color: darkred;
+	max-width: fit-content;
 	padding: 12px;
 	border: none;
 	text-align: center;
 	text-decoration: none;
-	display: inline-block;
+	/* display: inline-block; */
 	font-size: 18px;
 	font-weight: bold;
 	/* margin: 4px 20px; */
 	border-radius: 12px; /* creates the curve */
-	width: 200px; /* how long it is */
 	box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
+}
+
+.night-mode {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.toggle-btn {
+	font-size: 35px;
+	margin-right: 2rem
 }
 
 .container {
@@ -172,20 +188,21 @@ body {
 	background: var(--color-card);
 	box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
 	border-radius: 10px;
-	padding: 0px 10px 10px 10px;
+	padding: 1rem;
 	height: 100vh; /* keeps the container at 100 viewport height */
-	margin-right: 30px;
+	margin: 1.875rem 1.875rem 0rem 0rem;
 }
 
 #myform {
-	margin: 30px;
+	margin-left: 20px;
 }
 
 .input-text {
 	border-style: ridge;
 	border-color: #aba6a6;
 	border-radius: 5px;
-	width: 15%;
+	min-width: 11rem;
+	max-width: 15%;
 	margin: 10px 0;
 	margin-bottom: 20px;
 }
@@ -228,28 +245,32 @@ input:hover {
 .font-18 {
 	font-size: 18px;
 	font-weight: 500;
-	margin: 0px 0px 10px 0px;
-	padding: 5px 0px;
-	text-decoration: underline;
+	padding: 20px;
+	font-weight: 600;
 }
 
 .section {
-	margin: 30px;
+	margin: 30px 20px;
 	margin-top: 200px; /* brute force */
+	display: flex;
+	justify-content: space-between;
 	/* position: absolute;
 	bottom: 30px; */
 }
 
 .logout {
-	display: inline;
-	margin-right: 30px;
+	flex: 1;
+	/* display: inline; */
+	/* margin-right: 30px; */
+	/* position: absolute */
 }
 
 .delete {
-	display: inline;
+	flex: 1;
+	/* display: inline; */
 	/* margin: 0px; */
-	position: absolute;
-	right: 0;
+	/* position: absolute; */
+	/* right: 0; */
 	/* bottom: 0; */
 }
 </style>

@@ -1,5 +1,6 @@
 <template>
-<body>
+<!-- <body> -->
+  <div id="analytics-page">
     <div class="section1">
         <div class="analytics-header">Analytics</div>
         <div class="expense-boxes">
@@ -54,18 +55,16 @@
     <div class="section3">
         <div class="top-line">
             <div class="font-18">Expenses History</div>
-            <!-- <div class="filter-btn-wrapper"> -->
               <div class="filter-btn">
                 <fa icon="filter" /> Filter
-              <!-- </div> -->
             </div>
         </div>
         <div class="expenses-table">
           <ExpensesHistory />
         </div>
     </div>
-  
-</body>
+  </div>
+<!-- </body> -->
 <Sidebar/>
 </template>
 
@@ -92,21 +91,9 @@ export default {
 </script>
 
 <style scoped>
-/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap'); */
-/* root {
-  apply to everything
-  font-family: 'Inter';
-} */
-
-body {
-  /* remove the centering from main.css */
-  place-items: unset !important;
-  display: flex;
-  flex-direction: column;
-  overflow-x:scroll;
-  /* height: 100vh; */
+#analytics-page {
+  margin: 0 2rem;
 }
-
 .analytics-header, .expense-value {
   font-size: 24px;
   font-weight: 500;
@@ -115,11 +102,10 @@ body {
   padding-top: 50px;
   text-align: left;
 }
-
 .expense-boxes {
   display: flex;
+  max-width: 100%;
 }
-
 .expense-box {
   background: linear-gradient(44.35deg, #B55656 1.1%, #8CA3FC 1.11%,
    rgba(213, 144, 219, 0.87) 85.06%, #AB8CDD 98.97%);
@@ -127,8 +113,8 @@ body {
   border-radius: 4px;
   padding: 20px 45px 15px 45px;
   margin: 15px 25px 0px 0px;
+  
 }
-
 .expense-box-header {
   font-style: normal;
   font-weight: 300;
@@ -136,22 +122,20 @@ body {
   letter-spacing: 2px;
   color: #FFFFFF;
 }
-
 .expense-value {
   font-weight: 600;
   letter-spacing: 2px;
   text-align: center;
   color: #FFFFFF;
 }
-
 .breakdown-box {
-  width: 23.75rem;
-  max-width: 100%;
+  /* width: 23.75rem; */
   /* height: 233px; */
   background: var(--color-card);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 0.625rem;
-  margin-right: 1.875rem;
+  flex: 1;
+  overflow: auto;
 }
 
 .font-18 {
@@ -162,19 +146,24 @@ body {
 
 .section2 {
   display: flex;
+  /* flex: 1 1 auto; */
   /* justify-content: space-between; */
   gap: 1.25rem;
   margin: 1.563rem 0rem;
 }
 
 .line-graph-box {
-  width: 50rem;
+  max-width: 50rem;
   background: var(--color-card);
   box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   text-align: left;
+  flex: 1;
   /* add space between line chart and container */
   padding: 0px 0.625rem 0.625rem 0.625rem;
+  /* position: relative; */
+  overflow: auto;
+
 }
 
 .progress {
@@ -211,7 +200,7 @@ body {
   height: 366px; */
   background: var(--color-card);
   box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
-  margin-right: 1.875rem;
+  /* margin-right: 1.875rem; */
   /* max-width: 90%; */
 }
 

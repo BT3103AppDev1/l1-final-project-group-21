@@ -1,60 +1,59 @@
 <template>
-	<div id="dashboard-page">
-		<div class="dashboard-section1">
-			<div class="left">
-				<div class="welcome">
-					<div class="title">Welcome back, {{ username }}!</div>
-					<div class="subtitle">
-						Here's an overview of your weekly expenses:
-					</div>
-				</div>
-				<div class="expense-box">
-					<div class="expense-box-header">EXPENSES</div>
-					<div class="expense-value-dashboard">$132.56</div>
-				</div>
-			</div>
-
-			<div class="weekly">
-				<div class="weekly-title">WEEKLY SPENDING</div>
-				<div class="spending-container">
-					<div class="doughnutchart">
-						<DoughnutChart />
-					</div>
-					<div class="top3">
-						<div class="top3-title">TOP 3 CATEGORIES</div>
-						<div class="top3-content">
-							<div class="each-content">
-								<!-- change icon colour through .cat1 in style -->
-								<fa icon="square" class="cat1" />
-								Fashion, 40%
-							</div>
-							<div class="each-content">
-								<fa icon="square" class="cat2" />
-								Food, 25%
-							</div>
-							<div class="each-content">
-								<fa icon="square" class="cat3" />
-								Groceries, 20%
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="dashboard-section2">
-			<div class="top-line">
-				<div class="font-18">Recent Expenses</div>
-				<div class="add-btn">
-					<fa icon="add" />
-				</div>
-			</div>
-			<div class="expenses-table">
-				<RecentExpenses />
-			</div>
-		</div>
-	</div>
-	<Sidebar />
+    <div id="dashboard-page">
+        <div class="dashboard-section1">
+            <div class="left">
+                <div class="welcome">
+                    <div class="title">Welcome back, {{ username }}!</div>
+                    <div class="subtitle">Here's an overview of your weekly expenses:</div>
+                </div>
+                <div class="expense-box">
+                    <div class="expense-box-header">EXPENSES</div>
+                    <div class="expense-value-dashboard">$132.56</div>
+                </div>
+            </div>
+    
+            <div class="weekly">
+                <div class="weekly-title">WEEKLY SPENDING</div>
+                <div class="spending-container">
+                    <div class="doughnutchart">
+                        <DoughnutChart /> 
+                    </div>
+                    <div class="top3">
+                        <div class="top3-title">TOP 3 CATEGORIES</div>
+                        <div class="top3-content">
+                            <div class="each-content">
+                                <!-- change icon colour through .cat1 in style -->
+                                <fa icon="square" class="cat1" />
+                                Fashion, 40%
+                            </div>
+                            <div class="each-content">
+                                <fa icon="square" class="cat2" />
+                                Food, 25%
+                            </div>
+                            <div class="each-content">
+                                <fa icon="square" class="cat3" />
+                                Groceries, 20%
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    
+        <div class="dashboard-section2">
+            <div class="top-line">
+                <div class="font-18">Recent Expenses</div>
+                  <div class="add-btn">
+                    <fa icon="add" />
+                </div>
+            </div>
+            <div class="expenses-table">
+              <RecentExpenses />
+            </div>
+        </div>
+    </div>
+    <Sidebar/>
 </template>
 
 <script>
@@ -67,23 +66,23 @@ import firebaseApp from "../firebase.js";
 import { getAuth } from "firebase/auth";
 
 export default {
-	name: "Dashboard",
-	// local registration using components
-	components: {
-		DoughnutChart,
-		RecentExpenses,
-		Sidebar,
-	},
-	data() {
-		return {
-			username: "",
-		};
-	},
-	mounted() {
-		this.username = authentication.currentUser.displayName;
-		console.log("Component Mounted");
-	},
-};
+        name:'Dashboard',
+        // local registration using components
+        components: { 
+        DoughnutChart, 
+        RecentExpenses,
+        Sidebar,
+        },
+        data() {
+		      return {
+			    username: "",
+		      };
+	      },
+        mounted() {
+        	this.username = authentication.currentUser.displayName;
+          console.log("Component Mounted")
+        }
+    }
 </script>
 
 <style scoped>

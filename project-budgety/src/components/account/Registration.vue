@@ -119,11 +119,11 @@ export default {
 						// create collection for new user in Firestore DB
 						// for each user create "budgets" and "expenses" documents
 						const docRef1 = await setDoc(
-							doc(db, String(email.value), "expensesDoc"),
+							doc(db, "users", String(email.value), "expenses"),
 							{}
 						);
 						const docRef2 = await setDoc(
-							doc(db, String(email.value), "budgetsDoc"),
+							doc(db, "users", String(email.value), "budgets"),
 							{}
 						);
 

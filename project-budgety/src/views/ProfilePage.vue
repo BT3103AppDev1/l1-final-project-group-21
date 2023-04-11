@@ -98,8 +98,7 @@ export default {
 			let toDelete = confirm("Are you sure you want to delete your account? This action is irreversible!");
 			if (toDelete) {
 				const user = getAuth().currentUser;
-				// await db.collection(String(user.email)).delete() // altering db format
-				// await deleteDoc(doc(db, "user", user.email))
+				await deleteDoc(doc(db, "user", user.email))
 				await user.delete();
 				this.$router.push({ name: "Login" });
 			}

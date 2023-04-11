@@ -71,7 +71,7 @@ import {
 	createUserWithEmailAndPassword,
 	updateProfile,
 } from "firebase/auth";
-import { collection, addDoc, setDoc, doc } from "firebase/firestore";
+import { collection, addDoc, setDoc, doc, getDocs } from "firebase/firestore";
 import firebaseApp from "../../firebase.js";
 import { getFirestore } from "firebase/firestore";
 
@@ -116,14 +116,22 @@ export default {
 						// add user's username under Firebase Authentication displayName
 						updateProfile(auth.currentUser, { displayName: username.value });
 
+						// const date = new Date();
+						// const test = { Category: "Food", Amount: 400 };
+						// await setDoc(
+						// 	doc(
+						// 		db,
+						// 		"users",
+						// 		String(email.value),
+						// 		"expenses",
+						// 		String(date).slice(0, -35)
+						// 	),
+						// 	test
+						// );
+
 						// create collection for new user in Firestore DB
-						// for each user create "budgets" and "expenses" documents
 						const docRef1 = await setDoc(
-							doc(db, "users", String(email.value), "expenses"),
-							{}
-						);
-						const docRef2 = await setDoc(
-							doc(db, "users", String(email.value), "budgets"),
+							doc(db, "users", String(email.value)),
 							{}
 						);
 

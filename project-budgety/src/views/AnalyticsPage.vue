@@ -226,6 +226,8 @@ export default {
 	border-radius: 0.625rem;
 	flex: 1;
 	overflow: auto;
+	max-height: 100%;
+	max-width: 400px;
 }
 .font-18 {
 	font-size: 18px;
@@ -284,6 +286,6 @@ export default {
 }
 .expenses-table {
 	padding: 0rem 1.875rem;
-  margin-bottom: 2rem;
+	margin-bottom: 2rem;
 }
 </style>

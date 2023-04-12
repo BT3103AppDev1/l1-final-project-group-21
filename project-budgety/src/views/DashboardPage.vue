@@ -45,8 +45,12 @@
                 <div class="font-18">Recent Expenses [{{ weekStart }} - {{ weekEnd }}]</div>
 				<div class="expenses-btn-wrapper">
 					<div class="expenses-btn">
-						<fa icon="add" />
+						<button @click="showModal = true"><fa icon="add" /></button>
 					</div>
+
+					<AddExpense v-show="showModal"/>
+					<AddExpense v-show="showModal" @close-modal="showModal = false" />
+
 					<div class="expenses-btn">
 						<fa icon="pencil" />
 					</div>
@@ -68,6 +72,7 @@
 import DoughnutChart from "../components/DoughnutChart.vue";
 import RecentExpenses from "../components/RecentExpenses.vue";
 import Sidebar from "@/components/sidebar/Sidebar.vue";
+import AddExpense from "../components/AddExpense.vue";
 
 import { authentication } from "../firebase.js";
 
@@ -78,29 +83,31 @@ export default {
         DoughnutChart, 
         RecentExpenses,
         Sidebar,
+		    AddExpense
         },
         data() {
 		      return {
-			    username: "",
-				weeklyExp: "",
-				weekStart: "",
-				weekEnd: "",
-				cat1: "",
-				cat2: "",
-				cat3: "",
-				catCount: 0,
-				categoryColours: {
-					"Fashion": '#856dc8',
-					"Entertainment": '#eb8ad0',
-					"Food": '#4f94bc',
-					"Transportation": '#cc8a4a',
-					"Healthcare": '#539f37',
-					"Groceries": '#ac986b',
-					"Rental": '38aca5',
-					"Utilities": '8e451c',
-					"Others": "8f8f8f",
+            username: "",
+            weeklyExp: "",
+            weekStart: "",
+            weekEnd: "",
+            cat1: "",
+            cat2: "",
+            cat3: "",
+            catCount: 0,
+            showModal: false,
+            categoryColours: {
+              "Fashion": '#856dc8',
+              "Entertainment": '#eb8ad0',
+              "Food": '#4f94bc',
+              "Transportation": '#cc8a4a',
+              "Healthcare": '#539f37',
+              "Groceries": '#ac986b',
+              "Rental": '38aca5',
+              "Utilities": '8e451c',
+              "Others": "8f8f8f",
 
-				},
+				     },
 		      };
 	      },
         mounted() {

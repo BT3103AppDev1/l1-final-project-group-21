@@ -6,31 +6,34 @@
 			<h4>Here's an overview of your monthly budget:</h4>
 		</div>
 		
-		<div class="update-btn">
-			<fa icon="pencil" /> Update Budget
-		</div> 
+		<div class="buttons">
+			<div class="update-btn">
+				<fa icon="pencil" /> Update Budget
+			</div> 
 
-		<div class="new-btn">
-			<fa icon="add" /> Set New Budget
-		</div>
-		 
+			<div class="new-btn">
+				<fa icon="add" /> Set New Budget
+			</div>
+		 </div>
 	</div>
 
 	<div class="container2">
 		<div class="overall">
 			<div class="overall_words">
-				<h4 style="font-family: Verdana; line-height: 0">MAR 2023</h4>
-				<h1 style="font-family: Verdana; font-weight: bold; font-size:2em">27/31</h1>
+				<div class="small_font">MAR 2023</div>
+				<div class="big_font">27/31</div>
 				<br>
-				<h4 style="font-family: Verdana; line-height: 0">SPENT THIS MONTH:</h4>
-				<h1 style="font-family: Verdana; font-weight: bold; font-size:3em; line-height: 1.4">$314.00</h1>
+				<div class="small_font">SPENT THIS MONTH:</div>
+				<div class="big_font">$314.00</div>
 			</div>
 			
-			<div class="donut"><div class="hole">
-				<div class="percentage">
-					<h2 style="font-weight: bold; font-size:2em">19.49%</h2>
-				</div>
-			</div></div>
+			<div class="chart">
+				<div class="donut"><div class="hole">
+					<div class="percentage">
+						<h2 style="font-weight: bold; font-size:2em">19.49%</h2>
+					</div>
+				</div></div>
+			</div>
 		</div>
 
 		<div class="money">
@@ -49,7 +52,6 @@
 			<div class="cat_top"> 
 				<img style="margin:0.1em" class="category-icon" src="../assets/icons/Food.png" /> 
 				<h1 style="margin:0.1em; font-weight: bold; color: #4F94BC; left:0.3em">Food</h1> 
-				<div class="x-btn"><fa icon="xmark" /></div>
 			</div>
 
 			<div class="budget_set">
@@ -77,7 +79,6 @@
 			<div class="cat_top">
 				<img class="category-icon" src="../assets/icons/Fashion.png" />
 				<h1 style="margin:0.1em; font-weight: bold; color: #856DC8; left:0.3em">Fashion</h1>
-				<div class="x-btn"><fa icon="xmark" /></div>
 			</div>
 
 			<div class="budget_set">
@@ -105,7 +106,6 @@
 			<div class="cat_top">
 				<img class="category-icon" src="../assets/icons/Entertainment.png" />
 				<h1 style="margin:0.1em; font-weight: bold; color: #EB8AD0; left:0.3em">Entertainment</h1>
-				<div class="x-btn"><fa icon="xmark" /></div>
 			</div>
 
 			<div class="budget_set">
@@ -133,7 +133,6 @@
 			<div class="cat_top">
 				<img class="category-icon" src="../assets/icons/Transportation.png" />
 				<h1 style="margin:0.1em; font-weight: bold; color: #CC8A4A; left:0.3em">Transportation</h1>
-				<div class="x-btn"><fa icon="xmark" /></div>
 			</div>
 
 			<div class="budget_set">
@@ -161,7 +160,6 @@
 			<div class="cat_top">
 				<img class="category-icon" src="../assets/icons/Healthcare.png" />
 				<h1 style="margin:0.1em; font-weight: bold; color: #539F37; left:0.3em">Healthcare</h1>
-				<div class="x-btn"><fa icon="xmark" /></div>
 			</div>
 
 			<div class="budget_set">
@@ -205,18 +203,6 @@ export default {
 </script>
 
 <style>
-
-.x-btn {
-	vertical-align: center;
-	margin: 0.5em;
-	text-align: center;
-	padding: 0em;
-}
-
-.x-btn:hover {
-	background-color: #F2F2F2;
-	cursor: grab;
-}
 
 .healthcare_progress {
 	color: black;
@@ -295,14 +281,13 @@ export default {
 }
 
 .food, .fashion, .entertainment, .transportation, .healthcare {
-	color: black;
     height: 20em;
     width: 90%;
     padding: 2em;
-    border: solid 1px black;
     background: white;
-    border-radius: 10px;
+    border-radius: 2.4rem;
     text-align: left;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .container3 {
@@ -313,13 +298,12 @@ export default {
 }
 
 .money {
-	color: black;
     height: 20em;
     width: 100%;
     padding: 2em;
-    border: solid 1px black;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 2.4rem;
     background: white;
-    border-radius: 10px;
     text-align: center;
 }
 
@@ -339,16 +323,15 @@ export default {
 	transform: translateY(-50%);
 }
 
-.overall_words {
-	padding: 3.8em 0em 0em 7em;
-	text-align: left;
-}
-
 .container2 {
 	margin: 0em 0em 2em 2em;
 	display: grid;
     grid-template-columns: 60% 31%;
     grid-gap: 3em;
+}
+
+.chart {
+	padding-right: 4em;
 }
 
 .donut {
@@ -372,25 +355,41 @@ export default {
     background: #ffffff;
 }
 
+.big_font {
+	font-family: Verdana; 
+	font-weight: bold;
+	font-size: 2em;
+}
+
+.small_font {
+	font-family: Verdana; 
+	font-size: 1em;
+	line-height: 0.2em;
+}
+
+.overall_words {
+	padding-left: 4em;
+}
+
 .overall {
-	color: black;
     height: 20em;
-    width: 100%;
-    padding: 2em;
-    border: solid 1px black;
-    background: white;
-    border-radius: 10px;
-    text-align: center;
-	display: grid;
-    grid-template-columns: 50% 50%;
-    grid-gap: 20px;
+	background: white;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 2.4rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .container1 {
-	display: grid;
-    grid-template-columns: 60% 15% 10%;
-    grid-gap: 20px;
+	display: flex;
+    justify-content: space-between; 
 	padding: 2em 0em 0em 2em;
+}
+
+.buttons {
+	display: flex; 
+	padding: 0.1em 2em 0em 0em; 
 }
 
 .update-btn, .new-btn {

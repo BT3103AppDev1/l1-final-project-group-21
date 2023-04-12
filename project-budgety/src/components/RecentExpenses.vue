@@ -52,69 +52,60 @@ export default {
 		}
 	},
 	methods: {
-    // async getStartOfWeek() {
-		// 	const date = new Date();
-		// 	const day = date.getDay();
-    //   // Sunday = 0, Monday = 1,...
-    //   // Adjust when day is Sunday
-    //   let diff = date.getDate() - day + (day == 0 ? -6 : 0);
-		// 	const newDate = new Date(date.setDate(diff));
-    // },
-
 		async getExpenses(userEmail) {
-      const today = new Date();
-      // First day is the day of the month - the day of the week
-      const firstDay = today.getDate() - today.getDay(); 
-      // Last day is first day + 6
-      const lastDay = firstDay + 6;
+			const today = new Date();
+			// First day is the day of the month - the day of the week
+			const firstDay = today.getDate() - today.getDay(); 
+			// Last day is first day + 6
+			const lastDay = firstDay + 6;
 
-      const weekStart = new Date(today.setDate(firstDay));
-      const weekEnd = new Date(today.setDate(lastDay));
+			const weekStart = new Date(today.setDate(firstDay));
+			const weekEnd = new Date(today.setDate(lastDay));
 
 			// Set beginning of week by changing date and time
 			const amtsRef = collection(db, "users", userEmail, "expenses");
-      
-			// Filter from beginning of the month to current time
+		
+			// Filter from beginning of the week to current time
 			const q = query(
 				amtsRef,
 				where("Date", ">=", weekStart),
-				where("Date", "<=", weekEnd)
-        );
-        const amtsSnapshot = await getDocs(q);
-        
-        // Put individual items into a list then convert nested list to dictionary after sorting by date
-        // Format: id, name, date, category, amount, doc.id
-        let weeklyExp = 0;
-        let tempExpList = [];
-        amtsSnapshot.forEach((doc) => {
-          let data = doc.data();
-          let dataID = doc.id;
-          let expName = data.Item;
-          let expAmt = "$" + String(parseFloat(data.Amount).toFixed(2));
-          weeklyExp += parseFloat(data.Amount);
-          let expCat = data.Category;
-          let expDate = data.Date;
-          // Format date
-          let expDateFormatted = new Date(expDate.seconds * 1000 + 28800 * 1000);
-          let expDay = expDateFormatted.getDate();
-          if (expDay < 10) {
-            // Convert date to double digit 1 -> 01
-            expDay = expDay.toString().padStart(2, "0"); 
-          }
-          let expMonth = expDateFormatted.getMonth() + 1;
-				  if (expMonth < 10) {
-            expMonth = expMonth.toString().padStart(2, "0");
-          }
-          let expYear = expDateFormatted.getFullYear();
-          let formattedDate =
-          String(expDay) + "/" + String(expMonth) + "/" + String(expYear);
-          // NOTE: dataID = doc.id for reference to update/delete
-          let itemDetails = [expName, formattedDate, expCat, expAmt, dataID];
-          tempExpList.push(itemDetails);
+				where("Date", "<=", new Date())
+			);
+			const amtsSnapshot = await getDocs(q);
+			
+			// Put individual items into a list then convert nested list to dictionary after sorting by date
+			// Format: id, name, date, category, amount, doc.id
+			let weeklyExp = 0;
+			let tempExpList = [];
+			amtsSnapshot.forEach((doc) => {
+				let data = doc.data();
+				let dataID = doc.id;
+				let expName = data.Item;
+				let expAmt = "$" + String(parseFloat(data.Amount).toFixed(2));
+				weeklyExp += parseFloat(data.Amount);
+				let expCat = data.Category;
+				let expDate = data.Date;
+				// Format date
+				let expDateFormatted = new Date(expDate.seconds * 1000 + 28800 * 1000);
+				let expDay = expDateFormatted.getDate();
+				if (expDay < 10) {
+				// Convert date to double digit 1 -> 01
+				expDay = expDay.toString().padStart(2, "0"); 
+				}
+				let expMonth = expDateFormatted.getMonth() + 1;
+						if (expMonth < 10) {
+				expMonth = expMonth.toString().padStart(2, "0");
+				}
+				let expYear = expDateFormatted.getFullYear();
+				let formattedDate =
+				String(expDay) + "/" + String(expMonth) + "/" + String(expYear);
+				// NOTE: dataID = doc.id for reference to update/delete
+				let itemDetails = [expName, formattedDate, expCat, expAmt, dataID];
+				tempExpList.push(itemDetails);
 			});
 
-      this.$emit('sendWeeklyExp', [weeklyExp.toFixed(2), weekStart, weekEnd]);
-      
+			this.$emit('sendWeeklyExp', [weeklyExp.toFixed(2), weekStart, weekEnd]);
+		
 			// sort expenses by date (latest first --> on top)
 			tempExpList.sort(function (x, y) {
 				return parseFloat(y[1].slice(0, 2)) - parseFloat(x[1].slice(0, 2));
@@ -129,7 +120,7 @@ export default {
 					category: item[2],
 					amount: item[3],
 				});
-			}
+			};
 		},
 	},
 };

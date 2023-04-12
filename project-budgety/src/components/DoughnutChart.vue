@@ -105,7 +105,7 @@ export default {
 			const q = query(
 				amtsRef,
 				where("Date", ">=", weekStart),
-				where("Date", "<=", weekEnd)
+				where("Date", "<=", new Date())
 			);
 			const amtsSnapshot = await getDocs(q);
 
@@ -113,7 +113,6 @@ export default {
 			let allCatDict = {};
         	amtsSnapshot.forEach((doc) => {
 				let data = doc.data();
-				let dataID = doc.id;
 				let expAmt = parseFloat(data.Amount);
 				let expCat = data.Category;
 

@@ -22,7 +22,6 @@
                         <div class="top3-title">TOP 3 CATEGORIES</div>
                         <div class="top3-content">
 							<div v-bind:class="(catCount>0) ? 'each-content' : 'notVisible'" >
-                                <!-- change icon colour through .cat1 in style -->
                                 <fa icon="square" id="cat1"/>
                                 {{ cat1 }}
                             </div>
@@ -80,9 +79,9 @@ export default {
         name:'Dashboard',
         // local registration using components
         components: { 
-        DoughnutChart, 
-        RecentExpenses,
-        Sidebar,
+        	DoughnutChart, 
+        	RecentExpenses,
+        	Sidebar,
 		    AddExpense
         },
         data() {
@@ -106,8 +105,7 @@ export default {
               "Rental": '38aca5',
               "Utilities": '8e451c',
               "Others": "8f8f8f",
-
-				     },
+			},
 		      };
 	      },
         mounted() {
@@ -116,9 +114,11 @@ export default {
         },
 
 		methods: {
-			getWeeklyExpense(weeklyExp) {
+			async getWeeklyExpense(weeklyExp) {
+				// Set total expenses
 				this.weeklyExp = weeklyExp[0];
 
+				// Display week dates
 				// Week Start Date
 				let weekStartDate = weeklyExp[1];
 				let weekStartDay = weekStartDate.getDate();
@@ -147,44 +147,54 @@ export default {
 				let formattedWeekEnd = String(weekEndDay) + "/" + String(weekEndMonth) + "/" + String(weekEndYear);
 				this.weekEnd = formattedWeekEnd;
 			},
-			getTop3Cat(allCatDict) {
+
+			async getTop3Cat(allCatDict) {
 				// Take top 3 categories for breakdown
 				let topCatList = Object.entries(allCatDict);
 				topCatList.sort(function (x, y) {
 					return y[1] - x[1];
 				});
-				console.log('topCatList')
-				console.log(topCatList)
 				topCatList = topCatList.slice(0,3);
 				this.catCount = topCatList.length;
-				console.log(this.catCount);
-				// need handle situation of only 1 or 2 categories
+
+				// Calculate Total Weekly Expense amount
+				let cat1Amt = 0;
+				let cat2Amt = 0;
+				let cat3Amt = 0;
+				let totalExpense = 0; 
+				if (this.catCount > 0) {
+					cat1Amt = topCatList[0][1];
+					totalExpense += cat1Amt;
+				}
+				if (this.catCount > 1) {
+					cat2Amt = topCatList[1][1];
+					totalExpense += cat2Amt;
+				}
+				if (this.catCount > 2) {
+					cat3Amt = topCatList[2][1];
+					totalExpense += cat3Amt;
+				}	
+					
 				if (this.catCount > 0) {
 					// There is only 1 top category
 					const cat1Cat = topCatList[0][0];
-					const cat1Amt = topCatList[0][1];
-					this.cat1 = cat1Cat + ", $" + parseFloat(cat1Amt).toFixed(2);
-					const cat1Colour = this.categoryColours[cat1Cat];
-					console.log(cat1Cat)
-					console.log(cat1Colour)
+					const cat1Per = (parseFloat(cat1Amt) / parseFloat(totalExpense) * 100)
+					this.cat1 = cat1Cat + ", " + parseFloat(cat1Per).toFixed(1) + "%";
 					document.getElementById("cat1").style.color = this.categoryColours[cat1Cat];
 				}
 				if (this.catCount > 1) {
 					// There are 2 top categories
-					console.log(topCatList[1])
 					const cat2Cat = topCatList[1][0];
-					const cat2Amt = topCatList[1][1];
-					this.cat2 = cat2Cat + ", $" + parseFloat(cat2Amt).toFixed(2);
-					const cat2Colour = this.categoryColours[cat2Cat];
+					const cat2Per = (parseFloat(cat2Amt) / parseFloat(totalExpense) * 100)
+					this.cat2 = cat2Cat + ", " + parseFloat(cat2Per).toFixed(1) + "%";
 					document.getElementById("cat2").style.color = this.categoryColours[cat2Cat];
 				}
 
 				if (this.catCount > 2) {
 					// There are 3 top categories
 					const cat3Cat = topCatList[2][0];
-					const cat3Amt = topCatList[2][1];
-					this.cat3 = cat3Cat + ", $" + parseFloat(cat3Amt).toFixed(2);
-					const cat3Colour = this.categoryColours[cat3Cat];
+					const cat3Per = (parseFloat(cat3Amt) / parseFloat(totalExpense) * 100)
+					this.cat3 = cat3Cat + ", " + parseFloat(cat3Per).toFixed(1) + "%";
 					document.getElementById("cat3").style.color = this.categoryColours[cat3Cat];
 				}
 			},
@@ -295,20 +305,8 @@ export default {
 	font-weight: 500;
 }
 .notVisible {
-	display:none;
+	display: none;
 }
-/* color of square for each category - can be changed later */
-/* .cat1 {
-	color: #d4c5ff;
-}
-
-.cat2 {
-	color: #cfedfe;
-}
-
-.cat3 {
-	color: #ffecc0;
-} */
 
 .font-18 {
 	font-size: 18px;

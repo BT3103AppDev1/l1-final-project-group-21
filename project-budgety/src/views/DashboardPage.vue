@@ -7,8 +7,8 @@
                     <div class="subtitle">Here's an overview of your weekly expenses:</div>
                 </div>
                 <div class="expense-box">
-                    <div class="expense-box-header">EXPENSES</div>
-                    <div class="expense-value-dashboard">$132.56</div>
+                    <div class="expense-box-header">WEEKLY EXPENSES</div>
+                    <div class="expense-value-dashboard">${{ weeklyExp }}</div>
                 </div>
             </div>
     
@@ -58,7 +58,7 @@
                   
             </div>
             <div class="expenses-table">
-              <RecentExpenses />
+              <RecentExpenses @sendWeeklyExp = "getWeeklyExpense($event)" />
             </div>
         </div>
     </div>
@@ -85,12 +85,19 @@ export default {
         data() {
 		      return {
 			    username: "",
+				weeklyExp: "",
 		      };
 	      },
         mounted() {
         	this.username = authentication.currentUser.displayName;
           console.log("Component Mounted")
-        }
+        },
+
+		methods: {
+			getWeeklyExpense(weeklyExp) {
+				this.weeklyExp = weeklyExp;
+			}
+		}
     }
 </script>
 

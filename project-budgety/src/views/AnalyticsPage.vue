@@ -339,5 +339,6 @@ export default {
 }
 .expenses-table {
 	padding: 0rem 1.875rem;
+  margin-bottom: 2rem;
 }
 </style>

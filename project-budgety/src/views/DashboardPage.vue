@@ -44,9 +44,18 @@
         <div class="dashboard-section2">
             <div class="top-line">
                 <div class="font-18">Recent Expenses</div>
-                  <div class="add-btn">
-                    <fa icon="add" />
-                </div>
+				<div class="expenses-btn-wrapper">
+					<div class="expenses-btn">
+						<fa icon="add" />
+					</div>
+					<div class="expenses-btn">
+						<fa icon="pencil" />
+					</div>
+					<div class="expenses-btn last-btn">
+						<fa icon="trash" />
+					</div>
+				</div>
+                  
             </div>
             <div class="expenses-table">
               <RecentExpenses />
@@ -216,7 +225,11 @@ export default {
 	align-items: center;
 }
 
-.add-btn {
+.expenses-btn-wrapper {
+	display: flex;
+}
+
+.expenses-btn {
 	align-items: center;
 	text-align: center;
 	background-color: var(--color-card);
@@ -224,18 +237,24 @@ export default {
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	border-radius: 40px;
 	padding: 5px 10px 5px 10px;
-	margin-right: 35px;
+	margin-right: 10px;
 	font-weight: 500;
 	font-size: 15px;
 	color: #aba6a6;
 }
 
-.add-btn:hover {
+/* set margin for the right-most button */
+.last-btn {
+	margin-right: 35px;
+}
+
+.expenses-btn:hover {
 	background-color: #f2f2f2;
 	cursor: pointer;
 }
 
 .expenses-table {
 	padding: 0rem 1.875rem;
+	margin-bottom: 2rem;
 }
 </style>

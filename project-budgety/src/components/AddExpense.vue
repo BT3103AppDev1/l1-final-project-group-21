@@ -9,7 +9,7 @@
           <input type="text" v-model="item1" required="" placeholder="Enter Item"> <br><br>
 
           <label for="date1">Date: </label>
-          <input type="date" v-model="date1" required="" placeholder="DD/MM/YYYY"> <br><br>
+          <input type="datetime-local" v-model="date1" required="" placeholder="DD/MM/YYYY"> <br><br>
 
           <label for="category1">Category: </label>
           <select name="categorie_drop" v-model="category1">

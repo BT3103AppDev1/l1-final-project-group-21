@@ -1,6 +1,9 @@
 <template>
   <div class="modal-overlay">
     <div class="mymodal">
+      <div class="close" @click="$emit('close-modal')">
+        <button id="closeButton"><fa icon="close" /></button>
+      </div>
       <h3><b>Add New Expense</b></h3>
       
       <form id="myform">
@@ -35,9 +38,9 @@
         </div>
       </form>
     </div>
-    <div class="close" @click="$emit('close-modal')">
+    <!-- <div class="close" @click="$emit('close-modal')">
       <button id="closeButton"><fa icon="close" /></button>
-    </div>
+    </div> -->
   </div>
 </template>
   
@@ -120,19 +123,26 @@ form {
   display: flex;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.4);
+  z-index: 100;
 }
 
 .mymodal {
   text-align: center;
   background-color: white;
-  height: 50vh;
-  width: 60vh;
+  /* height: 50vh; */
+  height: 28rem;
+  /* width: 60vh; */
+  width: 33.5rem;
   margin-top: 10%;
-  padding: 60px 0;
+  /* padding: 60px 0; */
+  padding: 20px 0;
   border-radius: 20px;
+  margin-left: 220px;
+  margin-right: 20px;
 }
 .close {
-  margin: 10% 0 0 0;
+  /* margin: 10% 0 0 0; */
+  margin: 0 -90% 0 0;
   cursor: pointer;
 }
 
@@ -187,4 +197,5 @@ p {
 input {
   outline-color: grey;
 }
+
 </style>

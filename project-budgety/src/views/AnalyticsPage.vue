@@ -31,7 +31,6 @@
 		<div class="section3">
 			<div class="top-line">
 				<div class="font-18">Expenses History</div>
-				<div class="filter-btn"><fa icon="filter" /> Filter</div>
 			</div>
 			<div class="expenses-table">
 				<ExpensesHistory />
@@ -265,24 +264,6 @@ export default {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-}
-.filter-btn {
-	/* possibly for all buttons */
-	align-items: center;
-	background-color: var(--color-card);
-	border: 0.5px solid --color-btn-border;
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-	border-radius: 4px;
-	padding: 5px 10px 5px 10px;
-	margin-right: 35px;
-	font-weight: 500;
-	font-size: 12px;
-	color: #aba6a6;
-	/* font-weight: var(--font-medium); */
-}
-.filter-btn:hover {
-	background-color: #f2f2f2;
-	cursor: pointer;
 }
 .expenses-table {
 	padding: 0rem 1.875rem;

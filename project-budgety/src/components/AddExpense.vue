@@ -12,7 +12,7 @@
           <input type="text" v-model="item1" required="" placeholder="Enter Item"> <br><br>
 
           <label for="date1">Date: </label>
-          <input type="date" v-model="date1" required="" placeholder="DD/MM/YYYY"> <br><br>
+          <input type="datetime-local" v-model="date1" required="" placeholder="DD/MM/YYYY"> <br><br>
 
           <label for="category1">Category: </label>
           <select name="categorie_drop" v-model="category1">
@@ -53,12 +53,12 @@ const db = getFirestore(firebaseApp);
 
 export default {
     data() {
-        return {
-            item1: this.item1,
-            date1: this.date1,
-            category1: this.category1,
-            amount1: this.amount1,
-        }
+      return {
+        item1: this.item1,
+        date1: this.date1,
+        category1: this.category1,
+        amount1: this.amount1,
+      }
     },
     methods: {
         async saveData() {

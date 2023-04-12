@@ -54,10 +54,18 @@
 					<span class="category-text">{{ row[2] }}%</span>
 					<span class="category-text">${{ row[1] }}</span>
 				</div>
-				<div class="progress">
+				<!-- <div class="progress">
 					<v-progress-linear
 						rounded="true"
 						color="#856DC8"
+						v-model="row[2]"
+						height="8px"
+					></v-progress-linear>
+				</div> -->
+				<div class="progress">
+					<v-progress-linear
+						rounded="true"
+						:color=getColor(row)
 						v-model="row[2]"
 						height="8px"
 					></v-progress-linear>
@@ -157,6 +165,28 @@ export default {
 				return y[1] - x[1];
 			});
 		},
+		getColor(row) {
+			if (row[0] == 'Fashion') {
+				return '#856dc8';
+			} else if (row[0] == 'Entertainment') {
+				return '#eb8ad0';
+			} else if (row[0] == 'Food') {
+				return '#4f94bc';
+			} else if (row[0] == 'Transportation') {
+				return '#cc8a4a';
+			} else if (row[0] == 'Healthcare') {
+				return '#539f37';
+			} else if (row[0] == 'Groceries') {
+				return '#ac986b';
+			} else if (row[0] == 'Rental') {
+				return '#38aca5';
+			} else if (row[0] == 'Utilities') {
+				return '#8e451c';
+			} else {
+				// others
+				return '#8f8f8f';
+			}
+		}
 	},
 };
 </script>

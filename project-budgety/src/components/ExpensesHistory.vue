@@ -145,7 +145,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .customize-table {
 	/* remove table border */
 	--easy-table-border: 0px;

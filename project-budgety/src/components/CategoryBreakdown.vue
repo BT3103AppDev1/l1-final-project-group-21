@@ -192,6 +192,7 @@ export default {
 	border-radius: 0.625rem;
 	flex: 1;
 	overflow-y: scroll;
+	height: 100%;
 	max-width: 400px;
 }
 .font-18 {

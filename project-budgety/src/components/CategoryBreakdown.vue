@@ -54,18 +54,10 @@
 					<span class="category-text">{{ row[2] }}%</span>
 					<span class="category-text">${{ row[1] }}</span>
 				</div>
-				<!-- <div class="progress">
-					<v-progress-linear
-						rounded="true"
-						color="#856DC8"
-						v-model="row[2]"
-						height="8px"
-					></v-progress-linear>
-				</div> -->
 				<div class="progress">
 					<v-progress-linear
 						rounded="true"
-						:color=getColor(row)
+						:color="getColor(row)"
 						v-model="row[2]"
 						height="8px"
 					></v-progress-linear>
@@ -166,27 +158,27 @@ export default {
 			});
 		},
 		getColor(row) {
-			if (row[0] == 'Fashion') {
-				return '#856dc8';
-			} else if (row[0] == 'Entertainment') {
-				return '#eb8ad0';
-			} else if (row[0] == 'Food') {
-				return '#4f94bc';
-			} else if (row[0] == 'Transportation') {
-				return '#cc8a4a';
-			} else if (row[0] == 'Healthcare') {
-				return '#539f37';
-			} else if (row[0] == 'Groceries') {
-				return '#ac986b';
-			} else if (row[0] == 'Rental') {
-				return '#38aca5';
-			} else if (row[0] == 'Utilities') {
-				return '#8e451c';
+			if (row[0] == "Fashion") {
+				return "#856dc8";
+			} else if (row[0] == "Entertainment") {
+				return "#eb8ad0";
+			} else if (row[0] == "Food") {
+				return "#4f94bc";
+			} else if (row[0] == "Transportation") {
+				return "#cc8a4a";
+			} else if (row[0] == "Healthcare") {
+				return "#539f37";
+			} else if (row[0] == "Groceries") {
+				return "#ac986b";
+			} else if (row[0] == "Rental") {
+				return "#38aca5";
+			} else if (row[0] == "Utilities") {
+				return "#8e451c";
 			} else {
 				// others
-				return '#8f8f8f';
+				return "#8f8f8f";
 			}
-		}
+		},
 	},
 };
 </script>
@@ -200,7 +192,7 @@ export default {
 	border-radius: 0.625rem;
 	flex: 1;
 	overflow-y: scroll;
-	height: 100%;
+	max-width: 400px;
 }
 .font-18 {
 	font-size: 18px;
@@ -224,7 +216,7 @@ export default {
 	width: 2.5rem;
 }
 .category-text {
-	color: #856dc8;
+	/* color: #856dc8; */
 	font-weight: 700;
 }
 .blue {

@@ -50,12 +50,12 @@ const db = getFirestore(firebaseApp);
 
 export default {
     data() {
-        return {
-            item1: this.item1,
-            date1: this.date1,
-            category1: this.category1,
-            amount1: this.amount1,
-        }
+      return {
+        item1: this.item1,
+        date1: this.date1,
+        category1: this.category1,
+        amount1: this.amount1,
+      }
     },
     methods: {
         async saveData() {

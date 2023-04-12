@@ -46,8 +46,12 @@
                 <div class="font-18">Recent Expenses</div>
 				<div class="expenses-btn-wrapper">
 					<div class="expenses-btn">
-						<fa icon="add" />
+						<button @click="showModal = true"><fa icon="add" /></button>
 					</div>
+
+					<AddExpense v-show="showModal"/>
+					<AddExpense v-show="showModal" @close-modal="showModal = false" />
+
 					<div class="expenses-btn">
 						<fa icon="pencil" />
 					</div>
@@ -69,6 +73,7 @@
 import DoughnutChart from "../components/DoughnutChart.vue";
 import RecentExpenses from "../components/RecentExpenses.vue";
 import Sidebar from "@/components/sidebar/Sidebar.vue";
+import AddExpense from "../components/AddExpense.vue";
 
 import { authentication } from "../firebase.js";
 import firebaseApp from "../firebase.js";
@@ -81,10 +86,12 @@ export default {
         DoughnutChart, 
         RecentExpenses,
         Sidebar,
+		AddExpense
         },
         data() {
 		      return {
 			    username: "",
+				showModal: false,
 		      };
 	      },
         mounted() {

@@ -72,8 +72,6 @@ export default {
       const weekEnd = new Date(today.setDate(lastDay));
 
 			// Set beginning of week by changing date and time
-      console.log(weekStart);
-      console.log(weekEnd);
 			const amtsRef = collection(db, "users", userEmail, "expenses");
       
 			// Filter from beginning of the month to current time
@@ -115,7 +113,7 @@ export default {
           tempExpList.push(itemDetails);
 			});
 
-      this.$emit('sendWeeklyExp', weeklyExp.toFixed(2));
+      this.$emit('sendWeeklyExp', [weeklyExp.toFixed(2), weekStart, weekEnd]);
       
 			// sort expenses by date (latest first --> on top)
 			tempExpList.sort(function (x, y) {

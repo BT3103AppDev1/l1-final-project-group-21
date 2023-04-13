@@ -1,14 +1,20 @@
 <template>
 	<div class="modal-overlay">
-		<div class="modal">
-			<h3>Filter By Category</h3>
+		<div class="mymodal">
+			<div class="close" @click="close()">
+				<fa icon="close" />
+			</div>
+			<div class="modal-title">FILTER BY CATEGORY</div>
+
 			<form id="myform">
 				<div class="formli">
-					<label for="category1">Category: &nbsp;</label>
+					<br />
+					<label for="category1">Category:</label>
 					<select
 						name="categorie_drop"
 						id="category1"
 						v-model="selectedCategory"
+						placeholder="Select Category"
 					>
 						<option value="">Select Category</option>
 						<option>Food</option>
@@ -28,18 +34,13 @@
 						<button
 							id="savebutton"
 							type="button"
-							v-on:click="
-								$emit('close-modal'), filterCategories(selectedCategory)
-							"
+							v-on:click="close(), filterCategories(selectedCategory)"
 						>
-							Save
+							Filter
 						</button>
 					</div>
 				</div>
 			</form>
-		</div>
-		<div class="close" @click="this.$emit('close-modal')">
-			<button>close</button>
 		</div>
 	</div>
 </template>
@@ -57,13 +58,13 @@ export default {
 			selectedCategory: "",
 		};
 	},
-	props: {
-		"close-modal": Boolean,
-	},
-	emits: ["catSelected"],
+	emits: ["catSelected", "closeModal"],
 	methods: {
 		filterCategories(selectedCategory) {
 			this.$emit("catSelected", selectedCategory);
+		},
+		close() {
+			this.$emit("closeModal", "close");
 		},
 	},
 };
@@ -72,15 +73,29 @@ export default {
 <style scoped>
 label {
 	font-size: 15px;
+	color: #6c60f3;
 	display: inline-block;
 	width: 80px;
 	text-align: right;
+	padding: 5px;
+	margin-right: 10px;
 }
 
 input,
 select {
 	width: 210px;
-	font-family: Inter;
+	font-family: Inter, Arial, Helvetica, sans-serif;
+	background: #ffffff;
+	border: 1px solid rgb(230, 230, 230);
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+input {
+	border-radius: 4px;
+}
+
+select {
+	color: rgb(178, 175, 175);
 }
 
 form {
@@ -96,19 +111,36 @@ form {
 	display: flex;
 	justify-content: center;
 	background-color: rgba(0, 0, 0, 0.4);
+	z-index: 100;
 }
 
-.modal {
+.mymodal {
 	text-align: center;
 	background-color: white;
-	height: 270px;
-	width: 500px;
+	height: 20rem;
+	width: 33.5rem;
 	margin-top: 10%;
-	padding: 60px 0;
+	padding: 20px 0;
 	border-radius: 20px;
+	margin-left: 220px;
+	margin-right: 20px;
 }
+
+.modal-title {
+	color: #6c60f3;
+	font-weight: 600;
+	font-size: 20px;
+	letter-spacing: 3px;
+}
+
 .close {
-	margin: 10% 0 0 16px;
+	text-align: end;
+	margin: 0 -90% 0 0;
+	display: inline-flex;
+	text-align: right;
+	font-size: 20px;
+	font-weight: 700;
+	color: #6c60f3;
 	cursor: pointer;
 }
 

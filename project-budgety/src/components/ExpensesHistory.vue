@@ -12,7 +12,7 @@
 		<Filter v-show="showModal" @catSelected="childcall($event)" />
 		<Filter
 			v-show="showModal"
-			@close-modal="showModal = false"
+			@closeModal="childcall($event)"
 			@catSelected="childcall($event)"
 		/>
 
@@ -105,7 +105,7 @@ export default {
 				let expDay = expDateFormatted.getDate();
 				if (expDay < 10) {
 					// Convert date to double digit 1 -> 01
-					expDay = expDay.toString().padStart(2, "0"); 
+					expDay = expDay.toString().padStart(2, "0");
 				}
 				let expMonth = expDateFormatted.getMonth() + 1;
 				if (expMonth < 10) {
@@ -145,6 +145,7 @@ export default {
 		},
 		childcall(category) {
 			this.filterCategories(category);
+			this.showModal = false;
 		},
 	},
 };

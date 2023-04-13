@@ -2,19 +2,19 @@
   <div class="modal-overlay">
     <div class="mymodal">
       <div class="close" @click="$emit('close-modal')">
-        <button id="closeButton"><fa icon="close" /></button>
+          <fa icon="close" />
       </div>
-      <h3><b>Add New Expense</b></h3>
+      <div class="modal-title">ADD NEW EXPENSE</div>
       
       <form id="myform">
         <div class="formli">
-          <label for="item1">Item:</label>
-          <input type="text" v-model="item1" required="" placeholder="Enter Item"> <br><br>
+          <label for="item1">Item </label>
+          <input type="text" v-model="item1" required="" placeholder=" Enter Item"> <br><br>
 
-          <label for="date1">Date: </label>
-          <input type="datetime-local" v-model="date1" required="" placeholder="DD/MM/YYYY"> <br><br>
+          <label for="date1">Date </label>
+          <input type="datetime-local" v-model="date1" required="" placeholder="  DD/MM/YYYY"> <br><br>
 
-          <label for="category1">Category: </label>
+          <label for="category1">Category </label>
           <select name="categorie_drop" v-model="category1">
             <option value="">Select Category</option>
             <option>Food</option>
@@ -29,18 +29,14 @@
           </select>
           <br><br>
 
-          <label for="amount1">Amount: </label>
-          <input type="number" v-model="amount1" required="" placeholder="Enter Amount"> <br><br>
-
-          <div class="save">
-            <button id="saveButton" type="button" v-on:click="saveData" class="btn btn-white" data-dismiss="modal">Save</button>
-          </div>
+          <label for="amount1">Amount </label>
+          <input type="number" v-model="amount1" required="" placeholder=" Enter Amount"> <br>
+        </div>
+        <div class="save">
+          <button id="saveButton" type="button" v-on:click="saveData" class="btn btn-white" data-dismiss="modal">Submit</button>
         </div>
       </form>
     </div>
-    <!-- <div class="close" @click="$emit('close-modal')">
-      <button id="closeButton"><fa icon="close" /></button>
-    </div> -->
   </div>
 </template>
   
@@ -95,20 +91,31 @@ h3 {
 
 label {
   font-size: 15px;
+  color: #6C60F3;
   display: inline-block;
   width: 80px;
   text-align: right;
   padding: 5px;
+  margin-right: 10px;
 }
 
 input, select {
   width: 210px;
-  font-family: Arial, Helvetica, sans-serif
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  background: #FFFFFF;
+  border: 1px solid rgb(230, 230, 230);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 input {
-  color: grey;
+  border-radius: 4px;
 }
+
+/* categorie dropdown hehe */
+select {
+  color: rgb(178, 175, 175);
+}
+
 
 form {
   margin-top: 30px;
@@ -129,35 +136,23 @@ form {
 .mymodal {
   text-align: center;
   background-color: white;
-  /* height: 50vh; */
   height: 28rem;
-  /* width: 60vh; */
   width: 33.5rem;
   margin-top: 10%;
-  /* padding: 60px 0; */
   padding: 20px 0;
   border-radius: 20px;
   margin-left: 220px;
   margin-right: 20px;
 }
 .close {
-  /* margin: 10% 0 0 0; */
+  text-align: end;
   margin: 0 -90% 0 0;
+  display: inline-flex;
+  text-align: right;
+  font-size: 20px;
+  font-weight: 700;
+  color: #6C60F3;
   cursor: pointer;
-}
-
-.close-img {
-  width: 25px;
-}
-
-.check {
-  width: 150px;
-}
-
-h6 {
-  font-weight: 500;
-  font-size: 28px;
-  margin: 20px 0;
 }
 
 p {
@@ -166,36 +161,31 @@ p {
 }
 
 #saveButton {
-  background-color: #6C60F3;
+  background: radial-gradient(144.64% 144.64% at 94.27% -44.64%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */, #6C60F3;
+  border: 1px solid #ABA6A6;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
   width: 120px;
   height: 40px;
   color: white;
-  font-size: 14px;
-  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
   margin-top: 50px;
   border: none;
 }
 
-#closeButton {
-	align-items: center;
-	text-align: center;
-	background-color: var(--color-card);
-	border: 0.5px solid --color-btn-border;
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-	border-radius: 40px;
-	padding: 5px 10px 5px 10px;
-	margin-right: 10px;
-	font-weight: 500;
-	font-size: 15px;
-	background-color: #6C60F3;
-  color: white;
-}
 .save{
     text-align: center;
 }
 
 input {
-  outline-color: grey;
+  outline-color: rgb(230, 230, 230);
 }
 
+.modal-title {
+  color: #6C60F3;
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: 3px;
+}
 </style>

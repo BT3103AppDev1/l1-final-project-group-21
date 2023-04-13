@@ -220,31 +220,4 @@ export default {
 	/* color: #856dc8; */
 	font-weight: 700;
 }
-.blue {
-	color: #4f94bc;
-}
-.purple {
-	color: #856dc8;
-}
-.gold {
-	color: #ac986b;
-}
-.green {
-	color: #539f37;
-}
-.pink {
-	color: #eb8ad0;
-}
-.turquoise {
-	color: #38aca5;
-}
-.grey {
-	color: #8f8f8f;
-}
-.brown {
-	color: #8e451c;
-}
-.orange {
-	color: #cc8a4a;
-}
 </style>

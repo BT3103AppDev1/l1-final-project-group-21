@@ -7,47 +7,49 @@
                     <div class="subtitle">Here's an overview of your weekly expenses:</div>
                 </div>
                 <div class="expense-box">
-                    <div class="expense-box-header">EXPENSES</div>
-                    <div class="expense-value-dashboard">$132.56</div>
+                    <div class="expense-box-header">WEEKLY EXPENSES</div>
+                    <div class="expense-value-dashboard">${{ weeklyExp }}</div>
                 </div>
             </div>
-    
+			<!-- Start of Doughnut Chart div -->
             <div class="weekly">
                 <div class="weekly-title">WEEKLY SPENDING</div>
                 <div class="spending-container">
                     <div class="doughnutchart">
-                        <DoughnutChart /> 
+                        <DoughnutChart @sendCatDict = "getTop3Cat($event)" /> 
                     </div>
                     <div class="top3">
                         <div class="top3-title">TOP 3 CATEGORIES</div>
                         <div class="top3-content">
-                            <div class="each-content">
-                                <!-- change icon colour through .cat1 in style -->
-                                <fa icon="square" class="cat1" />
-                                Fashion, 40%
+							<div v-bind:class="(catCount>0) ? 'each-content' : 'notVisible'" >
+                                <fa icon="square" id="cat1"/>
+                                {{ cat1 }}
                             </div>
-                            <div class="each-content">
-                                <fa icon="square" class="cat2" />
-                                Food, 25%
+                            <div v-bind:class="(catCount>1) ? 'each-content' : 'notVisible'">
+                                <fa icon="square" id="cat2"/>
+								{{ cat2 }}
                             </div>
-                            <div class="each-content">
-                                <fa icon="square" class="cat3" />
-                                Groceries, 20%
+                            <div v-bind:class="(catCount>2)? 'each-content' : 'notVisible'">
+                                <fa icon="square" id="cat3"/>
+								{{ cat3 }}
                             </div>
                         </div>
-                    </div>
-                    
+                    </div>  
                 </div>
             </div>
         </div>
-    
+		<!-- Start of Recent Expenses div -->
         <div class="dashboard-section2">
             <div class="top-line">
-                <div class="font-18">Recent Expenses</div>
+                <div class="font-18">Recent Expenses [{{ weekStart }} - {{ weekEnd }}]</div>
 				<div class="expenses-btn-wrapper">
 					<div class="expenses-btn">
-						<fa icon="add" />
+						<button @click="showModal = true"><fa icon="add" /></button>
 					</div>
+
+					<AddExpense v-show="showModal"/>
+					<AddExpense v-show="showModal" @close-modal="showModal = false" />
+
 					<div class="expenses-btn">
 						<fa icon="pencil" />
 					</div>
@@ -58,7 +60,7 @@
                   
             </div>
             <div class="expenses-table">
-              <RecentExpenses />
+              <RecentExpenses @sendWeeklyExp = "getWeeklyExpense($event)" />
             </div>
         </div>
     </div>
@@ -69,28 +71,134 @@
 import DoughnutChart from "../components/DoughnutChart.vue";
 import RecentExpenses from "../components/RecentExpenses.vue";
 import Sidebar from "@/components/sidebar/Sidebar.vue";
+import AddExpense from "../components/AddExpense.vue";
 
 import { authentication } from "../firebase.js";
-import firebaseApp from "../firebase.js";
-import { getAuth } from "firebase/auth";
 
 export default {
         name:'Dashboard',
         // local registration using components
         components: { 
-        DoughnutChart, 
-        RecentExpenses,
-        Sidebar,
+        	DoughnutChart, 
+        	RecentExpenses,
+        	Sidebar,
+		    AddExpense
         },
         data() {
 		      return {
-			    username: "",
+            username: "",
+            weeklyExp: "",
+            weekStart: "",
+            weekEnd: "",
+            cat1: "",
+            cat2: "",
+            cat3: "",
+            catCount: 0,
+            showModal: false,
+            categoryColours: {
+              "Fashion": '#856dc8',
+              "Entertainment": '#eb8ad0',
+              "Food": '#4f94bc',
+              "Transportation": '#cc8a4a',
+              "Healthcare": '#539f37',
+              "Groceries": '#ac986b',
+              "Rental": '38aca5',
+              "Utilities": '8e451c',
+              "Others": "8f8f8f",
+			},
 		      };
 	      },
         mounted() {
-        	this.username = authentication.currentUser.displayName;
-          console.log("Component Mounted")
-        }
+			this.username = authentication.currentUser.displayName;
+        	console.log("Component Mounted")
+        },
+
+		methods: {
+			async getWeeklyExpense(weeklyExp) {
+				// Set total expenses
+				this.weeklyExp = weeklyExp[0];
+
+				// Display week dates
+				// Week Start Date
+				let weekStartDate = weeklyExp[1];
+				let weekStartDay = weekStartDate.getDate();
+				if (weekStartDay < 10) {
+				weekStartDay = weekStartDay.toString().padStart(2, "0"); 
+				}
+				let weekStartMonth = weekStartDate.getMonth() + 1;
+				if (weekStartMonth < 10) {
+					weekStartMonth = weekStartMonth.toString().padStart(2, "0");
+				}
+				let weekStartYear = weekStartDate.getFullYear();
+				let formattedWeekStart = String(weekStartDay) + "/" + String(weekStartMonth) + "/" + String(weekStartYear);
+				this.weekStart = formattedWeekStart;
+			
+				// Week End Date
+				let weekEndDate = weeklyExp[2];
+				let weekEndDay = weekEndDate.getDate();
+				if (weekEndDay < 10) {
+				weekEndDay = weekEndDay.toString().padStart(2, "0"); 
+				}
+				let weekEndMonth = weekEndDate.getMonth() + 1;
+				if (weekEndMonth < 10) {
+				weekEndMonth = weekEndMonth.toString().padStart(2, "0");
+				}
+				let weekEndYear = weekEndDate.getFullYear();
+				let formattedWeekEnd = String(weekEndDay) + "/" + String(weekEndMonth) + "/" + String(weekEndYear);
+				this.weekEnd = formattedWeekEnd;
+			},
+
+			async getTop3Cat(allCatDict) {
+				// Take top 3 categories for breakdown
+				let topCatList = Object.entries(allCatDict);
+				topCatList.sort(function (x, y) {
+					return y[1] - x[1];
+				});
+				topCatList = topCatList.slice(0,3);
+				this.catCount = topCatList.length;
+
+				// Calculate Total Weekly Expense amount
+				let cat1Amt = 0;
+				let cat2Amt = 0;
+				let cat3Amt = 0;
+				let totalExpense = 0; 
+				if (this.catCount > 0) {
+					cat1Amt = topCatList[0][1];
+					totalExpense += cat1Amt;
+				}
+				if (this.catCount > 1) {
+					cat2Amt = topCatList[1][1];
+					totalExpense += cat2Amt;
+				}
+				if (this.catCount > 2) {
+					cat3Amt = topCatList[2][1];
+					totalExpense += cat3Amt;
+				}	
+					
+				if (this.catCount > 0) {
+					// There is only 1 top category
+					const cat1Cat = topCatList[0][0];
+					const cat1Per = (parseFloat(cat1Amt) / parseFloat(totalExpense) * 100)
+					this.cat1 = cat1Cat + ", " + parseFloat(cat1Per).toFixed(1) + "%";
+					document.getElementById("cat1").style.color = this.categoryColours[cat1Cat];
+				}
+				if (this.catCount > 1) {
+					// There are 2 top categories
+					const cat2Cat = topCatList[1][0];
+					const cat2Per = (parseFloat(cat2Amt) / parseFloat(totalExpense) * 100)
+					this.cat2 = cat2Cat + ", " + parseFloat(cat2Per).toFixed(1) + "%";
+					document.getElementById("cat2").style.color = this.categoryColours[cat2Cat];
+				}
+
+				if (this.catCount > 2) {
+					// There are 3 top categories
+					const cat3Cat = topCatList[2][0];
+					const cat3Per = (parseFloat(cat3Amt) / parseFloat(totalExpense) * 100)
+					this.cat3 = cat3Cat + ", " + parseFloat(cat3Per).toFixed(1) + "%";
+					document.getElementById("cat3").style.color = this.categoryColours[cat3Cat];
+				}
+			},
+		}
     }
 </script>
 
@@ -196,17 +304,8 @@ export default {
 	font-size: 16px;
 	font-weight: 500;
 }
-/* color of square for each category - can be changed later */
-.cat1 {
-	color: #d4c5ff;
-}
-
-.cat2 {
-	color: #cfedfe;
-}
-
-.cat3 {
-	color: #ffecc0;
+.notVisible {
+	display: none;
 }
 
 .font-18 {

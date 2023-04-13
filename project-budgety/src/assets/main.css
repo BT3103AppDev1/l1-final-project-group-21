@@ -39,7 +39,6 @@ main {
     /* margin-left: 130px; */
     /* background-color: brown; */
   }
-  
 
   /* #app {
     display: grid;
@@ -100,4 +99,7 @@ main {
   .expense-box {
     flex: 1;
   }
+  /* .mymodal {
+    margin-left: -200px;
+  } */
 }

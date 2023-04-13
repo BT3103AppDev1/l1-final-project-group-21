@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { parse } from "@vue/compiler-dom";
 import { authentication } from "../firebase.js";
 import firebaseApp from "../firebase.js";
 import { getAuth } from "firebase/auth";
@@ -42,6 +43,7 @@ import Filter from "./Filter.vue";
 const db = getFirestore(firebaseApp);
 
 export default {
+	name: "Expenses History",
 	components: { EasyDataTable: window["vue3-easy-data-table"], Filter },
 	data() {
 		return {
@@ -53,6 +55,7 @@ export default {
 				{ text: "CATEGORY", value: "category" },
 				{ text: "AMOUNT", value: "amount" },
 			],
+
 			itemsList: [],
 			fullItemsList: [],
 		};
@@ -79,6 +82,7 @@ export default {
 			let tempMonthStart = new Date(monthStart).setHours(0, 0, 0, 0);
 			monthStart = new Date(tempMonthStart);
 			const amtsRef = collection(db, "users", userEmail, "expenses");
+
 			// Filter from beginning of the month to current time
 			const q = query(
 				amtsRef,
@@ -100,7 +104,8 @@ export default {
 				let expDateFormatted = new Date(expDate.seconds * 1000 + 28800 * 1000);
 				let expDay = expDateFormatted.getDate();
 				if (expDay < 10) {
-					expDay = expDay.toString().padStart(2, "0");
+					// Convert date to double digit 1 -> 01
+					expDay = expDay.toString().padStart(2, "0"); 
 				}
 				let expMonth = expDateFormatted.getMonth() + 1;
 				if (expMonth < 10) {

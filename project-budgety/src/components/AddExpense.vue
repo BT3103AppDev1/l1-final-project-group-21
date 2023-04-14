@@ -6,13 +6,13 @@
       </div>
       <div class="modal-title">ADD NEW EXPENSE</div>
       
-      <form id="myform">
+      <form id="myform" name="myForm">
         <div class="formli">
           <label for="item1">Item </label>
-          <input type="text" v-model="item1" required="" placeholder=" Enter Item"> <br><br>
+          <input type="text" v-model="item1" name="fitem" placeholder=" Enter Item"> <br><br>
 
           <label for="date1">Date </label>
-          <input type="datetime-local" v-model="date1" required="" placeholder="  DD/MM/YYYY"> <br><br>
+          <input type="datetime-local" v-model="date1" name="fdate" placeholder="  DD/MM/YYYY"> <br><br>
 
           <label for="category1">Category </label>
           <select name="categorie_drop" v-model="category1">
@@ -30,7 +30,8 @@
           <br><br>
 
           <label for="amount1">Amount </label>
-          <input type="number" v-model="amount1" required="" placeholder=" Enter Amount"> <br>
+          <!-- Users must input a min value of 0 -->
+          <input type="number" v-model="amount1" min="0" step="0.01" name="famount" placeholder=" Enter Amount"> <br>
         </div>
         <div class="save">
           <button id="saveButton" type="button" v-on:click="saveData" class="btn btn-white" data-dismiss="modal">Submit</button>
@@ -42,7 +43,7 @@
   
 <script>
 import firebaseApp, { authentication } from '../firebase.js';
-import { DocumentReference, getFirestore } from "firebase/firestore";
+import { DocumentReference, Timestamp, getFirestore } from "firebase/firestore";
 import { doc, setDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 const db = getFirestore(firebaseApp);
@@ -50,27 +51,50 @@ const db = getFirestore(firebaseApp);
 export default {
     data() {
       return {
-        item1: this.item1,
-        date1: this.date1,
-        category1: this.category1,
-        amount1: this.amount1,
+        item1: "",
+        date1: "",
+        category1: "",
+        amount1: "",
       }
     },
     methods: {
         async saveData() {
+            // All inputs of form must be filled
+            if (this.item1 == "") {
+              alert("Please fill in Item");
+              return false;
+            }
+            if (this.date1 == "") {
+              alert("Please fill in Date");
+              return false;
+            }
+            if (this.category1 == "") {
+              alert("Please select a Category");
+              return false;
+            }
+            if (this.amount1 == "") {
+              alert("Please fill in Amount");
+              return false;
+            }
+
+            // Only if all inputs have been filled
             console.log("IN AC")
 
             let item = this.item1
             let date = this.date1
+            // convert to TimeStamp
+            let time = new Date(date.replace('T',' ').replace('-','/'));
             let category = this.category1
             let amount = this.amount1
-            
-            alert("Saving your data for Item: " + item)
+
+            const current_timestamp = Timestamp.fromDate(new Date(time))
+
+            alert("Saving your data for Item: " + current_timestamp)
 
             try {
               const userEmail = authentication.currentUser.email;
-                const docRef = await setDoc(doc(db,"users", userEmail, "expenses", date),{
-                    item : item, date : date, category : category, amount : amount
+                const docRef = await setDoc(doc(db,"users", userEmail, "expenses", current_timestamp),{
+                    Item : item, Date : current_timestamp, Category : category, Amount : amount
                 })
                 console.log(docRef)
                 document.getElementById('myform').reset();

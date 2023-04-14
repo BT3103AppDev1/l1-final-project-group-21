@@ -47,7 +47,6 @@ import { DocumentReference, Timestamp, getFirestore } from "firebase/firestore";
 import { doc, setDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 const db = getFirestore(firebaseApp);
-
 export default {
     data() {
       return {
@@ -76,24 +75,19 @@ export default {
               alert("Please fill in Amount");
               return false;
             }
-
             // Only if all inputs have been filled
             console.log("IN AC")
-
             let item = this.item1
             let date = this.date1
             // convert to TimeStamp
             let time = new Date(date.replace('T',' ').replace('-','/'));
             let category = this.category1
             let amount = this.amount1
-
             const current_timestamp = Timestamp.fromDate(new Date(time))
-
-            alert("Saving your data for Item: " + current_timestamp)
-
+            alert("Saving your data for Item: " + item)
             try {
               const userEmail = authentication.currentUser.email;
-                const docRef = await setDoc(doc(db,"users", userEmail, "expenses", current_timestamp),{
+                const docRef = await setDoc(doc(db,"users", userEmail, "expenses", date),{
                     Item : item, Date : current_timestamp, Category : category, Amount : amount
                 })
                 console.log(docRef)
@@ -112,7 +106,6 @@ export default {
 h3 {
   color: #6C60F3;
 }
-
 label {
   font-size: 15px;
   color: #6C60F3;
@@ -122,7 +115,6 @@ label {
   padding: 5px;
   margin-right: 10px;
 }
-
 input, select {
   width: 210px;
   font-family: Inter, Arial, Helvetica, sans-serif;
@@ -130,21 +122,16 @@ input, select {
   border: 1px solid rgb(230, 230, 230);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-
 input {
   border-radius: 4px;
 }
-
 /* categorie dropdown hehe */
 select {
   color: rgb(178, 175, 175);
 }
-
-
 form {
   margin-top: 30px;
 }
-
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -156,7 +143,6 @@ form {
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 100;
 }
-
 .mymodal {
   text-align: center;
   background-color: white;
@@ -178,12 +164,10 @@ form {
   color: #6C60F3;
   cursor: pointer;
 }
-
 p {
   font-size: 16px;
   margin: 20px 0;
 }
-
 #saveButton {
   background: radial-gradient(144.64% 144.64% at 94.27% -44.64%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */, #6C60F3;
   border: 1px solid #ABA6A6;
@@ -197,15 +181,12 @@ p {
   margin-top: 50px;
   border: none;
 }
-
 .save{
     text-align: center;
 }
-
 input {
   outline-color: rgb(230, 230, 230);
 }
-
 .modal-title {
   color: #6C60F3;
   font-weight: 600;

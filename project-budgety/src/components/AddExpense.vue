@@ -34,7 +34,7 @@
           <input type="number" v-model="amount1" min="0" step="0.01" name="famount" placeholder=" Enter Amount"> <br>
         </div>
         <div class="save">
-          <button id="saveButton" type="button" v-on:click="saveData" class="btn btn-white" data-dismiss="modal">Submit</button>
+          <button id="saveButton" type="button" v-on:click="saveData" class="btn btn-white">Submit</button>
         </div>
       </form>
     </div>
@@ -84,7 +84,7 @@ export default {
             let date = this.date1
             // convert to TimeStamp
             let time = new Date(date);
-            
+
             let category = this.category1
             let amount = this.amount1
             const current_timestamp = Timestamp.fromDate(new Date(time))
@@ -141,7 +141,7 @@ form {
   right: 0;
   display: flex;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.2);
   z-index: 100;
 }
 .mymodal {

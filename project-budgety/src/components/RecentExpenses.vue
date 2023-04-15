@@ -8,9 +8,11 @@
 		<!--delete and edit button-->
 		<template #item-edit="data">
 			<div class="operation-wrapper">
-				<button type="button" v-on:click="editItem(data.item)" class="operation-icon" data-bs-toggle="modal" data-bs-target="#exampleModal">
+				<button type="button" @click="showModal = true" class="operation-icon" data-bs-toggle="modal" data-bs-target="#exampleModal">
 					<fa icon="edit"/>
 				</button>
+				<UpdateExpense v-show="showModal"/>
+				<UpdateExpense v-show="showModal" @close-modal="showModal = false" />
 			</div>
 		</template>
 		<template #item-delete="data">
@@ -27,6 +29,7 @@
 import { authentication } from "../firebase.js";
 import firebaseApp from "../firebase.js";
 import { getAuth } from "firebase/auth";
+import UpdateExpense from "./UpdateExpense.vue";
 
 import {
 	collection,
@@ -44,7 +47,7 @@ const db = getFirestore(firebaseApp);
 export default {
 	name: "Recent Expenses",
 	
-	components: { EasyDataTable: window["vue3-easy-data-table"] },
+	components: { EasyDataTable: window["vue3-easy-data-table"], UpdateExpense },
 	
 	emits: ["sendWeeklyExp"],
 
@@ -61,6 +64,7 @@ export default {
 			],
 
 			itemsList: [],
+			showModal: false,
 		};
 	},
 	async mounted() {
@@ -145,21 +149,21 @@ export default {
 			};
 		},
 		async deleteItem(item) {
-			alert("Deleting item " + item + " in table");
-			// remove from database
-            const userEmail = authentication.currentUser.email;
-			await deleteDoc(doc(db,"users", userEmail, "expenses", item));
-            console.log("Document succesfully deleted!", item)
-			// remove this row from table
-			const allItems = this.itemsList
-			while (i < allItems.length) {
-				if (allItems[i].item == item) {
-					allItems.remove(i, 1);
+			if (confirm("Are you sure you would like to delete " + item)) {
+				alert("Deleting item " + item + " in table");
+				// remove from database
+				const userEmail = authentication.currentUser.email;
+				await deleteDoc(doc(db,"users", userEmail, "expenses", item));
+				console.log("Document succesfully deleted!", item)
+				// remove this row from table
+				const allItems = this.itemsList
+				while (i < allItems.length) {
+					if (allItems[i].item == item) {
+						allItems.remove(i, 1);
+					}
 				}
 			}
 		},
-		async editItem(item) {
-		}
 	},
 };
 </script>

@@ -77,7 +77,7 @@ export default {
 					}
 				},
 				elements: {
-					
+	
 				},
 				responsive: true,
 				// aspectRatio: 2,

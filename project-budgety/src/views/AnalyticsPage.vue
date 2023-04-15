@@ -1,5 +1,4 @@
 <template>
-	<!-- <body> -->
 	<div id="analytics-page">
 		<div class="section1">
 			<div class="analytics-header">Analytics for {{ monthName }}</div>
@@ -26,7 +25,6 @@
 				<CategoryBreakdown />
 			</div>
 		</div>
-		<!-- </div> -->
 
 		<div class="section3">
 			<div class="top-line">
@@ -37,7 +35,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- </body> -->
 	<Sidebar />
 </template>
 
@@ -218,8 +215,6 @@ export default {
 	color: #ffffff;
 }
 .breakdown-box {
-	/* width: 23.75rem; */
-	/* height: 233px; */
 	background: var(--color-card);
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	border-radius: 0.625rem;
@@ -235,8 +230,6 @@ export default {
 }
 .section2 {
 	display: flex;
-	/* flex: 1 1 auto; */
-	/* justify-content: space-between; */
 	gap: 1.25rem;
 	margin: 1.563rem 0rem;
 }
@@ -249,16 +242,11 @@ export default {
 	flex: 1;
 	/* add space between line chart and container */
 	padding: 0px 0.625rem 0.625rem 0.625rem;
-	/* position: relative; */
 	overflow: auto;
 }
 .section3 {
-	/* width: 1090px;
-  height: 366px; */
 	background: var(--color-card);
 	box-shadow: 0px 3.68519px 3.68519px rgba(0, 0, 0, 0.25);
-	/* margin-right: 1.875rem; */
-	/* max-width: 90%; */
 }
 .top-line {
 	display: flex;

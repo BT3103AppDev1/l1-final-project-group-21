@@ -125,10 +125,7 @@ input, select {
 input {
   border-radius: 4px;
 }
-/* categorie dropdown hehe */
-select {
-  color: rgb(178, 175, 175);
-}
+
 form {
   margin-top: 30px;
 }

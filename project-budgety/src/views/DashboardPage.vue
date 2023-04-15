@@ -16,7 +16,7 @@
                 <div class="weekly-title">WEEKLY SPENDING</div>
                 <div class="spending-container">
                     <div class="doughnutchart">
-                        <DoughnutChart @sendCatDict = "getTop3Cat($event)" /> 
+                        <DoughnutChart @sendCatDict = "getTop3Cat($event)" :key="reloadD" /> 
                     </div>
                     <div class="top3">
                         <div class="top3-title">TOP 3 CATEGORIES</div>
@@ -47,10 +47,13 @@
 					</div>
 
 					<AddExpense v-show="showModal"/>
-					<AddExpense v-show="showModal" @close-modal="showModal = false" />
+					<AddExpense v-show="showModal" @close-modal="showModal = false" @reRender = "forceReRender()"/>
             </div>
             <div class="expenses-table">
-              <RecentExpenses @sendWeeklyExp = "getWeeklyExpense($event)" />
+              <RecentExpenses 
+			  @sendWeeklyExp = "getWeeklyExpense($event)" 
+			  :key="reloadRE"
+			   />
             </div>
         </div>
     </div>
@@ -92,10 +95,12 @@ export default {
 				"Transportation": '#cc8a4a',
 				"Healthcare": '#539f37',
 				"Groceries": '#ac986b',
-				"Rental": '38aca5',
-				"Utilities": '8e451c',
-				"Others": "8f8f8f",
+				"Rental": '#38aca5',
+				"Utilities": '#8e451c',
+				"Others": "#8f8f8f",
 				},
+				reloadRE: 0,
+				reloadD: 0,
 		      };
 	      },
 		  
@@ -105,6 +110,12 @@ export default {
         },
 
 		methods: {
+			forceReRender() {
+				this.reloadRE += 1;
+				this.reloadD += 1;
+				console.log("rerender in progress")
+			},
+
 			async getWeeklyExpense(weeklyExp) {
 				// Set total expenses
 				this.weeklyExp = weeklyExp[0];

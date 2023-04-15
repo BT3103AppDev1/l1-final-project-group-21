@@ -16,7 +16,7 @@
 
           <label for="category1">Category </label>
           <select name="categorie_drop" v-model="category1">
-            <option value="">Select Category</option>
+            <option value="" selected disabled>Select Category</option>
             <option>Food</option>
             <option>Groceries</option>
             <option>Fashion</option> 
@@ -94,13 +94,15 @@ export default {
                 const docRef = await setDoc(doc(db,"users", userEmail, "expenses", item),{
                     Item : item, Date : current_timestamp, Category : category, Amount : amount
                 })
-                console.log(docRef)
+                console.log(docRef);
                 document.getElementById('myform').reset();
-                this.$emit("added")
+                this.$emit("added");
+                this.$emit("reRender");
             }
             catch(error) {
                 console.error("Error adding document: " + error);
             }
+          
         }
     }
 }
@@ -112,7 +114,7 @@ h3 {
 }
 label {
   font-size: 15px;
-  color: #6C60F3;
+  color: var(--color-text);
   display: inline-block;
   width: 80px;
   text-align: right;
@@ -122,10 +124,12 @@ label {
 input, select {
   width: 210px;
   font-family: Inter, Arial, Helvetica, sans-serif;
-  background: #FFFFFF;
+  background: var(--color-card);
   border: 1px solid rgb(230, 230, 230);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  color: var(--color-text)
 }
+
 input {
   border-radius: 4px;
 }
@@ -146,7 +150,7 @@ form {
 }
 .mymodal {
   text-align: center;
-  background-color: white;
+  background-color: var(--color-card);
   height: 28rem;
   width: 33.5rem;
   margin-top: 10%;
@@ -193,5 +197,9 @@ input {
   font-weight: 600;
   font-size: 20px;
   letter-spacing: 3px;
+}
+
+select {
+  color: var(--color-text);
 }
 </style>

@@ -49,9 +49,9 @@ export default {
 				"Transportation": '#cc8a4a',
 				"Healthcare": '#539f37',
 				"Groceries": '#ac986b',
-				"Rental": '38aca5',
-				"Utilities": '8e451c',
-				"Others": "8f8f8f",
+				"Rental": '#38aca5',
+				"Utilities": '#8e451c',
+				"Others": "#8f8f8f",
 
 			},
 			catLabels: [],
@@ -135,7 +135,7 @@ export default {
 				this.catLabels.push(category);
 				this.catColours.push(this.categoryColours[category]);
 				this.catData.push(amount);
-			})
+			});
 			// Add to chartData
 			this.chartData.labels = this.catLabels;
 			this.chartData.datasets[0].backgroundColor = this.catColours;

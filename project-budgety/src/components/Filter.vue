@@ -16,7 +16,7 @@
 						v-model="selectedCategory"
 						placeholder="Select Category"
 					>
-						<option value="">Select Category</option>
+						<option value="" selected disabled>Select Category</option>
 						<option>Food</option>
 						<option>Groceries</option>
 						<option>Fashion</option>
@@ -85,7 +85,7 @@ input,
 select {
 	width: 210px;
 	font-family: Inter, Arial, Helvetica, sans-serif;
-	background: #ffffff;
+	background: var(--color-card);
 	border: 1px solid rgb(230, 230, 230);
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
@@ -95,7 +95,8 @@ input {
 }
 
 select {
-	color: rgb(178, 175, 175);
+	/* color: rgb(178, 175, 175); */
+	color: var(--color-text);
 }
 
 form {
@@ -116,7 +117,7 @@ form {
 
 .mymodal {
 	text-align: center;
-	background-color: white;
+	background-color: var(--color-card);
 	height: 20rem;
 	width: 33.5rem;
 	margin-top: 10%;

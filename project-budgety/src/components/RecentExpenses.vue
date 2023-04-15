@@ -1,9 +1,19 @@
 <template>
 	<EasyDataTable
+	v-model:items-selected="itemsSelected"
 		:headers="headers"
 		:items="itemsList"
 		table-class-name="customize-table"
-	/>
+	>
+	<!--delete and edit button-->
+	<template #item-operation="item">
+      <div class="operation-wrapper">
+		<button class="operation-icon" v-on:click="editItem(item)"><fa icon="edit" /></button>
+		<button class="operation-icon" v-on:click="deleteItem(item)"><fa icon="trash" /></button>
+	</div>
+    </template>
+
+	</EasyDataTable>
 </template>
 
 <script>
@@ -22,11 +32,11 @@ import {
 } from "firebase/firestore";
 const db = getFirestore(firebaseApp);
 export default {
-  name: "Recent Expenses",
+	name: "Recent Expenses",
 	
-  components: { EasyDataTable: window["vue3-easy-data-table"] },
-
-  emits: ["sendWeeklyExp"],
+	components: { EasyDataTable: window["vue3-easy-data-table"] },
+	
+	emits: ["sendWeeklyExp"],
 
 	data() {
 		return {
@@ -36,6 +46,7 @@ export default {
 				{ text: "DATE", value: "date", sortable: true },
 				{ text: "CATEGORY", value: "category" },
 				{ text: "AMOUNT", value: "amount" },
+				{ text: "OPERATIONS", value: "operation"}
 			],
 
 			itemsList: [],
@@ -136,5 +147,10 @@ export default {
 	--easy-table-body-row-background-color: var(--color-card);
 	--easy-table-footer-font-color: var(--color-text);
 	--easy-table-footer-background-color: var(--color-card);
+}
+
+.operation-wrapper .operation-icon {
+  width: 30px;
+  cursor: pointer;
 }
 </style>

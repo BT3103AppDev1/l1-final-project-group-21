@@ -8,7 +8,8 @@
 			<div class="night-mode">
 				<div class="font-18">Night Mode</div>
 				<div class="toggle-btn">
-					<fa icon="toggle-off"/>
+					<ThemeButton/>
+					<!-- <fa icon="toggle-off"/> -->
 					<!-- change to toggle-on when night mode is on -->
 				</div>
 			</div>
@@ -51,6 +52,7 @@ import { getAuth, updateProfile, signOut } from "firebase/auth";
 import { getFirestore, doc, deleteDoc } from "firebase/firestore";
 import firebaseApp from "@/firebase.js";
 import Sidebar from "@/components/sidebar/Sidebar.vue";
+import ThemeButton from "@/components/ThemeButton.vue";
 
 const db = getFirestore(firebaseApp);
 
@@ -59,10 +61,19 @@ export default {
 
 	components: {
 		Sidebar,
+		ThemeButton
 	},
 
 	mounted() {
 		console.log("Profile Page Mounted");
+		// const initUserTheme = this.getTheme() || this.getMediaPreference();
+		// this.setTheme(initUserTheme);
+	},
+
+	data() {
+		return {
+			userTheme: "light-theme",
+		}
 	},
 
 	methods: {
@@ -103,6 +114,36 @@ export default {
 				this.$router.push({ name: "Login" });
 			}
 		},
+
+		setTheme(theme) {
+			localStorage.setItem("user-theme", theme);
+			this.userTheme = theme;
+			document.documentElement.className = theme;
+		},
+
+		toggleTheme() {
+			const activeTheme = localStorage.getItem("user-theme");
+			if (activeTheme === "light-theme") {
+				this.setTheme("dark-theme");
+			} else {
+				this.setTheme("light_theme");
+			}
+		},
+
+		getMediaPreference() {
+			const hasDarkPreference = window.matchMedia(
+				"(prefers-color-scheme: dark)"
+				).matches;
+				if (hasDarkPreference) {
+					return "dark-theme";
+				} else {
+					return "light-theme";
+				}
+		},
+
+		getTheme() {
+			return localStorage.getItem("user-theme");
+		}
 	},
 };
 </script>
@@ -227,5 +268,56 @@ input:hover {
 
 .delete {
 	flex: 1;
+}
+
+.switch-label {
+  /* for width, use the standard element-size */
+  width: var(--element-size); 
+
+  /* for other dimensions, calculate values based on it */
+  border-radius: var(--element-size);
+  border: calc(var(--element-size) * 0.025) solid var(--accent-color);
+  padding: calc(var(--element-size) * 0.1);
+  font-size: calc(var(--element-size) * 0.3);
+  height: calc(var(--element-size) * 0.35);
+
+  align-items: center;
+  background: var(--text-primary-color);
+  cursor: pointer;
+  display: flex;
+  position: relative;
+  transition: background 0.5s ease;
+  justify-content: space-between;
+  z-index: 1;
+}
+.switch-toggle {
+  position: absolute;
+  background-color: var(--background-color-primary);
+  border-radius: 50%;
+  top: calc(var(--element-size) * 0.07);
+  left: calc(var(--element-size) * 0.07);
+  height: calc(var(--element-size) * 0.4);
+  width: calc(var(--element-size) * 0.4);
+  transform: translateX(0);
+  transition: transform 0.3s ease, background-color 0.5s ease;
+}
+.switch-toggle-checked {
+  transform: translateX(calc(var(--element-size) * 0.6)) !important;
+}
+
+:root {
+  --background-color-primary: #ebebeb;
+  --background-color-secondary: #fafafa;
+  --accent-color: #cacaca;
+  --text-primary-color: #222;
+  --element-size: 4rem;
+}
+
+/* Define styles for the root window with dark - mode preference */
+:root.dark-theme {
+  --background-color-primary: #1e1e1e;
+  --background-color-secondary: #2d2d30;
+  --accent-color: #3f3f3f;
+  --text-primary-color: #ddd;
 }
 </style>

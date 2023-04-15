@@ -47,11 +47,33 @@
 	--section-gap: 160px;
 
 	--color-card: var(--vt-c-card-light);
+	--color-card-reverse: var(--vt-c-card-dark);
 
 	--color-btn-border: var(--vt-c-btn-border-light);
+
+	--element-size: 4rem;
 }
 
-@media (prefers-color-scheme: dark) {
+:root.dark-theme {
+	--color-background: var(--vt-c-black);
+	--color-background-soft: var(--vt-c-black-soft);
+	--color-background-mute: var(--vt-c-black-mute);
+
+	--color-border: var(--vt-c-divider-dark-2);
+	--color-border-hover: var(--vt-c-divider-dark-1);
+
+	--color-heading: var(--vt-c-text-dark-1);
+	--color-text: var(--vt-c-text-dark-1);
+
+	--color-card: var(--vt-c-card-dark);
+	--color-card-reverse: var(--vt-c-card-light);
+
+	--color-btn-border: var(--vt-c-btn-border-dark);
+
+	--element-size: 4rem;
+}
+
+/* @media (prefers-color-scheme: dark) {
 	:root {
 		--color-background: var(--vt-c-black);
 		--color-background-soft: var(--vt-c-black-soft);
@@ -67,7 +89,8 @@
 
 		--color-btn-border: var(--vt-c-btn-border-dark);
 	}
-}
+} */
+
 
 *,
 *::before,

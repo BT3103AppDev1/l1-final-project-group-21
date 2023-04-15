@@ -46,6 +46,7 @@ import firebaseApp, { authentication } from '../firebase.js';
 import { DocumentReference, Timestamp, getFirestore } from "firebase/firestore";
 import { doc, setDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+
 const db = getFirestore(firebaseApp);
 export default {
     data() {
@@ -54,6 +55,7 @@ export default {
         date1: "",
         category1: "",
         amount1: "",
+        showModal: false,
       }
     },
     methods: {
@@ -78,9 +80,11 @@ export default {
             // Only if all inputs have been filled
             console.log("IN AC")
             let item = this.item1
+
             let date = this.date1
             // convert to TimeStamp
-            let time = new Date(date.replace('T',' ').replace('-','/'));
+            let time = new Date(date);
+            
             let category = this.category1
             let amount = this.amount1
             const current_timestamp = Timestamp.fromDate(new Date(time))

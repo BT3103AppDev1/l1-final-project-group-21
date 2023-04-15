@@ -86,28 +86,29 @@ export default {
         },
         data() {
 		      return {
-            username: "",
-            weeklyExp: "",
-            weekStart: "",
-            weekEnd: "",
-            cat1: "",
-            cat2: "",
-            cat3: "",
-            catCount: 0,
-            showModal: false,
-            categoryColours: {
-              "Fashion": '#856dc8',
-              "Entertainment": '#eb8ad0',
-              "Food": '#4f94bc',
-              "Transportation": '#cc8a4a',
-              "Healthcare": '#539f37',
-              "Groceries": '#ac986b',
-              "Rental": '38aca5',
-              "Utilities": '8e451c',
-              "Others": "8f8f8f",
-			},
+				username: "",
+				weeklyExp: "",
+				weekStart: "",
+				weekEnd: "",
+				cat1: "",
+				cat2: "",
+				cat3: "",
+				catCount: 0,
+				showModal: false,
+				categoryColours: {
+				"Fashion": '#856dc8',
+				"Entertainment": '#eb8ad0',
+				"Food": '#4f94bc',
+				"Transportation": '#cc8a4a',
+				"Healthcare": '#539f37',
+				"Groceries": '#ac986b',
+				"Rental": '38aca5',
+				"Utilities": '8e451c',
+				"Others": "8f8f8f",
+				},
 		      };
 	      },
+		  
         mounted() {
 			this.username = authentication.currentUser.displayName;
         	console.log("Component Mounted")

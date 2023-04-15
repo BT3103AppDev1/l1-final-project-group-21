@@ -1,27 +1,33 @@
 <template>
-	<EasyDataTable
+	<div class="easyDataTable">
+		<EasyDataTable
 		:headers="headers"
 		:items="itemsList"
 		table-class-name="customize-table"
-	>
-	<!--delete and edit button-->
-	<template #item-edit="data">
-		<div class="operation-wrapper">
-			<button class="operation-icon" v-on:click="editItem(data.item)"><fa icon="edit" /></button>
-		</div>
-    </template>
-	<template #item-delete="data">
-		<div class="operation-wrapper">
-			<button class="operation-icon" v-on:click="deleteItem(data.item)"><fa icon="trash" /></button>
-		</div>
-    </template>
-	</EasyDataTable>
+		>
+		<!--delete and edit button-->
+		<template #item-edit="data">
+			<div class="operation-wrapper">
+				<button type="button" v-on:click="editItem(data.item)" class="operation-icon" data-bs-toggle="modal" data-bs-target="#exampleModal">
+					<fa icon="edit"/>
+				</button>
+			</div>
+		</template>
+		<template #item-delete="data">
+			<div class="operation-wrapper">
+				<button class="operation-icon" v-on:click="deleteItem(data.item)">
+					<fa icon="trash" /></button>
+			</div>
+		</template>
+		</EasyDataTable>
+	</div>
 </template>
 
 <script>
 import { authentication } from "../firebase.js";
 import firebaseApp from "../firebase.js";
 import { getAuth } from "firebase/auth";
+
 import {
 	collection,
 	addDoc,
@@ -33,6 +39,7 @@ import {
 	getFirestore,
 	deleteDoc
 } from "firebase/firestore";
+
 const db = getFirestore(firebaseApp);
 export default {
 	name: "Recent Expenses",
@@ -143,10 +150,15 @@ export default {
             const userEmail = authentication.currentUser.email;
 			await deleteDoc(doc(db,"users", userEmail, "expenses", item));
             console.log("Document succesfully deleted!", item)
-			// find a way to remove this row from table
+			// remove this row from table
+			const allItems = this.itemsList
+			while (i < allItems.length) {
+				if (allItems[i].item == item) {
+					allItems.remove(i, 1);
+				}
+			}
 		},
 		async editItem(item) {
-
 		}
 	},
 };

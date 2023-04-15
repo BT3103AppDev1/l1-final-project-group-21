@@ -39,12 +39,12 @@ const routes = [
 		component: AnalyticsPage,
 		meta: { requiresAuth: true, },
 	},
-	{
-		path: "/budget",
-		name: "Budget",
-		component: BudgetPage,
-		meta: { requiresAuth: true, },
-	},
+	// {
+	// 	path: "/budget",
+	// 	name: "Budget",
+	// 	component: BudgetPage,
+	// 	meta: { requiresAuth: true, },
+	// },
 	{
 		path: "/profile",
 		name: "Profile",

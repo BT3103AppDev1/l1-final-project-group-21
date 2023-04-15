@@ -8,7 +8,7 @@
         <!-- <SidebarLink to="/"><fa icon="home" /> Login</SidebarLink> -->
         <SidebarLink to="/dashboard"><fa icon="home" /> Dashboard</SidebarLink>
         <SidebarLink to="/analytics"><fa icon="chart-line" /> Analytics</SidebarLink>
-        <SidebarLink to="/budget"><fa icon="calculator" /> Budget</SidebarLink>
+        <!-- <SidebarLink to="/budget"><fa icon="calculator" /> Budget</SidebarLink> -->
         <SidebarLink to="/profile"><fa icon="user" /> Profile</SidebarLink>
     </div>
 </div>

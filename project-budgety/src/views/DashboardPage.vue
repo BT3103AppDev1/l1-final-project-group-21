@@ -42,22 +42,12 @@
         <div class="dashboard-section2">
             <div class="top-line">
                 <div class="font-18">Recent Expenses [{{ weekStart }} - {{ weekEnd }}]</div>
-				<div class="expenses-btn-wrapper">
 					<div class="expenses-btn">
 						<button @click="showModal = true"><fa icon="add" /></button>
 					</div>
 
 					<AddExpense v-show="showModal"/>
 					<AddExpense v-show="showModal" @close-modal="showModal = false" />
-
-					<div class="expenses-btn">
-						<fa icon="pencil" />
-					</div>
-					<div class="expenses-btn last-btn">
-						<fa icon="trash" />
-					</div>
-				</div>
-                  
             </div>
             <div class="expenses-table">
               <RecentExpenses @sendWeeklyExp = "getWeeklyExpense($event)" />
@@ -325,10 +315,6 @@ export default {
 	align-items: center;
 }
 
-.expenses-btn-wrapper {
-	display: flex;
-}
-
 .expenses-btn {
 	align-items: center;
 	text-align: center;
@@ -337,7 +323,7 @@ export default {
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	border-radius: 40px;
 	padding: 5px 10px 5px 10px;
-	margin-right: 10px;
+	margin-right: 30px;
 	font-weight: 500;
 	font-size: 15px;
 	color: #aba6a6;

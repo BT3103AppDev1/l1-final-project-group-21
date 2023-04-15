@@ -87,7 +87,7 @@ export default {
             alert("Saving your data for Item: " + item)
             try {
               const userEmail = authentication.currentUser.email;
-                const docRef = await setDoc(doc(db,"users", userEmail, "expenses", date),{
+                const docRef = await setDoc(doc(db,"users", userEmail, "expenses", item),{
                     Item : item, Date : current_timestamp, Category : category, Amount : amount
                 })
                 console.log(docRef)

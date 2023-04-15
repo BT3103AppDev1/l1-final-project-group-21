@@ -1,18 +1,20 @@
 <template>
 	<EasyDataTable
-	v-model:items-selected="itemsSelected"
 		:headers="headers"
 		:items="itemsList"
 		table-class-name="customize-table"
 	>
 	<!--delete and edit button-->
-	<template #item-operation="item">
-      <div class="operation-wrapper">
-		<button class="operation-icon" v-on:click="editItem(item)"><fa icon="edit" /></button>
-		<button class="operation-icon" v-on:click="deleteItem(item)"><fa icon="trash" /></button>
-	</div>
+	<template #item-edit="data">
+		<div class="operation-wrapper">
+			<button class="operation-icon" v-on:click="editItem(data.item)"><fa icon="edit" /></button>
+		</div>
     </template>
-
+	<template #item-delete="data">
+		<div class="operation-wrapper">
+			<button class="operation-icon" v-on:click="deleteItem(data.item)"><fa icon="trash" /></button>
+		</div>
+    </template>
 	</EasyDataTable>
 </template>
 
@@ -29,6 +31,7 @@ import {
 	where,
 	getDocs,
 	getFirestore,
+	deleteDoc
 } from "firebase/firestore";
 const db = getFirestore(firebaseApp);
 export default {
@@ -46,7 +49,8 @@ export default {
 				{ text: "DATE", value: "date", sortable: true },
 				{ text: "CATEGORY", value: "category" },
 				{ text: "AMOUNT", value: "amount" },
-				{ text: "OPERATIONS", value: "operation"}
+				{ text: "EDIT", value: "edit"},
+				{ text: "DELETE", value: "delete"}
 			],
 
 			itemsList: [],
@@ -133,6 +137,17 @@ export default {
 				});
 			};
 		},
+		async deleteItem(item) {
+			alert("Deleting item " + item + " in table");
+			// remove from database
+            const userEmail = authentication.currentUser.email;
+			await deleteDoc(doc(db,"users", userEmail, "expenses", item));
+            console.log("Document succesfully deleted!", item)
+			// find a way to remove this row from table
+		},
+		async editItem(item) {
+
+		}
 	},
 };
 </script>

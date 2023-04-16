@@ -134,13 +134,14 @@ export default {
 				where("Date", ">=", new Date(monthStart)),
 				where("Date", "<=", monthEnd)
 			);
+
 			const amtsSnapshot = await getDocs(q);
 			let amtsByDate = {};
 			// Find total sum of expenses for each day
 			amtsSnapshot.forEach((doc) => {
 				let data = doc.data();
 				let expDateRaw = data.Date;
-				let formattedDate = new Date(expDateRaw.seconds * 1000 + 28800 * 1000);
+				let formattedDate = expDateRaw.toDate();
 				let expDay = formattedDate.getDate().toString();
 				let expAmt = data.Amount;
 				if (expDay in amtsByDate) {

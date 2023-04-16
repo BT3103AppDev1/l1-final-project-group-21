@@ -35,7 +35,7 @@
 <script>
 import { authentication } from "../firebase.js";
 import firebaseApp from "../firebase.js";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import UpdateExpense from "./UpdateExpense.vue";
 
 import {
@@ -75,16 +75,27 @@ export default {
 		};
 	},
 	async mounted() {
-		try {
-			const userEmail = authentication.currentUser.email;
-			// Fetch expenses data
-			await this.getExpenses(userEmail);
-			this.loaded = true;
-		} catch (err) {
-			console.error(err);
-		}
+		const auth = getAuth();
+		onAuthStateChanged(auth, (user) => {
+			if (!user) {
+				this.$router.push({ name: "Login" });
+			} else {
+				this.activateGetExpensesFn();
+			}
+		});
 	},
 	methods: {
+		async activateGetExpensesFn() {
+			const auth = getAuth();
+			const userEmail = auth.currentUser.email;
+			try {
+				// Fetch expenses data
+				await this.getExpenses(userEmail);
+				this.loaded = true;
+			} catch (err) {
+				console.error(err);
+			}
+		},
 		async getExpenses(userEmail) {
 			const today = new Date();
 			// First day is the day of the month - the day of the week
@@ -93,11 +104,11 @@ export default {
 			const lastDay = firstDay + 7;
 
 			const weekStart = new Date(today.setDate(firstDay));
-			// const tempDate = new Date();
 			const formattedFullStartDate = this.formatDate(weekStart, "start");
 
 			const weekEnd = new Date();
 			const formattedFullEndDate = this.formatDate(weekEnd, "end");
+			const endOfWeek = new Date(today.setDate(lastDay));
 
 			// Set beginning of week by changing date and time
 			const amtsRef = collection(db, "users", userEmail, "expenses");
@@ -140,7 +151,7 @@ export default {
 				tempExpList.push(itemDetails);
 			});
 
-			this.$emit("sendWeeklyExp", [weeklyExp.toFixed(2), weekStart, weekEnd]);
+			this.$emit("sendWeeklyExp", [weeklyExp.toFixed(2), weekStart, endOfWeek]);
 
 			// sort expenses by date (latest first --> on top)
 			tempExpList.sort(function (x, y) {

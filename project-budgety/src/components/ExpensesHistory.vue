@@ -24,7 +24,7 @@
 import { parse } from "@vue/compiler-dom";
 import { authentication } from "../firebase.js";
 import firebaseApp from "../firebase.js";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
 	collection,
 	addDoc,
@@ -58,17 +58,28 @@ export default {
 		};
 	},
 	async mounted() {
-		try {
-			const userEmail = authentication.currentUser.email;
-			// Fetch expenses data
-			await this.getExpenses(userEmail);
-			this.filterCategories("Show All Categories");
-			this.loaded = true;
-		} catch (err) {
-			console.error(err);
-		}
+		const auth = getAuth();
+		onAuthStateChanged(auth, (user) => {
+			if (!user) {
+				this.$router.push({ name: "Login" });
+			} else {
+				this.activateGetExpenses();
+			}
+		});
 	},
 	methods: {
+		async activateGetExpenses() {
+			const auth = getAuth();
+			try {
+				const userEmail = auth.currentUser.email;
+				// Fetch expenses data
+				await this.getExpenses(userEmail);
+				this.filterCategories("Show All Categories");
+				this.loaded = true;
+			} catch (err) {
+				console.error(err);
+			}
+		},
 		async getExpenses(userEmail) {
 			const date = new Date();
 			const day = date.getDate();

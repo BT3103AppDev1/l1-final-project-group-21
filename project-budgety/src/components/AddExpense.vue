@@ -1,7 +1,7 @@
 <template>
   <div class="modal-overlay">
     <div class="mymodal">
-      <div class="close" @click="$emit('close-modal')">
+      <div class="close" @click="closeModal">
           <fa icon="close" />
       </div>
       <div class="modal-title">ADD NEW EXPENSE</div>
@@ -59,6 +59,14 @@ export default {
       }
     },
     methods: {
+      async closeModal() {
+        this.item1 = "",
+        this.date1 = "",
+        this.category1 = "",
+        this.amount1 = "",
+        this.$emit("close-modal");
+        console.log("Reset form and close pop up")
+      },
         async saveData() {
             // All inputs of form must be filled
             if (this.item1 == "") {

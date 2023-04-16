@@ -263,7 +263,7 @@ export default {
 }
 .expense-value-dashboard {
 	font-weight: 600;
-	font-size: 55px;
+	/* font-size: 55px; */
 }
 
 .weekly {

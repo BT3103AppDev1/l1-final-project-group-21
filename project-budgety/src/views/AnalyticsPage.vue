@@ -230,7 +230,8 @@ export default {
 	border-radius: 0.625rem;
 	flex: 1;
 	overflow: auto;
-	max-height: 100%;
+	/* max-height: 100%; */
+	max-height: 470px;
 	max-width: 400px;
 }
 .font-18 {

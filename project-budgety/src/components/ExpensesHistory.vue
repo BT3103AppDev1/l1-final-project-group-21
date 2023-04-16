@@ -1,13 +1,9 @@
 <template>
-	<div>
-		<div class="container">
+	<div class="container">
 			<div class="filter-button" @click="showModal = true">
-				<button>
 					<fa icon="filter" />
 					<span>&nbsp; Filter</span>
-				</button>
 			</div>
-		</div>
 
 		<Filter v-show="showModal" @catSelected="childcall($event)" />
 		<Filter
@@ -177,12 +173,10 @@ export default {
 }
 .container {
 	display: flex;
-	justify-content: right;
-	margin-right: 10px;
-	height: 0px;
+	flex-direction: column;
 }
 .filter-button {
-	bottom: 50px;
+	bottom: 20px; /* vertical distance from expenses table */
 	background-color: var(--color-card);
 	border: 0.5px solid --color-btn-border;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -193,6 +187,7 @@ export default {
 	color: #aba6a6;
 	width: 70px;
 	height: 30px;
+	align-self: flex-end;
 }
 .filter-button:hover {
 	background-color: #f2f2f2;

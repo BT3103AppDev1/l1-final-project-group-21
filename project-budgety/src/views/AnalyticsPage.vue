@@ -264,6 +264,7 @@ export default {
 	align-items: center;
 }
 .expenses-table {
+	margin-top: -2rem;
 	padding: 0rem 1.875rem;
 	margin-bottom: 2rem;
 }

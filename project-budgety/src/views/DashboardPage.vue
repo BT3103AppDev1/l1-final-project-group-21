@@ -47,12 +47,16 @@
 					</div>
 
 					<AddExpense v-show="showModal"/>
-					<AddExpense v-show="showModal" @close-modal="showModal = false" @reRender = "forceReRender()"/>
+					<AddExpense v-show="showModal" 
+					@close-modal="
+					showModal = false" 
+					@reRender = "forceReRender()"/>
             </div>
             <div class="expenses-table">
               <RecentExpenses 
 			  @sendWeeklyExp = "getWeeklyExpense($event)" 
 			  :key="reloadRE"
+			  @reRender = "forceReRender()"
 			   />
             </div>
         </div>

@@ -122,9 +122,12 @@
   input, select {
     width: 210px;
     font-family: Inter, Arial, Helvetica, sans-serif;
-    background: #FFFFFF;
+    background: var(--color-card);
     border: 1px solid rgb(230, 230, 230);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  select {
+    color: var(--color-text);
   }
   input {
     border-radius: 4px;
@@ -146,7 +149,7 @@
   }
   .mymodal {
     text-align: center;
-    background-color: white;
+    background-color: var(--color-card);
     height: 28rem;
     width: 33.5rem;
     margin-top: 10%;

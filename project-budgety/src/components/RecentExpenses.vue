@@ -56,7 +56,7 @@ export default {
 
 	components: { EasyDataTable: window["vue3-easy-data-table"], UpdateExpense },
 
-	emits: ["sendWeeklyExp"],
+	emits: ["sendWeeklyExp", "reRender"],
 
 	data() {
 		return {
@@ -177,8 +177,9 @@ export default {
 						// filter by the id on the table and the documentID to prevent multiple deletes
 						return name.generate != allData.generate && name.id != allData.id;
 					});
+					this.$emit("reRender");
 				} catch (error) {
-					console.error("Error adding document: " + error);
+					console.error("Error deleting document: " + error);
 				}
 			}
 		},

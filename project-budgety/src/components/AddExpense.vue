@@ -78,6 +78,10 @@ import { getAuth } from "firebase/auth";
 
 const db = getFirestore(firebaseApp);
 export default {
+	name: "Add Expense",
+
+	emits: ["reRender"],
+
 	data() {
 		return {
 			item1: "",
@@ -157,10 +161,10 @@ export default {
 					});
 					// forms resets to blank after submission
 					(this.item1 = ""),
-						(this.date1 = ""),
-						(this.category1 = ""),
-						(this.amount1 = ""),
-						this.$emit("close-modal");
+					(this.date1 = ""),
+					(this.category1 = ""),
+					(this.amount1 = ""),
+					this.$emit("close-modal");
 					this.$emit("reRender");
 				} catch (error) {
 					console.error("Error adding document: " + error);

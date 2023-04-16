@@ -53,10 +53,11 @@ import {
 	signOut,
 	onAuthStateChanged,
 } from "firebase/auth";
-import { getFirestore, doc, deleteDoc } from "firebase/firestore";
+import { getFirestore, doc, deleteDoc, query, collection, getDocs } from "firebase/firestore";
 import firebaseApp from "@/firebase.js";
 import Sidebar from "@/components/sidebar/Sidebar.vue";
 import ThemeButton from "@/components/ThemeButton.vue";
+import { QuerySnapshot } from 'firebase/firestore/lite';
 
 const db = getFirestore(firebaseApp);
 
@@ -116,7 +117,27 @@ export default {
 			);
 			if (toDelete) {
 				const user = getAuth().currentUser;
-				await deleteDoc(doc(db, "users", user.email));
+				
+				// Delete user data
+				const expenseCol = collection(db, "users", user.email, "expenses");
+				const userQuery = query(expenseCol);
+				getDocs(userQuery).then((QuerySnapshot) => {
+					// Delete all documents in the subcollection expenses
+					const deletePromises = QuerySnapshot.docs.map((doc) => {
+						return deleteDoc(doc.ref)
+					});
+					return Promise.all(deletePromises)
+				}).then(() => {
+					// Delete the subcollection itself
+					return deleteDoc(expenseCol.parent);
+				}).then(() => {
+					console.log("Subcollection deleted successfully!");
+				}).catch((error) => {
+					console.error("Error deleting subcollection: ", error)
+				});
+				// await deleteDoc(doc(db, "users", user.email));
+
+				// Delete user authentication
 				await user.delete();
 				this.$router.push({ name: "Login" });
 			}

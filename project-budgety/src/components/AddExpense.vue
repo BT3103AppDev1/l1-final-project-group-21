@@ -98,8 +98,11 @@ export default {
                   const docId = docRef.id;
                   projData.id = docId;
                 })
-                document.getElementById('myform').reset();
-                this.$emit("added");
+                // forms resets to blank after submission
+                this.item1 = "",
+                this.date1 = "",
+                this.category1 = "",
+                this.amount1 = "",
                 this.$emit("close-modal");
                 this.$emit("reRender");
               }

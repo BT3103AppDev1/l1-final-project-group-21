@@ -46,6 +46,10 @@ ChartJS.register(
 	Filler
 );
 const db = getFirestore(firebaseApp);
+
+var style = getComputedStyle(document.body);
+var textColorByTheme = style.getPropertyValue('--color-text');
+
 export default {
 	name: "LineChart",
 	components: { Line },
@@ -83,6 +87,26 @@ export default {
 					line: {
 						tension: 0.4,
 						borderColor: "#6C60F3",
+					},
+				},
+				scales : {
+					y: {
+						ticks : {
+							color: () => {
+								var style = getComputedStyle(document.body);
+								var textColorByTheme = style.getPropertyValue('--color-text');
+								return textColorByTheme;
+							}
+						}
+					},
+					x: {
+						ticks: {
+							color: () => {
+								var style = getComputedStyle(document.body);
+								var textColorByTheme = style.getPropertyValue('--color-text');
+								return textColorByTheme;
+							}
+						}
 					},
 				},
 				responsive: true,

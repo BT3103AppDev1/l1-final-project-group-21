@@ -92,6 +92,7 @@ body {
 .input-text {
 	border-bottom-style: ridge;
 	border-bottom-color: #aba6a6;
+	color: var(--color-text);
 }
 
 input {

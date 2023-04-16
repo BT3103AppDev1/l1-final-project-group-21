@@ -204,6 +204,7 @@ export default {
 	overflow-y: scroll;
 	height: 100%;
 	max-width: 400px;
+	/* scrollbar-color: var(--color-card); */
 }
 .font-18 {
 	font-size: 18px;

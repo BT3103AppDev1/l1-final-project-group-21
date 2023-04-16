@@ -223,6 +223,7 @@ export default {
 	max-width: 15%;
 	margin: 10px 0;
 	margin-bottom: 20px;
+	color: var(--color-text);
 }
 
 input {

@@ -5,22 +5,29 @@
 			:items="itemsList"
 			table-class-name="customize-table"
 		>
-		<!--delete and edit button-->
-		<template #item-edit="data">
-			<div class="operation-wrapper">
-				<button type="button" @click="showModal = true" class="operation-icon" data-bs-toggle="modal" data-bs-target="#exampleModal">
-					<fa icon="edit"/>
-				</button>
-				<UpdateExpense v-show="showModal"/>
-				<UpdateExpense v-show="showModal" @close-modal="showModal = false" />
-			</div>
-		</template>
-		<template #item-delete="data">
-			<div class="operation-wrapper">
-				<button class="operation-icon" v-on:click="deleteItem(data)">
-					<fa icon="trash" /></button>
-			</div>
-		</template>
+			<!--delete and edit button-->
+			<template #item-edit="data">
+				<div class="operation-wrapper">
+					<button
+						type="button"
+						@click="showModal = true"
+						class="operation-icon"
+						data-bs-toggle="modal"
+						data-bs-target="#exampleModal"
+					>
+						<fa icon="edit" />
+					</button>
+					<UpdateExpense v-show="showModal" />
+					<UpdateExpense v-show="showModal" @close-modal="showModal = false" />
+				</div>
+			</template>
+			<template #item-delete="data">
+				<div class="operation-wrapper">
+					<button class="operation-icon" v-on:click="deleteItem(data.item)">
+						<fa icon="trash" />
+					</button>
+				</div>
+			</template>
 		</EasyDataTable>
 	</div>
 </template>
@@ -148,30 +155,22 @@ export default {
 					date: item[1],
 					category: item[2],
 					amount: item[3],
-					generate: item[4]
 				});
 			}
 		},
-		async deleteItem(allData) {
-			const itemtoDelete = allData.item
-			if (confirm("Are you sure you would like to delete " + itemtoDelete)) {
-				try {
-					alert("Deleting item " + itemtoDelete + " in table");
-					// remove from database
-					const userEmail = authentication.currentUser.email;
-					var documentToDelete = allData.generate;
-					await deleteDoc(doc(db,"users", userEmail, "expenses", documentToDelete));
-					console.log("Document succesfully deleted!", itemtoDelete)
-					// remove this row from table
-					var allItems = this.itemsList;
-					// user filter are Array.remove is not an official constructor and gives an error
-					allItems = allItems.filter(function(name) {
-						// filter by the id on the table and the documentID to prevent multiple deletes
-						return (name.generate != allData.generate && name.id != allData.id)
-					})
-				}
-				catch(error) {
-					console.error("Error adding document: " + error);
+		async deleteItem(item) {
+			if (confirm("Are you sure you would like to delete " + item)) {
+				alert("Deleting item " + item + " in table");
+				// remove from database
+				const userEmail = authentication.currentUser.email;
+				await deleteDoc(doc(db, "users", userEmail, "expenses", item));
+				console.log("Document succesfully deleted!", item);
+				// remove this row from table
+				const allItems = this.itemsList;
+				while (i < allItems.length) {
+					if (allItems[i].item == item) {
+						allItems.remove(i, 1);
+					}
 				}
 			}
 		},

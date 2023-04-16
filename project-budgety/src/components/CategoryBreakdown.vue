@@ -117,12 +117,22 @@ export default {
 			let monthStart = newDate.setDate(1);
 			let tempMonthStart = new Date(monthStart).setHours(0, 0, 0, 0);
 			monthStart = new Date(tempMonthStart);
+
+			let monthEnd;
+			const currDate = new Date();
+			const lastDayOfMonth = new Date(
+				currDate.getFullYear(),
+				currDate.getMonth() + 1,
+				0
+			);
+			monthEnd = new Date(lastDayOfMonth.setHours(23, 59, 59, 59));
+
 			// Fetch expenses data
 			// Filter from beginning of the month to current time
 			const amtsQuery = query(
 				amtsRef,
 				where("Date", ">=", new Date(monthStart)),
-				where("Date", "<=", new Date())
+				where("Date", "<=", monthEnd)
 			);
 
 			const amtsSnapshot = await getDocs(amtsQuery);

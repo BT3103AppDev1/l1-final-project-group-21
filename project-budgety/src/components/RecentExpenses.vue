@@ -5,7 +5,6 @@
 			:items="itemsList"
 			table-class-name="customize-table"
 		>
-<<<<<<< HEAD
 		<!--delete and edit button-->
 		<template #item-edit="data">
 			<div class="operation-wrapper">
@@ -22,31 +21,6 @@
 					<fa icon="trash" /></button>
 			</div>
 		</template>
-=======
-			<!--delete and edit button-->
-			<template #item-edit="data">
-				<div class="operation-wrapper">
-					<button
-						type="button"
-						@click="showModal = true"
-						class="operation-icon"
-						data-bs-toggle="modal"
-						data-bs-target="#exampleModal"
-					>
-						<fa icon="edit" />
-					</button>
-					<UpdateExpense v-show="showModal" />
-					<UpdateExpense v-show="showModal" @close-modal="showModal = false" />
-				</div>
-			</template>
-			<template #item-delete="data">
-				<div class="operation-wrapper">
-					<button class="operation-icon" v-on:click="deleteItem(data.item)">
-						<fa icon="trash" />
-					</button>
-				</div>
-			</template>
->>>>>>> d8c166a4d598792b5ffcc623e14eebcf8c92421c
 		</EasyDataTable>
 	</div>
 </template>
@@ -85,13 +59,8 @@ export default {
 				{ text: "DATE", value: "date", sortable: true },
 				{ text: "CATEGORY", value: "category" },
 				{ text: "AMOUNT", value: "amount" },
-<<<<<<< HEAD
-				{ text: "EDIT", value: "edit"},
-				{ text: "DELETE", value: "delete" }
-=======
 				{ text: "EDIT", value: "edit" },
 				{ text: "DELETE", value: "delete" },
->>>>>>> d8c166a4d598792b5ffcc623e14eebcf8c92421c
 			],
 
 			itemsList: [],
@@ -128,14 +97,8 @@ export default {
 			// Filter from beginning of the week to current time
 			const q = query(
 				amtsRef,
-<<<<<<< HEAD
-				where("Date", ">=", weekStart),
-				// undo
-				where("Date", "<=", weekEnd)
-=======
 				where("Date", ">=", formattedFullStartDate),
 				where("Date", "<", formattedFullEndDate)
->>>>>>> d8c166a4d598792b5ffcc623e14eebcf8c92421c
 			);
 			const amtsSnapshot = await getDocs(q);
 
@@ -189,7 +152,6 @@ export default {
 				});
 			}
 		},
-<<<<<<< HEAD
 		async deleteItem(allData) {
 			const itemtoDelete = allData.item
 			if (confirm("Are you sure you would like to delete " + itemtoDelete)) {
@@ -210,21 +172,6 @@ export default {
 				}
 				catch(error) {
 					console.error("Error adding document: " + error);
-=======
-		async deleteItem(item) {
-			if (confirm("Are you sure you would like to delete " + item)) {
-				alert("Deleting item " + item + " in table");
-				// remove from database
-				const userEmail = authentication.currentUser.email;
-				await deleteDoc(doc(db, "users", userEmail, "expenses", item));
-				console.log("Document succesfully deleted!", item);
-				// remove this row from table
-				const allItems = this.itemsList;
-				while (i < allItems.length) {
-					if (allItems[i].item == item) {
-						allItems.remove(i, 1);
-					}
->>>>>>> d8c166a4d598792b5ffcc623e14eebcf8c92421c
 				}
 			}
 		},

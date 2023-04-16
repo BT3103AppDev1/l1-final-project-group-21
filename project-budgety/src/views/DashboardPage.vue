@@ -53,7 +53,7 @@
 				<AddExpense v-show="showModal" />
 				<AddExpense
 					v-show="showModal"
-					@close-modal="showModal = false"
+					@close-modal="childcall()"
 					@reRender="forceReRender()"
 				/>
 			</div>
@@ -226,6 +226,9 @@ export default {
 				document.getElementById("cat3").style.color =
 					this.categoryColours[cat3Cat];
 			}
+		},
+		childcall() {
+			this.showModal = false;
 		},
 	},
 };

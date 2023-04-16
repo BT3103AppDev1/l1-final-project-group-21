@@ -1,7 +1,7 @@
 <template>
 	<div class="modal-overlay">
 		<div class="mymodal">
-			<div class="close" @click="closeModal">
+			<div class="close" @click="close()">
 				<fa icon="close" />
 			</div>
 			<div class="modal-title">ADD NEW EXPENSE</div>
@@ -80,7 +80,7 @@ const db = getFirestore(firebaseApp);
 export default {
 	name: "Add Expense",
 
-	emits: ["reRender"],
+	emits: ["reRender", "closeModal"],
 
 	data() {
 		return {
@@ -178,6 +178,9 @@ export default {
 					console.error("Error adding document: " + error);
 				}
 			}
+		},
+		close() {
+			this.$emit("closeModal", "close");
 		},
 	},
 };

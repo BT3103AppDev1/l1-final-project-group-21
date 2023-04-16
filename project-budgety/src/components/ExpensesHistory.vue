@@ -38,6 +38,7 @@ import {
 	where,
 	getDocs,
 	getFirestore,
+	Timestamp,
 } from "firebase/firestore";
 import Filter from "./Filter.vue";
 const db = getFirestore(firebaseApp);
@@ -81,14 +82,26 @@ export default {
 			let monthStart = newDate.setDate(1);
 			let tempMonthStart = new Date(monthStart).setHours(0, 0, 0, 0);
 			monthStart = new Date(tempMonthStart);
-			const amtsRef = collection(db, "users", userEmail, "expenses");
 
+			let monthEnd;
+			const currDate = new Date();
+			const lastDayOfMonth = new Date(
+				currDate.getFullYear(),
+				currDate.getMonth() + 1,
+				0
+			);
+			monthEnd = new Date(lastDayOfMonth.setHours(23, 59, 59, 59));
+			// const firebaseTimestamp = Timestamp.fromDate(lastDayOfMonth);
+			// console.log(firebaseTimestamp);
+
+			const amtsRef = collection(db, "users", userEmail, "expenses");
 			// Filter from beginning of the month to current time
 			const q = query(
 				amtsRef,
 				where("Date", ">=", new Date(monthStart)),
-				where("Date", "<=", new Date())
+				where("Date", "<=", monthEnd)
 			);
+
 			const amtsSnapshot = await getDocs(q);
 			// Put individual items into a list then convert nested list to dictionary after sorting by date
 			// Format: id, name, date, category, amount, doc.id
@@ -101,7 +114,7 @@ export default {
 				let expCat = data.Category;
 				let expDate = data.Date;
 				// Format date
-				let expDateFormatted = new Date(expDate.seconds * 1000 + 28800 * 1000);
+				let expDateFormatted = expDate.toDate();
 				let expDay = expDateFormatted.getDate();
 				if (expDay < 10) {
 					// Convert date to double digit 1 -> 01

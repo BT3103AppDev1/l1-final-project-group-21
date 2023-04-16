@@ -89,19 +89,23 @@ export default {
 			const today = new Date();
 			// First day is the day of the month - the day of the week
 			const firstDay = today.getDate() - today.getDay();
-			// Last day is first day + 6
-			const lastDay = firstDay + 6;
+			// Last day is first day + 7
+			const lastDay = firstDay + 7;
 
 			const weekStart = new Date(today.setDate(firstDay));
+			// const tempDate = new Date();
+			const formattedFullStartDate = this.formatDate(weekStart, "start");
+
 			const weekEnd = new Date(today.setDate(lastDay));
+			const formattedFullEndDate = this.formatDate(weekEnd, "end");
 
 			// Set beginning of week by changing date and time
 			const amtsRef = collection(db, "users", userEmail, "expenses");
 			// Filter from beginning of the week to current time
 			const q = query(
 				amtsRef,
-				where("Date", ">=", weekStart),
-				where("Date", "<=", weekEnd)
+				where("Date", ">=", formattedFullStartDate),
+				where("Date", "<", formattedFullEndDate)
 			);
 			const amtsSnapshot = await getDocs(q);
 
@@ -118,7 +122,7 @@ export default {
 				let expCat = data.Category;
 				let expDate = data.Date;
 				// Format date
-				let expDateFormatted = new Date(expDate.seconds * 1000 + 28800 * 1000);
+				let expDateFormatted = expDate.toDate();
 				let expDay = expDateFormatted.getDate();
 				if (expDay < 10) {
 					// Convert date to double digit 1 -> 01
@@ -169,6 +173,24 @@ export default {
 					}
 				}
 			}
+		},
+		formatDate(dateObj, str) {
+			const currYear = dateObj.getFullYear();
+			const currMonth = dateObj.getMonth() + 1; // Month is zero-based so need to add 1
+			const formatMonth = currMonth.toString().padStart(2, "0");
+			const currDay = dateObj.getDate();
+			const formatDay = currDay.toString().padStart(2, "0");
+			let formattedFullDate;
+			if (str == "start") {
+				formattedFullDate = new Date(
+					`${currYear}-${formatMonth}-${formatDay}T00:00:00`
+				);
+			} else {
+				formattedFullDate = new Date(
+					`${currYear}-${formatMonth}-${formatDay}T23:59:59.99`
+				);
+			}
+			return formattedFullDate;
 		},
 	},
 };

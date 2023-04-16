@@ -5,7 +5,7 @@
 <script>
 import { authentication } from "../firebase.js";
 import firebaseApp from "../firebase.js";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
 	collection,
 	addDoc,
@@ -28,15 +28,14 @@ export default {
 	components: { Doughnut },
 
 	async mounted() {
-		console.log("In DoughnutChart vue");
-		try {
-			const userEmail = authentication.currentUser.email;
-			// Fetch expenses data
-			await this.getTop3Cats(userEmail);
-			this.loaded = true;
-		} catch (err) {
-			console.error(err);
-		}
+		const auth = getAuth();
+		onAuthStateChanged(auth, (user) => {
+			if (!user) {
+				this.$router.push({ name: "Login" });
+			} else {
+				this.activateGetCats();
+			}
+		});
 	},
 
 	data() {
@@ -83,6 +82,17 @@ export default {
 	},
 
 	methods: {
+		async activateGetCats() {
+			const auth = getAuth();
+			try {
+				const userEmail = auth.currentUser.email;
+				// Fetch expenses data
+				await this.getTop3Cats(userEmail);
+				this.loaded = true;
+			} catch (err) {
+				console.error(err);
+			}
+		},
 		async getTop3Cats(userEmail) {
 			const today = new Date();
 			// First day is the day of the month - the day of the week
@@ -137,6 +147,7 @@ export default {
 			this.chartData.labels = this.catLabels;
 			this.chartData.datasets[0].backgroundColor = this.catColours;
 			this.chartData.datasets[0].data = this.catData;
+			console.log(this.chartData);
 		},
 		formatDate(dateObj, str) {
 			const currYear = dateObj.getFullYear();

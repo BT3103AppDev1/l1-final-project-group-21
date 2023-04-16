@@ -35,7 +35,7 @@
 <script>
 import { authentication } from "../firebase.js";
 import firebaseApp from "../firebase.js";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import UpdateExpense from "./UpdateExpense.vue";
 
 import {
@@ -75,16 +75,27 @@ export default {
 		};
 	},
 	async mounted() {
-		try {
-			const userEmail = authentication.currentUser.email;
-			// Fetch expenses data
-			await this.getExpenses(userEmail);
-			this.loaded = true;
-		} catch (err) {
-			console.error(err);
-		}
+		const auth = getAuth();
+		onAuthStateChanged(auth, (user) => {
+			if (!user) {
+				this.$router.push({ name: "Login" });
+			} else {
+				this.activateGetExpensesFn();
+			}
+		});
 	},
 	methods: {
+		async activateGetExpensesFn() {
+			const auth = getAuth();
+			const userEmail = auth.currentUser.email;
+			try {
+				// Fetch expenses data
+				await this.getExpenses(userEmail);
+				this.loaded = true;
+			} catch (err) {
+				console.error(err);
+			}
+		},
 		async getExpenses(userEmail) {
 			const today = new Date();
 			// First day is the day of the month - the day of the week

@@ -96,7 +96,7 @@ export default {
 			// const tempDate = new Date();
 			const formattedFullStartDate = this.formatDate(weekStart, "start");
 
-			const weekEnd = new Date(today.setDate(lastDay));
+			const weekEnd = new Date();
 			const formattedFullEndDate = this.formatDate(weekEnd, "end");
 
 			// Set beginning of week by changing date and time
@@ -105,7 +105,7 @@ export default {
 			const q = query(
 				amtsRef,
 				where("Date", ">=", formattedFullStartDate),
-				where("Date", "<", formattedFullEndDate)
+				where("Date", "<=", formattedFullEndDate)
 			);
 			const amtsSnapshot = await getDocs(q);
 
@@ -155,28 +155,29 @@ export default {
 					date: item[1],
 					category: item[2],
 					amount: item[3],
-					generate: item[4]
+					generate: item[4],
 				});
 			}
 		},
 		async deleteItem(allData) {
-			const itemtoDelete = allData.item
+			const itemtoDelete = allData.item;
 			if (confirm("Are you sure you would like to delete " + itemtoDelete)) {
 				try {
 					alert("Deleting item " + itemtoDelete + " in table");
 					// remove from database
 					const userEmail = authentication.currentUser.email;
 					var documentToDelete = allData.generate;
-					await deleteDoc(doc(db,"users", userEmail, "expenses", documentToDelete));
-					console.log("Document deleted succesfully for ", itemtoDelete)
+					await deleteDoc(
+						doc(db, "users", userEmail, "expenses", documentToDelete)
+					);
+					console.log("Document deleted succesfully for ", itemtoDelete);
 					var allItems = this.itemsList;
 					// user filter are Array.remove is not an official constructor and gives an error
-					allItems = allItems.filter(function(name) {
+					allItems = allItems.filter(function (name) {
 						// filter by the id on the table and the documentID to prevent multiple deletes
-						return (name.generate != allData.generate && name.id != allData.id)
-					})
-				}
-				catch(error) {
+						return name.generate != allData.generate && name.id != allData.id;
+					});
+				} catch (error) {
 					console.error("Error adding document: " + error);
 				}
 			}

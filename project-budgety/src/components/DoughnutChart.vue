@@ -92,7 +92,7 @@ export default {
 
 			const weekStart = new Date(today.setDate(firstDay));
 			const formattedFullStartDate = this.formatDate(weekStart, "start");
-			const weekEnd = new Date(today.setDate(lastDay));
+			const weekEnd = new Date();
 			const formattedFullEndDate = this.formatDate(weekEnd, "end");
 
 			// Set beginning of week by changing date and time

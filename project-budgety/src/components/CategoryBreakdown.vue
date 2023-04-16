@@ -125,7 +125,7 @@ export default {
 				currDate.getMonth() + 1,
 				0
 			);
-			monthEnd = new Date(lastDayOfMonth.setHours(23, 59, 59, 59));
+			monthEnd = new Date(currDate.setHours(23, 59, 59, 59));
 
 			// Fetch expenses data
 			// Filter from beginning of the month to current time

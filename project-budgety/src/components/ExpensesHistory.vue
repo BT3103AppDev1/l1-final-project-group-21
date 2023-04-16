@@ -1,9 +1,9 @@
 <template>
 	<div class="container">
-			<div class="filter-button" @click="showModal = true">
-					<fa icon="filter" />
-					<span>&nbsp; Filter</span>
-			</div>
+		<div class="filter-button" @click="showModal = true">
+			<fa icon="filter" />
+			<span>&nbsp; Filter</span>
+		</div>
 
 		<Filter v-show="showModal" @catSelected="childcall($event)" />
 		<Filter
@@ -86,7 +86,8 @@ export default {
 				currDate.getMonth() + 1,
 				0
 			);
-			monthEnd = new Date(lastDayOfMonth.setHours(23, 59, 59, 59));
+			monthEnd = new Date(currDate.setHours(23, 59, 59, 59));
+
 			// const firebaseTimestamp = Timestamp.fromDate(lastDayOfMonth);
 			// console.log(firebaseTimestamp);
 

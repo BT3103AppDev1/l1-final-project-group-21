@@ -116,7 +116,7 @@ export default {
 			);
 			if (toDelete) {
 				const user = getAuth().currentUser;
-				await deleteDoc(doc(db, "user", user.email));
+				await deleteDoc(doc(db, "users", user.email));
 				await user.delete();
 				this.$router.push({ name: "Login" });
 			}

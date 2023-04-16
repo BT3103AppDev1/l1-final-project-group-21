@@ -78,7 +78,6 @@
                 return false;
               }
               // Only if all inputs have been filled
-              console.log("IN AC")
               let item = this.item1
   
               let date = this.date1
@@ -94,7 +93,6 @@
                   const docRef = await setDoc(doc(db,"users", userEmail, "expenses", item),{
                       Item : item, Date : current_timestamp, Category : category, Amount : amount
                   })
-                  console.log(docRef)
                   document.getElementById('myform').reset();
                   this.$emit("added")
               }

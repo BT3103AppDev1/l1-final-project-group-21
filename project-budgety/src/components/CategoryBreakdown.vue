@@ -110,8 +110,7 @@ export default {
 			try {
 				const userEmail = auth.currentUser.email;
 				const amtsRef = collection(db, "users", userEmail, "expenses");
-				// Update total and average expenses
-				// And get breakdown by category
+				// Update total and average expenses and get breakdown by category
 				await this.getBreakdown(amtsRef);
 				this.loaded = true;
 			} catch (err) {
@@ -139,7 +138,7 @@ export default {
 			monthEnd = new Date(currDate.setHours(23, 59, 59, 59));
 
 			// Fetch expenses data
-			// Filter from beginning of the month to current time
+			// Filter from beginning of the month to current day
 			const amtsQuery = query(
 				amtsRef,
 				where("Date", ">=", new Date(monthStart)),
@@ -206,8 +205,6 @@ export default {
 
 <style scoped>
 .breakdown-box {
-	/* width: 23.75rem; */
-	/* height: 233px; */
 	background: var(--color-card);
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	border-radius: 0.625rem;
@@ -215,7 +212,6 @@ export default {
 	overflow-y: scroll;
 	height: 100%;
 	max-width: 400px;
-	/* scrollbar-color: var(--color-card); */
 }
 .font-18 {
 	font-size: 18px;
@@ -239,7 +235,6 @@ export default {
 	width: 2.5rem;
 }
 .category-text {
-	/* color: #856dc8; */
 	font-weight: 700;
 }
 </style>

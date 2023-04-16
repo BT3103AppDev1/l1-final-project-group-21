@@ -70,13 +70,10 @@ export default {
 					// remove the legend on top
 					legend: {
 						display: false,
-						// position: 'right'
 					},
 				},
 				elements: {},
 				responsive: true,
-				// aspectRatio: 2,
-				// maintainAspectRatio: true
 			},
 		};
 	},
@@ -147,7 +144,6 @@ export default {
 			this.chartData.labels = this.catLabels;
 			this.chartData.datasets[0].backgroundColor = this.catColours;
 			this.chartData.datasets[0].data = this.catData;
-			console.log(this.chartData);
 		},
 		formatDate(dateObj, str) {
 			const currYear = dateObj.getFullYear();

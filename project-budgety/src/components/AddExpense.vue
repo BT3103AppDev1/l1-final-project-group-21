@@ -130,28 +130,19 @@ export default {
 				(this.category1 = ""),
 				(this.amount1 = ""),
 				this.$emit("close-modal");
-			console.log("Reset form and close pop up");
 		},
 		async saveData() {
 			// All inputs of form must be filled
-			if (this.item1 == "") {
-				alert("Please fill in Item");
-				return false;
-			}
-			if (this.date1 == "") {
-				alert("Please fill in Date");
-				return false;
-			}
-			if (this.category1 == "") {
-				alert("Please select a Category");
-				return false;
-			}
-			if (this.amount1 == "") {
-				alert("Please fill in Amount");
+			if (
+				this.item1 == "" ||
+				this.date1 == "" ||
+				this.category1 == "" ||
+				this.amount1 == ""
+			) {
+				alert("Please fill out all required fields.");
 				return false;
 			}
 			// Only if all inputs have been filled
-			console.log("IN AC");
 			let item = this.item1;
 
 			let date = this.date1;
@@ -161,8 +152,8 @@ export default {
 			let category = this.category1;
 			let amount = this.amount1;
 			const current_timestamp = Timestamp.fromDate(new Date(time));
-			if (confirm("Are you sure you would like to add " + item)) {
-				alert("Saving your data for Item: " + item);
+			if (confirm("Are you sure you would like to add " + item + "?")) {
+				alert("Saving your data for item: " + item);
 				try {
 					const userEmail = authentication.currentUser.email;
 					const colRef = collection(db, "users", userEmail, "expenses");
@@ -178,10 +169,10 @@ export default {
 					});
 					// forms resets to blank after submission
 					(this.item1 = ""),
-					(this.date1 = ""),
-					(this.category1 = ""),
-					(this.amount1 = ""),
-					this.$emit("close-modal");
+						(this.date1 = ""),
+						(this.category1 = ""),
+						(this.amount1 = ""),
+						this.$emit("close-modal");
 					this.$emit("reRender");
 				} catch (error) {
 					console.error("Error adding document: " + error);

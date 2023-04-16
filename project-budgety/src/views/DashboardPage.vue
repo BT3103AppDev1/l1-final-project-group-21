@@ -120,7 +120,6 @@ export default {
 				this.$router.push({ name: "Login" });
 			} else {
 				this.username = user.displayName;
-				console.log("Component Mounted");
 			}
 		});
 	},
@@ -129,7 +128,6 @@ export default {
 		forceReRender() {
 			this.reloadRE += 1;
 			this.reloadD += 1;
-			console.log("rerender in progress");
 		},
 
 		async getWeeklyExpense(weeklyExp) {
@@ -243,8 +241,6 @@ export default {
 	display: flex;
 	padding-top: 3.125rem;
 	margin: 1.563rem 0rem;
-	/* align-items: baseline; */
-	/* justify-content: baseline; */
 }
 .left {
 	display: flex;
@@ -252,7 +248,6 @@ export default {
 	margin-right: 1rem;
 	overflow: auto;
 	flex: 0.8;
-	/* flex: 0.5 0.5 auto; */
 }
 .title {
 	font-size: 24px;
@@ -282,7 +277,6 @@ export default {
 	margin: 25px 15px 0px 0px;
 	text-align: center;
 	color: #ffffff;
-	/* max-width: 350px; */
 }
 .expense-box-header {
 	font-style: normal;
@@ -292,7 +286,6 @@ export default {
 }
 .expense-value-dashboard {
 	font-weight: 600;
-	/* font-size: 55px; */
 }
 
 .weekly {

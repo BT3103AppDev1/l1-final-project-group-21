@@ -9,7 +9,6 @@
 				<div class="font-18">Night Mode</div>
 				<div class="toggle-btn">
 					<ThemeButton />
-					<!-- <fa icon="toggle-off"/> -->
 					<!-- change to toggle-on when night mode is on -->
 				</div>
 			</div>
@@ -76,9 +75,6 @@ export default {
 				this.$router.push({ name: "Login" });
 			}
 		});
-		console.log("Profile Page Mounted");
-		// const initUserTheme = this.getTheme() || this.getMediaPreference();
-		// this.setTheme(initUserTheme);
 	},
 
 	data() {
@@ -89,14 +85,12 @@ export default {
 
 	methods: {
 		async updateUsername() {
-			console.log("Updating username");
 			let newUser = document.getElementById("username1").value;
 			if (newUser) {
 				const user = getAuth().currentUser;
 				updateProfile(user, { displayName: newUser })
 					.then(() => {
 						alert("Your new username is now: " + user.displayName);
-						console.log(user.displayName);
 						this.$refs.myform.reset();
 					})
 					.catch((error) => {
@@ -268,7 +262,7 @@ input:hover {
 
 .section {
 	margin: 30px 20px;
-	margin-top: 200px; /* brute force */
+	margin-top: 200px;
 	display: flex;
 	justify-content: space-between;
 }

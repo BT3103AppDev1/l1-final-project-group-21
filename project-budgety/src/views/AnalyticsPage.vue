@@ -107,8 +107,7 @@ export default {
 			try {
 				const userEmail = authentication.currentUser.email;
 				const amtsRef = collection(db, "users", userEmail, "expenses");
-				// Update total and average expenses
-				// And get breakdown by category
+				// Update total and average expenses and get breakdown by category
 				await this.getExpenses(amtsRef);
 				this.loaded = true;
 			} catch (err) {
@@ -137,7 +136,7 @@ export default {
 			monthEnd = new Date(currDate.setHours(23, 59, 59, 59));
 
 			// Fetch expenses data
-			// Filter from beginning of the month to current time
+			// Filter from beginning of the month to current day
 			const amtsQuery = query(
 				amtsRef,
 				where("Date", ">=", new Date(monthStart)),
@@ -240,7 +239,6 @@ export default {
 	border-radius: 0.625rem;
 	flex: 1;
 	overflow: auto;
-	/* max-height: 100%; */
 	max-height: 470px;
 	max-width: 400px;
 }

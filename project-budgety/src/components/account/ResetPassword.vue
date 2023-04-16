@@ -40,7 +40,6 @@ export default {
 	methods: {
 		sendresetemail() {
 			const auth = getAuth();
-			console.log(this.email);
 			if (this.email == "") {
 				alert("Please enter your email.");
 			} else {
@@ -111,21 +110,7 @@ input:hover {
 	border-width: 2px;
 }
 
-/* input.text:focus,
-input.text:focus {
-	border-top-style: solid;
-	border-right-style: solid;
-	border-left-style: solid;
-	border-color: #aba6a6;
-	border-radius: 2px;
-	border-width: 2px;
-	outline: none;
-} */
-
 .input-div {
-	/* display: flex;
-	flex-direction: row;
-	justify-content: center; */
 	margin-bottom: 20px;
 	position: relative;
 }

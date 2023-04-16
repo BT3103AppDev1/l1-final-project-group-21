@@ -101,7 +101,7 @@ export default {
 				this.password == "" ||
 				this.repeatpassword == ""
 			) {
-				alert("Please fill in all sections.");
+				alert("Please fill out all required fields.");
 			} else if (this.password != this.repeatpassword) {
 				alert("Please ensure that both passwords match.");
 			} else if (this.password == this.repeatpassword) {
@@ -116,19 +116,6 @@ export default {
 						// add user's username under Firebase Authentication displayName
 						updateProfile(auth.currentUser, { displayName: username.value });
 
-						// const date = new Date();
-						// const test = { Category: "Food", Amount: 400 };
-						// await setDoc(
-						// 	doc(
-						// 		db,
-						// 		"users",
-						// 		String(email.value),
-						// 		"expenses",
-						// 		String(date).slice(0, -35)
-						// 	),
-						// 	test
-						// );
-
 						// create collection for new user in Firestore DB
 						const docRef1 = await setDoc(
 							doc(db, "users", String(email.value)),
@@ -139,8 +126,7 @@ export default {
 						this.$router.push({ name: "Dashboard" });
 					});
 				} catch (error) {
-					console.log(error.code);
-					alert(error.message);
+					console.error(error);
 				}
 			}
 		},
@@ -200,21 +186,7 @@ input:hover {
 	border-width: 2px;
 }
 
-/* input.text:focus,
-input.text:focus {
-	border-top-style: solid;
-	border-right-style: solid;
-	border-left-style: solid;
-	border-color: #aba6a6;
-	border-radius: 2px;
-	border-width: 2px;
-	outline: none;
-} */
-
 .input-div {
-	/* display: flex;
-	flex-direction: row;
-	justify-content: center; */
 	margin-bottom: 20px;
 	position: relative;
 }

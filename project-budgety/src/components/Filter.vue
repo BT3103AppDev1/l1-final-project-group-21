@@ -95,7 +95,6 @@ input {
 }
 
 select {
-	/* color: rgb(178, 175, 175); */
 	color: var(--color-text);
 }
 

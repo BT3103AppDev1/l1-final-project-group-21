@@ -99,9 +99,6 @@ export default {
 			);
 			monthEnd = new Date(currDate.setHours(23, 59, 59, 59));
 
-			// const firebaseTimestamp = Timestamp.fromDate(lastDayOfMonth);
-			// console.log(firebaseTimestamp);
-
 			const amtsRef = collection(db, "users", userEmail, "expenses");
 			// Filter from beginning of the month to current time
 			const q = query(

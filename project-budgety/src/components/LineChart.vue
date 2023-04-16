@@ -118,8 +118,8 @@ export default {
 				currDate.getMonth() + 1,
 				0
 			);
-			monthEnd = new Date(lastDayOfMonth.setHours(23, 59, 59, 59));
-			this.numDays = monthEnd.getDate();
+			monthEnd = new Date(currDate.setHours(23, 59, 59, 59));
+			this.numDays = lastDayOfMonth.getDate();
 
 			// Update numDays for Line Chart horizontal axis
 			this.daysLabels = Array(this.numDays)

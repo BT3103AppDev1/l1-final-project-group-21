@@ -80,7 +80,7 @@ const db = getFirestore(firebaseApp);
 export default {
 	name: "Add Expense",
 
-	emits: ["reRender", "closeModal"],
+	emits: ["reRender", "closeModal", "close-modal"],
 
 	data() {
 		return {

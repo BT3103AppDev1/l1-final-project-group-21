@@ -58,6 +58,9 @@
           showModal: false,
         }
       },
+
+      emits: ["close-modal"],
+
       methods: {
           async saveData() {
               // All inputs of form must be filled

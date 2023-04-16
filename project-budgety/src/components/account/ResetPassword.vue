@@ -86,6 +86,7 @@ body {
 	color: #6c60f3;
 	display: flex;
 	justify-content: center;
+	text-align: center;
 }
 
 .input-text {

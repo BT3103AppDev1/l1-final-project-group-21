@@ -168,8 +168,7 @@ export default {
 					const userEmail = authentication.currentUser.email;
 					var documentToDelete = allData.generate;
 					await deleteDoc(doc(db,"users", userEmail, "expenses", documentToDelete));
-					console.log("Document succesfully deleted!", itemtoDelete)
-					// remove this row from table
+					console.log("Document deleted succesfully for ", itemtoDelete)
 					var allItems = this.itemsList;
 					// user filter are Array.remove is not an official constructor and gives an error
 					allItems = allItems.filter(function(name) {

@@ -104,11 +104,11 @@ export default {
 			const lastDay = firstDay + 7;
 
 			const weekStart = new Date(today.setDate(firstDay));
-			// const tempDate = new Date();
 			const formattedFullStartDate = this.formatDate(weekStart, "start");
 
 			const weekEnd = new Date();
 			const formattedFullEndDate = this.formatDate(weekEnd, "end");
+			const endOfWeek = new Date(today.setDate(lastDay));
 
 			// Set beginning of week by changing date and time
 			const amtsRef = collection(db, "users", userEmail, "expenses");
@@ -151,7 +151,7 @@ export default {
 				tempExpList.push(itemDetails);
 			});
 
-			this.$emit("sendWeeklyExp", [weeklyExp.toFixed(2), weekStart, weekEnd]);
+			this.$emit("sendWeeklyExp", [weeklyExp.toFixed(2), weekStart, endOfWeek]);
 
 			// sort expenses by date (latest first --> on top)
 			tempExpList.sort(function (x, y) {

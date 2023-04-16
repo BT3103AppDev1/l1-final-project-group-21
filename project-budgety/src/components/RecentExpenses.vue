@@ -1,26 +1,33 @@
 <template>
 	<div class="easyDataTable">
 		<EasyDataTable
-		:headers="headers"
-		:items="itemsList"
-		table-class-name="customize-table"
+			:headers="headers"
+			:items="itemsList"
+			table-class-name="customize-table"
 		>
-		<!--delete and edit button-->
-		<template #item-edit="data">
-			<div class="operation-wrapper">
-				<button type="button" @click="showModal = true" class="operation-icon" data-bs-toggle="modal" data-bs-target="#exampleModal">
-					<fa icon="edit"/>
-				</button>
-				<UpdateExpense v-show="showModal"/>
-				<UpdateExpense v-show="showModal" @close-modal="showModal = false" />
-			</div>
-		</template>
-		<template #item-delete="data">
-			<div class="operation-wrapper">
-				<button class="operation-icon" v-on:click="deleteItem(data.item)">
-					<fa icon="trash" /></button>
-			</div>
-		</template>
+			<!--delete and edit button-->
+			<template #item-edit="data">
+				<div class="operation-wrapper">
+					<button
+						type="button"
+						@click="showModal = true"
+						class="operation-icon"
+						data-bs-toggle="modal"
+						data-bs-target="#exampleModal"
+					>
+						<fa icon="edit" />
+					</button>
+					<UpdateExpense v-show="showModal" />
+					<UpdateExpense v-show="showModal" @close-modal="showModal = false" />
+				</div>
+			</template>
+			<template #item-delete="data">
+				<div class="operation-wrapper">
+					<button class="operation-icon" v-on:click="deleteItem(data.item)">
+						<fa icon="trash" />
+					</button>
+				</div>
+			</template>
 		</EasyDataTable>
 	</div>
 </template>
@@ -40,15 +47,15 @@ import {
 	where,
 	getDocs,
 	getFirestore,
-	deleteDoc
+	deleteDoc,
 } from "firebase/firestore";
 
 const db = getFirestore(firebaseApp);
 export default {
 	name: "Recent Expenses",
-	
+
 	components: { EasyDataTable: window["vue3-easy-data-table"], UpdateExpense },
-	
+
 	emits: ["sendWeeklyExp"],
 
 	data() {
@@ -59,8 +66,8 @@ export default {
 				{ text: "DATE", value: "date", sortable: true },
 				{ text: "CATEGORY", value: "category" },
 				{ text: "AMOUNT", value: "amount" },
-				{ text: "EDIT", value: "edit"},
-				{ text: "DELETE", value: "delete"}
+				{ text: "EDIT", value: "edit" },
+				{ text: "DELETE", value: "delete" },
 			],
 
 			itemsList: [],
@@ -81,7 +88,7 @@ export default {
 		async getExpenses(userEmail) {
 			const today = new Date();
 			// First day is the day of the month - the day of the week
-			const firstDay = today.getDate() - today.getDay(); 
+			const firstDay = today.getDate() - today.getDay();
 			// Last day is first day + 6
 			const lastDay = firstDay + 6;
 
@@ -90,15 +97,14 @@ export default {
 
 			// Set beginning of week by changing date and time
 			const amtsRef = collection(db, "users", userEmail, "expenses");
-		
 			// Filter from beginning of the week to current time
 			const q = query(
 				amtsRef,
 				where("Date", ">=", weekStart),
-				where("Date", "<=", new Date())
+				where("Date", "<=", weekEnd)
 			);
 			const amtsSnapshot = await getDocs(q);
-			
+
 			// Put individual items into a list then convert nested list to dictionary after sorting by date
 			// Format: id, name, date, category, amount, doc.id
 			let weeklyExp = 0;
@@ -115,23 +121,23 @@ export default {
 				let expDateFormatted = new Date(expDate.seconds * 1000 + 28800 * 1000);
 				let expDay = expDateFormatted.getDate();
 				if (expDay < 10) {
-				// Convert date to double digit 1 -> 01
-				expDay = expDay.toString().padStart(2, "0"); 
+					// Convert date to double digit 1 -> 01
+					expDay = expDay.toString().padStart(2, "0");
 				}
 				let expMonth = expDateFormatted.getMonth() + 1;
-						if (expMonth < 10) {
-				expMonth = expMonth.toString().padStart(2, "0");
+				if (expMonth < 10) {
+					expMonth = expMonth.toString().padStart(2, "0");
 				}
 				let expYear = expDateFormatted.getFullYear();
 				let formattedDate =
-				String(expDay) + "/" + String(expMonth) + "/" + String(expYear);
+					String(expDay) + "/" + String(expMonth) + "/" + String(expYear);
 				// NOTE: dataID = doc.id for reference to update/delete
 				let itemDetails = [expName, formattedDate, expCat, expAmt, dataID];
 				tempExpList.push(itemDetails);
 			});
 
-			this.$emit('sendWeeklyExp', [weeklyExp.toFixed(2), weekStart, weekEnd]);
-		
+			this.$emit("sendWeeklyExp", [weeklyExp.toFixed(2), weekStart, weekEnd]);
+
 			// sort expenses by date (latest first --> on top)
 			tempExpList.sort(function (x, y) {
 				return parseFloat(y[1].slice(0, 2)) - parseFloat(x[1].slice(0, 2));
@@ -146,17 +152,17 @@ export default {
 					category: item[2],
 					amount: item[3],
 				});
-			};
+			}
 		},
 		async deleteItem(item) {
 			if (confirm("Are you sure you would like to delete " + item)) {
 				alert("Deleting item " + item + " in table");
 				// remove from database
 				const userEmail = authentication.currentUser.email;
-				await deleteDoc(doc(db,"users", userEmail, "expenses", item));
-				console.log("Document succesfully deleted!", item)
+				await deleteDoc(doc(db, "users", userEmail, "expenses", item));
+				console.log("Document succesfully deleted!", item);
 				// remove this row from table
-				const allItems = this.itemsList
+				const allItems = this.itemsList;
 				while (i < allItems.length) {
 					if (allItems[i].item == item) {
 						allItems.remove(i, 1);
@@ -181,7 +187,7 @@ export default {
 }
 
 .operation-wrapper .operation-icon {
-  width: 30px;
-  cursor: pointer;
+	width: 30px;
+	cursor: pointer;
 }
 </style>

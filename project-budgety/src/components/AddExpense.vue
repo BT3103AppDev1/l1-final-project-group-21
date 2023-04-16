@@ -34,7 +34,7 @@
           <input type="number" v-model="amount1" min="0" step="0.01" name="famount" placeholder=" Enter Amount"> <br>
         </div>
         <div class="save">
-          <button id="saveButton" type="button" v-on:click="saveData" class="btn btn-white">Submit</button>
+          <button id="saveButton" type="button" v-on:click="saveData" class="btn btn-white" data-dismiss="modal-overlay">Submit</button>
         </div>
       </form>
     </div>
@@ -44,7 +44,7 @@
 <script>
 import firebaseApp, { authentication } from '../firebase.js';
 import { DocumentReference, Timestamp, getFirestore } from "firebase/firestore";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, collection, addDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const db = getFirestore(firebaseApp);
@@ -88,21 +88,25 @@ export default {
             let category = this.category1
             let amount = this.amount1
             const current_timestamp = Timestamp.fromDate(new Date(time))
-            alert("Saving your data for Item: " + item)
-            try {
-              const userEmail = authentication.currentUser.email;
-                const docRef = await setDoc(doc(db,"users", userEmail, "expenses", item),{
-                    Item : item, Date : current_timestamp, Category : category, Amount : amount
+            if (confirm("Are you sure you would like to add " + item)) {
+              alert("Saving your data for Item: " + item)
+              try {
+                const userEmail = authentication.currentUser.email;
+                const colRef = collection(db, "users", userEmail, "expenses")
+                var projData = {Item : item, Date : current_timestamp, Category : category, Amount : amount}
+                await addDoc(colRef, projData).then((docRef) => {
+                  const docId = docRef.id;
+                  projData.id = docId;
                 })
-                console.log(docRef);
                 document.getElementById('myform').reset();
                 this.$emit("added");
+                this.$emit("close-modal");
                 this.$emit("reRender");
+              }
+              catch(error) {
+                  console.error("Error adding document: " + error);
+              }
             }
-            catch(error) {
-                console.error("Error adding document: " + error);
-            }
-          
         }
     }
 }

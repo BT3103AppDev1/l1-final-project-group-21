@@ -17,7 +17,7 @@
 		</template>
 		<template #item-delete="data">
 			<div class="operation-wrapper">
-				<button class="operation-icon" v-on:click="deleteItem(data.item)">
+				<button class="operation-icon" v-on:click="deleteItem(data)">
 					<fa icon="trash" /></button>
 			</div>
 		</template>
@@ -60,7 +60,7 @@ export default {
 				{ text: "CATEGORY", value: "category" },
 				{ text: "AMOUNT", value: "amount" },
 				{ text: "EDIT", value: "edit"},
-				{ text: "DELETE", value: "delete"}
+				{ text: "DELETE", value: "delete" }
 			],
 
 			itemsList: [],
@@ -95,7 +95,8 @@ export default {
 			const q = query(
 				amtsRef,
 				where("Date", ">=", weekStart),
-				where("Date", "<=", new Date())
+				// undo
+				where("Date", "<=", weekEnd)
 			);
 			const amtsSnapshot = await getDocs(q);
 			
@@ -145,22 +146,30 @@ export default {
 					date: item[1],
 					category: item[2],
 					amount: item[3],
+					generate: item[4]
 				});
 			};
 		},
-		async deleteItem(item) {
-			if (confirm("Are you sure you would like to delete " + item)) {
-				alert("Deleting item " + item + " in table");
-				// remove from database
-				const userEmail = authentication.currentUser.email;
-				await deleteDoc(doc(db,"users", userEmail, "expenses", item));
-				console.log("Document succesfully deleted!", item)
-				// remove this row from table
-				const allItems = this.itemsList
-				while (i < allItems.length) {
-					if (allItems[i].item == item) {
-						allItems.remove(i, 1);
-					}
+		async deleteItem(allData) {
+			const itemtoDelete = allData.item
+			if (confirm("Are you sure you would like to delete " + itemtoDelete)) {
+				try {
+					alert("Deleting item " + itemtoDelete + " in table");
+					// remove from database
+					const userEmail = authentication.currentUser.email;
+					var documentToDelete = allData.generate;
+					await deleteDoc(doc(db,"users", userEmail, "expenses", documentToDelete));
+					console.log("Document succesfully deleted!", itemtoDelete)
+					// remove this row from table
+					var allItems = this.itemsList;
+					// user filter are Array.remove is not an official constructor and gives an error
+					allItems = allItems.filter(function(name) {
+						// filter by the id on the table and the documentID to prevent multiple deletes
+						return (name.generate != allData.generate && name.id != allData.id)
+					})
+				}
+				catch(error) {
+					console.error("Error adding document: " + error);
 				}
 			}
 		},

@@ -42,22 +42,22 @@
         <div class="dashboard-section2">
             <div class="top-line">
                 <div class="font-18">Recent Expenses [{{ weekStart }} - {{ weekEnd }}]</div>
-					<div class="expenses-btn">
-						<button @click="showModal = true"><fa icon="add" /></button>
-					</div>
+				<div class="expenses-btn">
+					<button @click="showModal = true"><fa icon="add" /></button>
+				</div>
 
-					<AddExpense v-show="showModal"/>
-					<AddExpense v-show="showModal" 
-					@close-modal="
-					showModal = false" 
-					@reRender = "forceReRender()"/>
+				<AddExpense v-show="showModal"/>
+				<AddExpense v-show="showModal" 
+				@close-modal="
+				showModal = false" 
+				@reRender = "forceReRender()"/>
             </div>
             <div class="expenses-table">
-              <RecentExpenses 
-			  @sendWeeklyExp = "getWeeklyExpense($event)" 
-			  :key="reloadRE"
-			  @reRender = "forceReRender()"
-			   />
+				<RecentExpenses 
+			  	@sendWeeklyExp = "getWeeklyExpense($event)" 
+			  	:key="reloadRE"
+			  	@reRender = "forceReRender()"
+			   	/>
             </div>
         </div>
     </div>

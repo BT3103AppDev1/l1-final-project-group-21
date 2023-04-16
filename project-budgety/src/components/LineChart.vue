@@ -22,7 +22,7 @@ import {
 	Filler,
 } from "chart.js";
 import { authentication } from "../firebase.js";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import firebaseApp from "../firebase.js";
 import { getFirestore } from "firebase/firestore";
 import {
@@ -113,17 +113,28 @@ export default {
 			},
 		};
 	},
-	async mounted() {
-		try {
-			const userEmail = authentication.currentUser.email;
-			await this.getDailyExpenses(userEmail);
-			// Mount Line Chart component after updating daily expenses
-			this.loaded = true;
-		} catch (err) {
-			console.error(err);
-		}
+	mounted() {
+		const auth = getAuth();
+		onAuthStateChanged(auth, (user) => {
+			if (!user) {
+				this.$router.push({ name: "Login" });
+			} else {
+				this.activateGetExpensesFn();
+			}
+		});
 	},
 	methods: {
+		async activateGetExpensesFn() {
+			const auth = getAuth();
+			try {
+				const userEmail = auth.currentUser.email;
+				await this.getDailyExpenses(userEmail);
+				// Mount Line Chart component after updating daily expenses
+				this.loaded = true;
+			} catch (err) {
+				console.error(err);
+			}
+		},
 		async getDailyExpenses(userEmail) {
 			const date = new Date();
 			const day = date.getDate();

@@ -74,7 +74,7 @@
 import firebaseApp, { authentication } from "../firebase.js";
 import { DocumentReference, Timestamp, getFirestore } from "firebase/firestore";
 import { doc, setDoc, collection, addDoc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const db = getFirestore(firebaseApp);
 export default {
@@ -89,20 +89,37 @@ export default {
 		};
 	},
 	async mounted() {
-		const currDateTime = new Date();
-		const currYear = currDateTime.getFullYear();
-		const currMonth = currDateTime.getMonth() + 1; // Month is zero-based so need to add 1
-		const formatMonth = currMonth.toString().padStart(2, "0");
-		const currDay = currDateTime.getDate();
-		const formatDay = currDay.toString().padStart(2, "0");
-		const currHours = currDateTime.getHours();
-		const formatHours = currHours.toString().padStart(2, "0");
-		const currMins = currDateTime.getMinutes();
-		const formatMins = currMins.toString().padStart(2, "0");
-		const formattedFullDate = `${currYear}-${formatMonth}-${formatDay}T${formatHours}:${formatMins}`;
-		this.currTime = formattedFullDate;
+		const auth = getAuth();
+		onAuthStateChanged(auth, (user) => {
+			if (!user) {
+				this.$router.push({ name: "Login" });
+			} else {
+				this.activateGetTime();
+			}
+		});
 	},
 	methods: {
+		async activateGetTime() {
+			try {
+				await this.getCurrentTime();
+			} catch (err) {
+				console.error(err);
+			}
+		},
+		async getCurrentTime() {
+			const currDateTime = new Date();
+			const currYear = currDateTime.getFullYear();
+			const currMonth = currDateTime.getMonth() + 1; // Month is zero-based so need to add 1
+			const formatMonth = currMonth.toString().padStart(2, "0");
+			const currDay = currDateTime.getDate();
+			const formatDay = currDay.toString().padStart(2, "0");
+			const currHours = currDateTime.getHours();
+			const formatHours = currHours.toString().padStart(2, "0");
+			const currMins = currDateTime.getMinutes();
+			const formatMins = currMins.toString().padStart(2, "0");
+			const formattedFullDate = `${currYear}-${formatMonth}-${formatDay}T${formatHours}:${formatMins}`;
+			this.currTime = formattedFullDate;
+		},
 		async closeModal() {
 			(this.item1 = ""),
 				(this.date1 = ""),

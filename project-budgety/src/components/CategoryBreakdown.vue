@@ -70,7 +70,7 @@
 <script>
 import { authentication } from "../firebase.js";
 import firebaseApp from "../firebase.js";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
 	collection,
 	addDoc,
@@ -95,18 +95,29 @@ export default {
 		};
 	},
 	async mounted() {
-		try {
-			const userEmail = authentication.currentUser.email;
-			const amtsRef = collection(db, "users", userEmail, "expenses");
-			// Update total and average expenses
-			// And get breakdown by category
-			await this.getBreakdown(amtsRef);
-			this.loaded = true;
-		} catch (err) {
-			console.error(err);
-		}
+		const auth = getAuth();
+		onAuthStateChanged(auth, (user) => {
+			if (!user) {
+				this.$router.push({ name: "Login" });
+			} else {
+				this.activateGetBreakdown();
+			}
+		});
 	},
 	methods: {
+		async activateGetBreakdown() {
+			const auth = getAuth();
+			try {
+				const userEmail = auth.currentUser.email;
+				const amtsRef = collection(db, "users", userEmail, "expenses");
+				// Update total and average expenses
+				// And get breakdown by category
+				await this.getBreakdown(amtsRef);
+				this.loaded = true;
+			} catch (err) {
+				console.error(err);
+			}
+		},
 		async getBreakdown(amtsRef) {
 			const date = new Date();
 			const day = date.getDate();

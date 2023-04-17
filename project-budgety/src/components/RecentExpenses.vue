@@ -19,40 +19,69 @@
 							<fa icon="close" />
 						</div>
 						<div class="modal-title">UPDATE EXPENSE</div>
-						
+
 						<form id="myform" name="myForm" v-if="!isHidden">
-						<div class="formli">
-							<label for="item1">Item </label>
-							<input type="text" v-model="item1" name="fitem" placeholder=" Enter Item"> <br><br>
-				
-							<label for="date1">Date </label>
-							<input type="datetime-local" v-model="date1" name="fdate" placeholder="  DD/MM/YYYY"> <br><br>
-				
-							<label for="category1">Category </label>
-							<select name="categorie_drop" v-model="category1">
-							<option value="">Select Category</option>
-							<option>Food</option>
-							<option>Groceries</option>
-							<option>Fashion</option> 
-							<option>Transportation</option>
-							<option>Healthcare</option>
-							<option>Rental</option>
-							<option>Utilities</option>
-							<option>Entertainment</option>
-							<option>Others</option>
-							</select>
-							<br><br>
-				
-							<label for="amount1">Amount </label>
-							<!-- Users must input a min value of 0 -->
-							<input type="number" v-model="amount1" min="0" step="0.01" name="famount" placeholder=" Enter Amount"> <br>
-						</div>
-						<div class="save">
-							<button id="saveButton" type="button" v-on:click="saveData(data)" class="btn btn-white" data-dismiss="modal">Update</button>
-						</div>
+							<div class="formli">
+								<label for="item1">Item </label>
+								<input
+									type="text"
+									v-model="item1"
+									name="fitem"
+									placeholder=" Enter Item"
+								/>
+								<br /><br />
+
+								<label for="date1">Date </label>
+								<input
+									type="datetime-local"
+									v-model="date1"
+									name="fdate"
+									placeholder="  DD/MM/YYYY"
+									:max="this.currTime"
+								/>
+								<br /><br />
+
+								<label for="category1">Category </label>
+								<select name="categorie_drop" v-model="category1">
+									<option value="">Select Category</option>
+									<option>Food</option>
+									<option>Groceries</option>
+									<option>Fashion</option>
+									<option>Transportation</option>
+									<option>Healthcare</option>
+									<option>Rental</option>
+									<option>Utilities</option>
+									<option>Entertainment</option>
+									<option>Others</option>
+								</select>
+								<br /><br />
+
+								<label for="amount1">Amount </label>
+								<!-- Users must input a min value of 0 -->
+								<input
+									type="number"
+									v-model="amount1"
+									min="0"
+									step="0.01"
+									name="famount"
+									placeholder=" Enter Amount"
+								/>
+								<br />
+							</div>
+							<div class="save">
+								<button
+									id="saveButton"
+									type="button"
+									v-on:click="saveData(data)"
+									class="btn btn-white"
+									data-dismiss="modal"
+								>
+									Update
+								</button>
+							</div>
 						</form>
 					</div>
-					</div>
+				</div>
 			</template>
 			<template #item-delete="data">
 				<div class="operation-wrapper">
@@ -106,6 +135,11 @@ export default {
 
 			itemsList: [],
 			isHidden: true,
+			currTime: "",
+			item1: "",
+			date1: "",
+			category1: "",
+			amount1: 0,
 		};
 	},
 	async mounted() {
@@ -115,6 +149,7 @@ export default {
 				this.$router.push({ name: "Login" });
 			} else {
 				this.activateGetExpensesFn();
+				this.activateGetTime();
 			}
 		});
 	},
@@ -210,9 +245,34 @@ export default {
 		async editItem(allData) {
 			this.isHidden = false;
 			this.item1 = allData.item;
-			this.date1 = allData.date;
+			const tempdate1 = allData.date;
+			const tempYear = tempdate1.slice(6);
+			const tempMonth = tempdate1.slice(3, 5);
+			const tempDay = tempdate1.slice(0, 2);
+			this.date1 = `${tempYear}-${tempMonth}-${tempDay}T00:00`;
 			this.category1 = allData.category;
-			this.amount1 = allData.amount;
+			this.amount1 = parseFloat(allData.amount.slice(1));
+		},
+		async activateGetTime() {
+			try {
+				await this.getCurrentTime();
+			} catch (err) {
+				console.error(err);
+			}
+		},
+		async getCurrentTime() {
+			const currDateTime = new Date();
+			const currYear = currDateTime.getFullYear();
+			const currMonth = currDateTime.getMonth() + 1; // Month is zero-based so need to add 1
+			const formatMonth = currMonth.toString().padStart(2, "0");
+			const currDay = currDateTime.getDate();
+			const formatDay = currDay.toString().padStart(2, "0");
+			const currHours = currDateTime.getHours();
+			const formatHours = currHours.toString().padStart(2, "0");
+			const currMins = currDateTime.getMinutes();
+			const formatMins = currMins.toString().padStart(2, "0");
+			const formattedFullDate = `${currYear}-${formatMonth}-${formatDay}T${formatHours}:${formatMins}`;
+			this.currTime = formattedFullDate;
 		},
 		async saveData(allData) {
 			if (
@@ -239,19 +299,21 @@ export default {
 				try {
 					var documentEdit = allData.generate;
 					const userEmail = authentication.currentUser.email;
-					await updateDoc(doc(db, "users", userEmail, "expenses", documentEdit), {
-						Item: item,
-						Category: category,
-						Amount: amount,
-						Date: current_timestamp,
-					})
-					;
+					await updateDoc(
+						doc(db, "users", userEmail, "expenses", documentEdit),
+						{
+							Item: item,
+							Category: category,
+							Amount: amount,
+							Date: current_timestamp,
+						}
+					);
 					// forms resets to blank after submission
 					(this.item1 = ""),
-					(this.date1 = ""),
-					(this.category1 = ""),
-					(this.amount1 = ""),
-					this.isHidden = true;
+						(this.date1 = ""),
+						(this.category1 = ""),
+						(this.amount1 = ""),
+						(this.isHidden = true);
 					this.$emit("reRender");
 				} catch (error) {
 					console.error("Error updating document: " + error);

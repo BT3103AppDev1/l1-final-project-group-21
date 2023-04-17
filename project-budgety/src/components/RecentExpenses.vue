@@ -72,7 +72,7 @@
 								<button
 									id="saveButton"
 									type="button"
-									v-on:click="updateData(data)"
+									v-on:click="saveData(data)"
 									class="btn btn-white"
 									data-dismiss="modal"
 								>
@@ -274,7 +274,7 @@ export default {
 			const formattedFullDate = `${currYear}-${formatMonth}-${formatDay}T${formatHours}:${formatMins}`;
 			this.currTime = formattedFullDate;
 		},
-		async updateData(allData) {
+		async saveData(allData) {
 			if (
 				this.item1 == "" ||
 				this.date1 == "" ||

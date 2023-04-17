@@ -111,10 +111,12 @@ export default {
 						email.value,
 						password.value
 					).then(async (data) => {
-						alert("Account successfully registered!");
-
 						// add user's username under Firebase Authentication displayName
-						updateProfile(auth.currentUser, { displayName: username.value });
+						await updateProfile(auth.currentUser, {
+							displayName: username.value,
+						});
+
+						alert("Account successfully registered!");
 
 						// create collection for new user in Firestore DB
 						const docRef1 = await setDoc(
@@ -123,7 +125,10 @@ export default {
 						);
 
 						// navigate user to the Dashboard (main page)
-						this.$router.push({ name: "Dashboard" });
+						this.$router.push({
+							name: "Dashboard",
+							params: { username: username.value },
+						});
 					});
 				} catch (error) {
 					console.error(error);

@@ -1,5 +1,5 @@
 <template>
-	<div id="dashboard-page">
+	<div id="dashboard-page" v-if="loaded">
 		<div class="dashboard-section1">
 			<div class="left">
 				<div class="welcome">
@@ -97,6 +97,7 @@ export default {
 			cat3: "",
 			catCount: 0,
 			showModal: false,
+			loaded: false,
 			categoryColours: {
 				Fashion: "#856dc8",
 				Entertainment: "#eb8ad0",
@@ -113,18 +114,35 @@ export default {
 		};
 	},
 
-	async mounted() {
+	mounted() {
 		const auth = getAuth();
+		if (this.$route.params.username != "") {
+			const userusername = this.$route.params.username;
+			this.username = userusername;
+		}
 		onAuthStateChanged(auth, (user) => {
 			if (!user) {
 				this.$router.push({ name: "Login" });
 			} else {
 				this.username = user.displayName;
+				this.activateSetUsername();
 			}
 		});
 	},
 
 	methods: {
+		async activateSetUsername() {
+			try {
+				await this.setUsername();
+				this.loaded = true;
+			} catch (err) {
+				console.error(err);
+			}
+		},
+		async setUsername() {
+			const auth = getAuth();
+			this.username = auth.currentUser.displayName;
+		},
 		forceReRender() {
 			this.reloadRE += 1;
 			this.reloadD += 1;

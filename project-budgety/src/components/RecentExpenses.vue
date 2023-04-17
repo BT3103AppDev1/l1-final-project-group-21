@@ -397,15 +397,18 @@ label {
 input,
 select {
 	width: 210px;
+	font-size: 15px; /* adjust size of input text */
 	font-family: Inter, Arial, Helvetica, sans-serif;
 	background: var(--color-card);
 	border: 1px solid rgb(230, 230, 230);
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	color: var(--color-text);
+	margin-bottom: 0.45rem;
 }
 
 input {
 	border-radius: 4px;
+	outline-color: rgb(230, 230, 230);
 }
 
 form {
@@ -419,7 +422,7 @@ form {
 	right: 0;
 	display: flex;
 	justify-content: center;
-	background-color: rgba(0, 0, 0, 0.2);
+	background-color: rgba(0, 0, 0, 0.1);
 	z-index: 100;
 }
 .mymodal {
@@ -469,9 +472,7 @@ p {
 .save {
 	text-align: center;
 }
-input {
-	outline-color: rgb(230, 230, 230);
-}
+
 .modal-title {
 	color: #6c60f3;
 	font-weight: 600;

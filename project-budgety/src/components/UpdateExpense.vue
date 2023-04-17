@@ -39,9 +39,9 @@
         </form>
       </div>
     </div>
-  </template>
+</template>
     
-  <script>
+<script>
   import firebaseApp, { authentication } from '../firebase.js';
   import { DocumentReference, Timestamp, getFirestore } from "firebase/firestore";
   import { doc, setDoc } from "firebase/firestore";
@@ -105,15 +105,15 @@
           }
       }
   }
-  </script>
+</script>
   
-  <style scoped>
+<style scoped>
   h3 {
     color: #6C60F3;
   }
   label {
     font-size: 15px;
-    color: #6C60F3;
+    color: var(--color-text);
     display: inline-block;
     width: 80px;
     text-align: right;
@@ -198,4 +198,4 @@
     font-size: 20px;
     letter-spacing: 3px;
   }
-  </style>
+</style>

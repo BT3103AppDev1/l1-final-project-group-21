@@ -320,6 +320,7 @@ export default {
 .spending-container {
 	display: flex;
 	padding: 0rem 2.2rem;
+	gap: 1rem;
 	/* centralise doughnut and top3 */
 	align-items: center;
 }

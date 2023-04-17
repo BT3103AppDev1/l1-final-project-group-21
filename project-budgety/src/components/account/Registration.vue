@@ -106,32 +106,33 @@ export default {
 				alert("Please ensure that both passwords match.");
 			} else if (this.password == this.repeatpassword) {
 				try {
-					createUserWithEmailAndPassword(
-						getAuth(),
-						email.value,
-						password.value
-					).then(async (data) => {
-						// add user's username under Firebase Authentication displayName
-						await updateProfile(auth.currentUser, {
-							displayName: username.value,
+					createUserWithEmailAndPassword(getAuth(), email.value, password.value)
+						.then(async (data) => {
+							// add user's username under Firebase Authentication displayName
+							await updateProfile(auth.currentUser, {
+								displayName: username.value,
+							});
+
+							alert("Account successfully registered!");
+
+							// create collection for new user in Firestore DB
+							const docRef1 = await setDoc(
+								doc(db, "users", String(email.value)),
+								{}
+							);
+
+							// navigate user to the Dashboard (main page)
+							this.$router.push({
+								name: "Dashboard",
+								params: { username: username.value },
+							});
+						})
+						.catch((error) => {
+							alert(error.code);
 						});
-
-						alert("Account successfully registered!");
-
-						// create collection for new user in Firestore DB
-						const docRef1 = await setDoc(
-							doc(db, "users", String(email.value)),
-							{}
-						);
-
-						// navigate user to the Dashboard (main page)
-						this.$router.push({
-							name: "Dashboard",
-							params: { username: username.value },
-						});
-					});
 				} catch (error) {
 					console.error(error);
+					alert(error);
 				}
 			}
 		},
@@ -205,10 +206,12 @@ input:hover {
 	justify-content: center;
 	margin-top: 50px;
 	margin-bottom: 50px;
-	background: radial-gradient(144.64% 144.64% at 94.27% -44.64%,
-	 rgba(255, 255, 255, 0.3) 0%,
-	 rgba(255, 255, 255, 0) 100%), 
-	 #6C60F3;
+	background: radial-gradient(
+			144.64% 144.64% at 94.27% -44.64%,
+			rgba(255, 255, 255, 0.3) 0%,
+			rgba(255, 255, 255, 0) 100%
+		),
+		#6c60f3;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	border-radius: 40px;
 }

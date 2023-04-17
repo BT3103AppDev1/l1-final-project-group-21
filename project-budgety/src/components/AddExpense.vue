@@ -157,15 +157,15 @@ export default {
 				try {
 					const userEmail = authentication.currentUser.email;
 					const colRef = collection(db, "users", userEmail, "expenses");
-					var projData = {
+					var expenseData = {
 						Item: item,
 						Date: current_timestamp,
 						Category: category,
 						Amount: amount,
 					};
-					await addDoc(colRef, projData).then((docRef) => {
+					await addDoc(colRef, expenseData).then((docRef) => {
 						const docId = docRef.id;
-						projData.id = docId;
+						expenseData.id = docId;
 					});
 					// forms resets to blank after submission
 					(this.item1 = ""),

@@ -136,6 +136,10 @@ export default {
 			itemsList: [],
 			isHidden: true,
 			currTime: "",
+			item1: "",
+			date1: "",
+			category1: "",
+			amount1: 0,
 		};
 	},
 	async mounted() {
@@ -241,9 +245,13 @@ export default {
 		async editItem(allData) {
 			this.isHidden = false;
 			this.item1 = allData.item;
-			this.date1 = allData.date;
+			const tempdate1 = allData.date;
+			const tempYear = tempdate1.slice(6);
+			const tempMonth = tempdate1.slice(3, 5);
+			const tempDay = tempdate1.slice(0, 2);
+			this.date1 = `${tempYear}-${tempMonth}-${tempDay}T00:00`;
 			this.category1 = allData.category;
-			this.amount1 = allData.amount;
+			this.amount1 = parseFloat(allData.amount.slice(1));
 		},
 		async activateGetTime() {
 			try {

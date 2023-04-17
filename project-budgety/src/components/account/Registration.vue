@@ -198,10 +198,6 @@ input:hover {
 
 #register-button {
 	color: white;
-	background-color: #6c60f3;
-	border-radius: 20px;
-	border-width: 1px;
-	border-color: #aba6a6;
 	padding: 10px;
 	width: 100px;
 	margin: auto;
@@ -209,6 +205,12 @@ input:hover {
 	justify-content: center;
 	margin-top: 50px;
 	margin-bottom: 50px;
+	background: radial-gradient(144.64% 144.64% at 94.27% -44.64%,
+	 rgba(255, 255, 255, 0.3) 0%,
+	 rgba(255, 255, 255, 0) 100%), 
+	 #6C60F3;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 40px;
 }
 
 #no-account {

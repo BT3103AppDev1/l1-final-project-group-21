@@ -8,18 +8,51 @@
 			<!--delete and edit button-->
 			<template #item-edit="data">
 				<div class="operation-wrapper">
-					<button
-						type="button"
-						@click="showModal = true"
-						class="operation-icon"
-						data-bs-toggle="modal"
-						data-bs-target="#exampleModal"
-					>
+					<button class="operation-icon" v-on:click="editItem(data)">
 						<fa icon="edit" />
 					</button>
-					<UpdateExpense v-show="showModal" />
-					<UpdateExpense v-show="showModal" @close-modal="showModal = false" />
 				</div>
+
+				<div class="modal-overlay" v-if="!isHidden">
+					<div class="mymodal" v-if="!isHidden">
+						<div class="close" v-on:click="hideModal">
+							<fa icon="close" />
+						</div>
+						<div class="modal-title">UPDATE EXPENSE</div>
+						
+						<form id="myform" name="myForm" v-if="!isHidden">
+						<div class="formli">
+							<label for="item1">Item </label>
+							<input type="text" v-model="item1" name="fitem" placeholder=" Enter Item"> <br><br>
+				
+							<label for="date1">Date </label>
+							<input type="datetime-local" v-model="date1" name="fdate" placeholder="  DD/MM/YYYY"> <br><br>
+				
+							<label for="category1">Category </label>
+							<select name="categorie_drop" v-model="category1">
+							<option value="">Select Category</option>
+							<option>Food</option>
+							<option>Groceries</option>
+							<option>Fashion</option> 
+							<option>Transportation</option>
+							<option>Healthcare</option>
+							<option>Rental</option>
+							<option>Utilities</option>
+							<option>Entertainment</option>
+							<option>Others</option>
+							</select>
+							<br><br>
+				
+							<label for="amount1">Amount </label>
+							<!-- Users must input a min value of 0 -->
+							<input type="number" v-model="amount1" min="0" step="0.01" name="famount" placeholder=" Enter Amount"> <br>
+						</div>
+						<div class="save">
+							<button id="saveButton" type="button" v-on:click="saveData(data)" class="btn btn-white" data-dismiss="modal">Update</button>
+						</div>
+						</form>
+					</div>
+					</div>
 			</template>
 			<template #item-delete="data">
 				<div class="operation-wrapper">
@@ -37,6 +70,7 @@ import { authentication } from "../firebase.js";
 import firebaseApp from "../firebase.js";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import UpdateExpense from "./UpdateExpense.vue";
+import { Timestamp, updateDoc } from "firebase/firestore";
 
 import {
 	collection,
@@ -71,7 +105,7 @@ export default {
 			],
 
 			itemsList: [],
-			showModal: false,
+			isHidden: true,
 		};
 	},
 	async mounted() {
@@ -85,6 +119,9 @@ export default {
 		});
 	},
 	methods: {
+		async hideModal() {
+			this.isHidden = true;
+		},
 		async activateGetExpensesFn() {
 			const auth = getAuth();
 			const userEmail = auth.currentUser.email;
@@ -170,6 +207,57 @@ export default {
 				});
 			}
 		},
+		async editItem(allData) {
+			this.isHidden = false;
+			this.item1 = allData.item;
+			this.date1 = allData.date;
+			this.category1 = allData.category;
+			this.amount1 = allData.amount;
+		},
+		async saveData(allData) {
+			if (
+				this.item1 == "" ||
+				this.date1 == "" ||
+				this.category1 == "" ||
+				this.amount1 == ""
+			) {
+				alert("Please fill out all required fields.");
+				return false;
+			}
+			let item = this.item1;
+
+			let date = this.date1;
+			// convert to TimeStamp
+			let time = new Date(date);
+
+			let category = this.category1;
+			let amount = this.amount1;
+			const current_timestamp = Timestamp.fromDate(new Date(time));
+
+			if (confirm("Are you sure you would like to update " + item + "?")) {
+				alert("Updating your data for item: " + item);
+				try {
+					var documentEdit = allData.generate;
+					const userEmail = authentication.currentUser.email;
+					await updateDoc(doc(db, "users", userEmail, "expenses", documentEdit), {
+						Item: item,
+						Category: category,
+						Amount: amount,
+						Date: current_timestamp,
+					})
+					;
+					// forms resets to blank after submission
+					(this.item1 = ""),
+					(this.date1 = ""),
+					(this.category1 = ""),
+					(this.amount1 = ""),
+					this.isHidden = true;
+					this.$emit("reRender");
+				} catch (error) {
+					console.error("Error updating document: " + error);
+				}
+			}
+		},
 		async deleteItem(allData) {
 			const itemtoDelete = allData.item;
 			if (confirm("Are you sure you would like to delete " + itemtoDelete)) {
@@ -230,5 +318,106 @@ export default {
 .operation-wrapper .operation-icon {
 	width: 30px;
 	cursor: pointer;
+}
+
+h3 {
+	color: #6c60f3;
+}
+label {
+	font-size: 15px;
+	color: var(--color-text);
+	display: inline-block;
+	width: 80px;
+	text-align: right;
+	padding: 5px;
+	margin-right: 10px;
+}
+input,
+select {
+	width: 210px;
+	font-family: Inter, Arial, Helvetica, sans-serif;
+	background: var(--color-card);
+	border: 1px solid rgb(230, 230, 230);
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	color: var(--color-text);
+}
+
+input {
+	border-radius: 4px;
+}
+
+form {
+	margin-top: 30px;
+}
+.modal-overlay {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	background-color: rgba(0, 0, 0, 0.2);
+	z-index: 100;
+}
+.mymodal {
+	text-align: center;
+	background-color: var(--color-card);
+	height: 28rem;
+	width: 33.5rem;
+	margin-top: 10%;
+	padding: 20px 0;
+	border-radius: 20px;
+	margin-left: 220px;
+	margin-right: 20px;
+}
+.close {
+	text-align: end;
+	margin: 0 -90% 0 0;
+	display: inline-flex;
+	text-align: right;
+	font-size: 20px;
+	font-weight: 700;
+	color: #6c60f3;
+	cursor: pointer;
+}
+p {
+	font-size: 16px;
+	margin: 20px 0;
+}
+#saveButton {
+	background: radial-gradient(
+				144.64% 144.64% at 94.27% -44.64%,
+				rgba(255, 255, 255, 0.3) 0%,
+				rgba(255, 255, 255, 0) 100%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+		#6c60f3;
+	border: 1px solid #aba6a6;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 12px;
+	width: 120px;
+	height: 40px;
+	color: white;
+	font-size: 16px;
+	font-weight: 700;
+	margin-top: 50px;
+	border: none;
+}
+.save {
+	text-align: center;
+}
+input {
+	outline-color: rgb(230, 230, 230);
+}
+.modal-title {
+	color: #6c60f3;
+	font-weight: 600;
+	font-size: 20px;
+	letter-spacing: 3px;
+}
+
+select {
+	color: var(--color-text);
 }
 </style>
